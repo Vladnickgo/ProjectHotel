@@ -1,6 +1,7 @@
-package com.vladnickgofj.hotel.dao;
+package com.vladnickgofj.hotel.dao.impl;
 
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
+import com.vladnickgofj.hotel.dao.CrudDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

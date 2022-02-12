@@ -1,14 +1,7 @@
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
-import com.vladnickgofj.hotel.dao.UserDao;
 import com.vladnickgofj.hotel.dao.entity.Role;
 import com.vladnickgofj.hotel.dao.entity.User;
-import com.vladnickgofj.hotel.dao.repository.UserDaoImpl;
-import com.vladnickgofj.hotel.dao.repository.UserRepository;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.stream.Stream;
+import com.vladnickgofj.hotel.dao.impl.UserDaoImpl;
 
 public class Main {
 
