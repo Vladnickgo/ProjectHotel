@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -8,7 +8,7 @@
 
 <f:setBundle var="bunCont" basename="resources"/>
 
-<c:set var="Title" scope="request" value="Homepage"/>
+<c:set var="Title" scope="request" value="LogIn"/>
 
 <c:import url="views/head.jsp"/>
 
@@ -20,9 +20,17 @@
     <div class="row text-center">
         <div class="col-4"></div>
         <div class="col-4">
-            <h1>Hello Hotel</h1>
+            <h1>User page</h1>
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+            ${firstName}<br>
+            ${lastName}<br>
+            ${email}<br>
+            ${password}<br>
+            ${confirmationPassword}<br>
+            ${role}<br>
+
+        </div>
     </div>
 </div>
 
@@ -30,8 +38,7 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4 text-center">
-            <h1 class="display-1"><f:message key="welcome" bundle="${bunCont}"></f:message></h1>
-            <h2 class="mt-5">☆ ☆ ☆ ☆ ☆</h2>
+            <h1 class="display-1"></h1>
         </div>
         <div class="col-4"></div>
     </div>
@@ -39,3 +46,4 @@
 <c:import url="views/footer.jsp"/>
 </body>
 </html>
+

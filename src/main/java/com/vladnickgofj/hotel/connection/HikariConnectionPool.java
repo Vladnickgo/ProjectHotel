@@ -1,13 +1,15 @@
 package com.vladnickgofj.hotel.connection;
 
+import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HikariConnectionPool {
-//    private static final Logger LOGGER = Logger.getLogger(HikariDataSource.class);
+    private static final Logger LOGGER = Logger.getLogger(HikariDataSource.class);
 
     private final HikariDataSource dataSource;
 
@@ -22,9 +24,9 @@ public class HikariConnectionPool {
             dataSource.setMinimumIdle(Integer.parseInt(resource.getString("dataSource.minimumIdle")));
             dataSource.setMaximumPoolSize(Integer.parseInt(resource.getString("dataSource.MaximumPoolSize")));
             dataSource.setLoginTimeout(Integer.parseInt(resource.getString("dataSource.setLoginTimeout")));
-            System.out.println("Соединение установлено!!!");
+            System.out.println("Connection established ");
         } catch (SQLException e) {
-//            LOGGER.error(" Database access error", e);
+            LOGGER.error(" Database access error", e);
 //            throw new DataBaseRuntimeException(e);
             throw new RuntimeException(e);
         }
@@ -34,7 +36,7 @@ public class HikariConnectionPool {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-//            LOGGER.error("Connection failed", e);
+            LOGGER.error("Connection failed", e);
 //            throw new DataBaseRuntimeException(e);
             throw new RuntimeException(e);
         }
