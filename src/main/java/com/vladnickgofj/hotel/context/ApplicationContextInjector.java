@@ -28,7 +28,7 @@ public final class ApplicationContextInjector {
 
     private static final UserValidator USER_VALIDATOR = new UserValidator();
 
-    private static final UserService USER_SERVICE = new UserServiceImpl(HIKARI_CONNECTION_POOL, USER_DAO, USER_MAPPER, USER_VALIDATOR);
+    private static final UserService USER_SERVICE = new UserServiceImpl(USER_DAO, USER_MAPPER, USER_VALIDATOR);
 
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
 
@@ -65,13 +65,10 @@ public final class ApplicationContextInjector {
     private static Map<String, Command> initUserCommand() {
         Map<String, Command> userCommandNameToCommand = new HashMap<>();
         userCommandNameToCommand.put("logout", LOGOUT_COMMAND);
-//        userCommandNameToCommand.put("show-profile", SHOW_PROFILE_COMMAND);
         userCommandNameToCommand.put("defaultCommand", DEFAULT_COMMAND);
-
         return Collections.unmodifiableMap(userCommandNameToCommand);
     }
 
-    // TODO: 10.05.2022 create methods for init map homeCommands
     private static Map<String, Command> initHomeCommand() {
         Map<String, Command> homeCommandNameToCommand = new HashMap<>();
         homeCommandNameToCommand.put("homePage", HOME_COMMAND);

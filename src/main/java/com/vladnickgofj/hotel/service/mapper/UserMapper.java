@@ -19,13 +19,13 @@ public class UserMapper implements Mapper<UserDto, User> {
 
     @Override
     public UserDto mapEntityToDto(User user) {
-        return new UserDto(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getPassword(),
-                user.getRole());
+        return UserDto.newBuilder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .role(user.getRole())
+                .build();
     }
 }

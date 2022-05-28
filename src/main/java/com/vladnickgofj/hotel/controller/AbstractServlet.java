@@ -26,50 +26,38 @@ public abstract class AbstractServlet extends HttpServlet {
         switch (path) {
             case "home": {
                 this.commandNameToCommand = injector.getHomeCommandNameToCommand();
-                LOGGER.info("Hello from Servlet. Path: /home");
+                LOGGER.info("Path: " + path);
                 break;
             }
             case "user": {
                 this.commandNameToCommand = injector.getUserCommands();
-                LOGGER.info("Hello from Servlet. Path /user");
+                LOGGER.info("Path: " + path);
                 break;
             }
             default: {
-//                LOGGER.error(NOT_VALID_PATH);
+                LOGGER.error(NOT_VALID_PATH);
                 throw new IllegalArgumentException(NOT_VALID_PATH);
             }
-
         }
         this.defaultCommand = commandNameToCommand.get(defaultCommand);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LOGGER.info(">>>>>>>Method doGet<<<<<<<<<");
         forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String commandName = req.getParameter("command");
-        LOGGER.info("Command name: " + commandName);
-        Command command = commandNameToCommand.getOrDefault(commandName, defaultCommand);
-        final String page = command.execute(req);
-        if (commandName.equals("logout")) {
-            resp.sendRedirect(page);
-        } else {
-
-            forward(req, resp);
-        } ;
+        forward(req, resp);
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String commandName = req.getParameter("command");
+        String commandName = req.getParameter("command");
         LOGGER.info("Command name: " + commandName);
         Command command = commandNameToCommand.getOrDefault(commandName, defaultCommand);
-        final String page = command.execute(req);
+        final String page = command.execute(req, resp);
+        LOGGER.info(page);
         req.getRequestDispatcher(page).forward(req, resp);
-
-
     }
 }

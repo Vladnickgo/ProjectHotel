@@ -8,6 +8,5 @@ public interface UserService {
 
     void save(UserDto userDto);
 
-    void register(UserDto userDto);
-
+    UserDto login(String email, String password);
 }

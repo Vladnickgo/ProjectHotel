@@ -28,23 +28,21 @@
         <div class="col-2">
             <table class="table table-sm">
                 <tr>
-                    <th><f:message key="firstName" bundle="${bunCont}"></f:message></th>
+                    <th><f:message key="firstName" bundle="${bunCont}"/></th>
                     <td>${user.firstName}</td>
                 </tr>
                 <tr>
-                    <th><f:message key="lastName" bundle="${bunCont}"></f:message></th>
+                    <th><f:message key="lastName" bundle="${bunCont}"/></th>
                     <td>${user.lastName}</td>
                 </tr>
                 <tr>
-                    <th><f:message key="email" bundle="${bunCont}"></f:message></th>
+                    <th><f:message key="email" bundle="${bunCont}"/></th>
                     <td>${user.email}</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-
-
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

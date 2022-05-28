@@ -11,14 +11,71 @@ public class UserDto {
     private final String confirmationPassword;
     private final Role role;
 
-    public UserDto(int id, String firstName, String lastName, String email, String password, String confirmationPassword, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.confirmationPassword = confirmationPassword;
-        this.role = role;
+    private UserDto(Builder builder) {
+        id = builder.id;
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+        email = builder.email;
+        password = builder.password;
+        confirmationPassword = builder.confirmationPassword;
+        role = builder.role;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private int id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private String confirmationPassword;
+        private Role role;
+        private Builder() {
+        }
+
+        public Builder id(int val) {
+            id = val;
+            return this;
+        }
+
+        public Builder firstName(String val) {
+            firstName = val;
+            return this;
+        }
+
+        public Builder lastName(String val) {
+            lastName = val;
+            return this;
+        }
+
+        public Builder email(String val) {
+            email = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder confirmationPassword(String val) {
+            confirmationPassword = val;
+            return this;
+        }
+
+        public Builder role(Role val) {
+            role = val;
+            return this;
+        }
+
+        public UserDto build() {
+            return new UserDto(this);
+        }
+
     }
 
     public int getId() {
@@ -48,7 +105,6 @@ public class UserDto {
     public Role getRole() {
         return role;
     }
-
     @Override
     public String toString() {
         return "UserDto{" +
