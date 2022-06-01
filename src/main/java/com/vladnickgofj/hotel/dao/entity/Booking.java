@@ -7,70 +7,36 @@ public class Booking {
     private final int id;
     private final Date checkIn;
     private final Date checkOut;
-    private final int roomId;
+    private final Room room;
     private final int night;
     private final Date bookTime;
-    private final int bookingStatusId;
-    private final int usersId;
+    private final BookingStatus bookingStatus;
+    private final User user;
 
     private Booking(Builder builder) {
         id = builder.id;
         checkIn = builder.checkIn;
         checkOut = builder.checkOut;
-        roomId = builder.roomId;
+        room = builder.room;
         night = builder.night;
         bookTime = builder.bookTime;
-        bookingStatusId = builder.bookingStatusId;
-        usersId = builder.usersId;
+        bookingStatus = builder.bookingStatus;
+        user = builder.user;
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public Date getCheckIn() {
-        return checkIn;
-    }
-
-    public Date getCheckOut() {
-        return checkOut;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public int getNight() {
-        return night;
-    }
-
-    public Date getBookTime() {
-        return bookTime;
-    }
-
-    public int getBookingStatusId() {
-        return bookingStatusId;
-    }
-
-    public int getUsersId() {
-        return usersId;
-    }
-
-
     public static final class Builder {
         private int id;
         private Date checkIn;
         private Date checkOut;
-        private int roomId;
+        private Room room;
         private int night;
         private Date bookTime;
-        private int bookingStatusId;
-        private int usersId;
+        private BookingStatus bookingStatus;
+        private User user;
 
         private Builder() {
         }
@@ -90,8 +56,8 @@ public class Booking {
             return this;
         }
 
-        public Builder roomId(int val) {
-            roomId = val;
+        public Builder room(Room val) {
+            room = val;
             return this;
         }
 
@@ -105,13 +71,13 @@ public class Booking {
             return this;
         }
 
-        public Builder bookingStatusId(int val) {
-            bookingStatusId = val;
+        public Builder bookingStatus(BookingStatus val) {
+            bookingStatus = val;
             return this;
         }
 
-        public Builder usersId(int val) {
-            usersId = val;
+        public Builder user(User val) {
+            user = val;
             return this;
         }
 
@@ -120,23 +86,62 @@ public class Booking {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Date getCheckIn() {
+        return checkIn;
+    }
+
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public int getNight() {
+        return night;
+    }
+
+    public Date getBookTime() {
+        return bookTime;
+    }
+
+    public BookingStatus getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return id == booking.id
-                && roomId == booking.roomId
-                && night == booking.night
-                && bookingStatusId == booking.bookingStatusId
-                && usersId == booking.usersId
-                && Objects.equals(checkIn, booking.checkIn)
-                && Objects.equals(checkOut, booking.checkOut)
-                && Objects.equals(bookTime, booking.bookTime);
+        return id == booking.id && night == booking.night && Objects.equals(checkIn, booking.checkIn) && Objects.equals(checkOut, booking.checkOut) && Objects.equals(room, booking.room) && Objects.equals(bookTime, booking.bookTime) && Objects.equals(bookingStatus, booking.bookingStatus) && Objects.equals(user, booking.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, checkIn, checkOut, roomId, night, bookTime, bookingStatusId, usersId);
+        return Objects.hash(id, checkIn, checkOut, room, night, bookTime, bookingStatus, user);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
+                ", room=" + room +
+                ", night=" + night +
+                ", bookTime=" + bookTime +
+                ", bookingStatus=" + bookingStatus +
+                ", user=" + user +
+                '}';
     }
 }

@@ -44,3 +44,99 @@ VALUES ('2022-01-10', '2022-01-15', 1, 5, '2022-01-02', 1, 2),
        ('2022-01-09', '2022-01-12', 3, 3, '2022-01-05', 1, 2),
        ('2022-02-14', '2022-01-16', 4, 4, '2022-02-10', 1, 2);
 
+insert into payments (booking_id, user_id, amount)
+VALUES ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 1),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 1),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 1)),
+
+       ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 2),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 2),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 2)),
+
+       ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 3),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 3),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 3)),
+
+       ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 4),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 4),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 4)),
+
+       ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 5),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 5),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 5)),
+
+       ((select booking_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 6),
+        (select bookings.user_id
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 6),
+        (select price
+         from bookings
+                  left join users u on u.user_id = bookings.user_id
+                  left join room r on r.room_id = bookings.room_id
+         where bookings.booking_id = 6));
