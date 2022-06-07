@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
     @Override
     public UserDto login(String email, String password) {
         UserDto user = findByEmail(email);

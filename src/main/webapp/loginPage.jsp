@@ -17,7 +17,7 @@
 <div class="container mt-5">
     <div class="row text-center">
         <div class="col-3"></div>
-        <div class="col-6" align="center">
+        <div class="col-6">
             <h1 class="mb-5">
                 <f:message key="logForUsers" bundle="${bunCont}"/>
             </h1>

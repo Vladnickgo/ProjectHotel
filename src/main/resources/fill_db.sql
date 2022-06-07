@@ -19,7 +19,9 @@ VALUES ('suite'),
 
 INSERT INTO room_status (name)
 VALUES ('free'),
-       ('busy');
+       ('booked'),
+       ('busy'),
+       ('not available');
 
 INSERT INTO hotel (name)
 VALUES ('Eleon'),

@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class LogoutCommand implements Command {
 
-//    private static final String IS_LOGIN = "isLogin";
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

@@ -14,6 +14,9 @@
                     <button class="btn btn-outline-primary" name="command" value="homePage" type="submit">
                         <f:message key="home"></f:message>
                     </button>
+                    <button class="btn btn-outline-primary" name="command" value="showHotels" type="submit">
+                        <f:message key="hotels"></f:message>
+                    </button>
                     <button class="btn btn-outline-primary" name="command" value="aboutPage" type="submit">
                         <f:message key="about"></f:message>
                     </button>
