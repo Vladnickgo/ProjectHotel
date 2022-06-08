@@ -10,5 +10,8 @@ public class ValidatorErrorMessage {
     public static final String USER_ALREADY_EXIST_ERROR_MESSAGE = "User with email <strong>%s</strong> is already registered";
     public static final String NOT_AVAILABLE_PAGE = "The page is not available";
     public static final String USER_WITH_EMAIL_NOT_FOUND = "User with email <strong>%s</strong> not found";
+    public static final String ROOM_STATUS_NOT_FOUND = "Room status with id <strong>%s</strong> not defined";
+    public static final String ROOM_TYPE_NOT_DEFINED = "Room type with id<strong>%s</strong> not defined";
+
 
 }

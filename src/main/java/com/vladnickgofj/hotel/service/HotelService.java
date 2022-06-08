@@ -9,4 +9,5 @@ import java.util.List;
 public interface HotelService {
     List<HotelDto> findAll(PaginateHotelDto paginateHotelDto);
     Integer getPages(PaginateHotelDto paginateHotelDto);
+    HotelDto getHotelById(Integer id);
 }

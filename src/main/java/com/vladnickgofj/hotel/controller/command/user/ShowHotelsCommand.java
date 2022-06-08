@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShowHotelsCommand implements Command {
 
@@ -26,8 +25,8 @@ public class ShowHotelsCommand implements Command {
         PaginateHotelDto paginateHotelDto = getPaginateHotelDto(numberOfPage, recordsOnPage);
         ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
         HotelService hotelService = contextInjector.getHotelService();
-        List<HotelDto> all = hotelService.findAll(paginateHotelDto);
-        request.setAttribute("list", all.stream().map(HotelDto::getName).collect(Collectors.toList()));
+        List<HotelDto> allHotels = hotelService.findAll(paginateHotelDto);
+        request.setAttribute("listOfHotels", allHotels);
         request.setAttribute("pages", hotelService.getPages(paginateHotelDto));
         request.setAttribute("recordsOnPage", recordsOnPage);
         request.setAttribute("numberOfPage",numberOfPage);

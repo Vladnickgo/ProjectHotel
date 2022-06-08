@@ -10,7 +10,7 @@
 
 <c:set var="Title" scope="request" value="LogIn"/>
 
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<%--<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>--%>
 
 <body>
 
@@ -62,17 +62,19 @@
     <div class="row text-center">
         <c:set var="salary" value="0"/>
         <table>
-            <c:forEach items="${list}" var="item">
+            <c:forEach items="${listOfHotels}" var="item">
                 <c:set var="salary" value="${salary=(salary+1)%2}"/>
                 <c:if test="${salary==1}">
                     <tr style="border: 1px solid lightgray; margin: 50px;padding: 30px;">
-                    <td><i class='fas fa-hotel' style='font-size:48px;color:lightskyblue'></i></td>
-                    <td style="font-size: 14pt; width: 350px;"><c:out value="${item}"/></td>
+                    <td>
+<%--                        <i class='fas fa-hotel' style='font-size:48px;color:lightskyblue'></i>--%>
+                    </td>
+                    <td style="font-size: 14pt; width: 350px;"><c:out value="${item.name}"/></td>
                     <td></td>
                 </c:if>
                 <c:if test="${salary==0}">
                     <td><i class='fas fa-hotel' style='font-size:48px;color:lightskyblue'></i></td>
-                    <td style="font-size: 14pt; width: 350px;"><c:out value="${item}"/></td>
+                    <td style="font-size: 14pt; width: 350px;"><c:out value="${item.name}"/></td>
                     </tr>
                 </c:if>
             </c:forEach>

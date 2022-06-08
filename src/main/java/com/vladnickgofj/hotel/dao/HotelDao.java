@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface HotelDao extends CrudDao<Hotel, Integer> {
     List<Hotel> findAll(Integer numberOfPage, Integer hotelsOnPage);
+    Integer countAll();
+
 }

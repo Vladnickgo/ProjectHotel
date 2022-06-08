@@ -5,19 +5,29 @@ import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.command.home.*;
 import com.vladnickgofj.hotel.controller.command.user.*;
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
+import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
+import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.HotelDao;
+import com.vladnickgofj.hotel.dao.RoomStatusDao;
+import com.vladnickgofj.hotel.dao.RoomTypeDao;
 import com.vladnickgofj.hotel.dao.UserDao;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
+import com.vladnickgofj.hotel.dao.entity.RoomStatus;
+import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.dao.entity.User;
 import com.vladnickgofj.hotel.dao.impl.HotelDaoImpl;
+import com.vladnickgofj.hotel.dao.impl.RoomStatusDaoImpl;
+import com.vladnickgofj.hotel.dao.impl.RoomTypeDaoImpl;
 import com.vladnickgofj.hotel.dao.impl.UserDaoImpl;
 import com.vladnickgofj.hotel.service.HotelService;
+import com.vladnickgofj.hotel.service.RoomStatusService;
+import com.vladnickgofj.hotel.service.RoomTypeService;
 import com.vladnickgofj.hotel.service.UserService;
 import com.vladnickgofj.hotel.service.impl.HotelServiceImpl;
+import com.vladnickgofj.hotel.service.impl.RoomStatusServiceImpl;
+import com.vladnickgofj.hotel.service.impl.RoomTypeServiceImpl;
 import com.vladnickgofj.hotel.service.impl.UserServiceImpl;
-import com.vladnickgofj.hotel.service.mapper.HotelMapper;
-import com.vladnickgofj.hotel.service.mapper.Mapper;
-import com.vladnickgofj.hotel.service.mapper.UserMapper;
+import com.vladnickgofj.hotel.service.mapper.*;
 import com.vladnickgofj.hotel.controller.dto.UserDto;
 import com.vladnickgofj.hotel.validator.UserValidator;
 
@@ -33,15 +43,27 @@ public final class ApplicationContextInjector {
 
     private static final HotelDao HOTEL_DAO = new HotelDaoImpl(HIKARI_CONNECTION_POOL);
 
+    private static final RoomStatusDao ROOM_STATUS_DAO = new RoomStatusDaoImpl(HIKARI_CONNECTION_POOL);
+
+    private static final RoomTypeDao ROOM_TYPE_DAO = new RoomTypeDaoImpl(HIKARI_CONNECTION_POOL);
+
     private static final Mapper<UserDto, User> USER_MAPPER = new UserMapper();
 
     public static final Mapper<HotelDto, Hotel> HOTEL_MAPPER = new HotelMapper();
+
+    private static final Mapper<RoomStatusDto, RoomStatus> ROOM_STATUS_MAPPER = new RoomStatusMapper();
+
+    private static final Mapper<RoomTypeDto, RoomType> ROOM_TYPE_MAPPER = new RoomTypeMapper();
 
     private static final UserValidator USER_VALIDATOR = new UserValidator();
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_DAO, USER_MAPPER, USER_VALIDATOR);
 
     private static final HotelService HOTEL_SERVICE = new HotelServiceImpl(HOTEL_DAO, HOTEL_MAPPER);
+
+    private static final RoomStatusService ROOM_STATUS_SERVICE = new RoomStatusServiceImpl(ROOM_STATUS_DAO, ROOM_STATUS_MAPPER);
+
+    private static final RoomTypeService ROOM_TYPE_SERVICE = new RoomTypeServiceImpl(ROOM_TYPE_DAO, ROOM_TYPE_MAPPER);
 
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
 
@@ -122,6 +144,10 @@ public final class ApplicationContextInjector {
     public HotelService getHotelService() {
         return HOTEL_SERVICE;
     }
+
+    public RoomStatusService getRoomStatusService() { return ROOM_STATUS_SERVICE; }
+
+    public RoomTypeService getRoomTypeService() { return ROOM_TYPE_SERVICE; }
 
     public Map<String, Command> getHomeCommandNameToCommand() {
         return HOME_COMMAND_NAME_TO_COMMAND;
