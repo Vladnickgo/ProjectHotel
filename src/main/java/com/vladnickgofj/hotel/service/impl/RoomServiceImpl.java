@@ -9,8 +9,10 @@ import com.vladnickgofj.hotel.service.mapper.Mapper;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RoomServiceImpl implements RoomService {
@@ -25,9 +27,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<RoomDto> findByHotelId(List<RoomDto> list, Integer hotelId) {
+
         return findAll()
                 .stream()
-                .filter(t -> t.getHotelId() == hotelId)
+                .filter(t -> Objects.equals(hotelId, t.getHotelId()))
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +38,7 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDto> findByTypeId(List<RoomDto> list, Integer typeId) {
         return findAll()
                 .stream()
-                .filter(t -> t.getRoomTypeId() == typeId)
+                .filter(t -> Objects.equals(t.getRoomTypeId(),typeId))
                 .collect(Collectors.toList());
     }
 
@@ -43,7 +46,7 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDto> findByStatusId(List<RoomDto> list, Integer statusId) {
         return findAll()
                 .stream()
-                .filter(t -> t.getRoomStatusId() == statusId)
+                .filter(t -> Objects.equals(t.getRoomStatusId(),statusId))
                 .collect(Collectors.toList());
     }
 
@@ -51,10 +54,9 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDto> findByNumberOfBeds(List<RoomDto> list, Integer numberOfBeds) {
         return findAll()
                 .stream()
-                .filter(t -> t.getNumberOfBeds() == numberOfBeds)
+                .filter(t -> Objects.equals(t.getNumberOfBeds(), numberOfBeds))
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public List<RoomDto> findAll() {
@@ -71,6 +73,5 @@ public class RoomServiceImpl implements RoomService {
     private List<RoomDto> findByParam(){
         return null;
     }
-
 
 }

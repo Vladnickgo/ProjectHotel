@@ -70,6 +70,6 @@ public class HotelDaoImpl extends AbstractCrudDaoImpl<Hotel> implements HotelDao
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return 0;
     }
 }
