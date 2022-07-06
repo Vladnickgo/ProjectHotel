@@ -1,4 +1,4 @@
-package com.vladnickgofj.hotel.controller.command.user;
+package com.vladnickgofj.hotel.controller.command.home;
 
 import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
@@ -11,7 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShowHotelsCommand implements Command {
 
@@ -25,11 +27,14 @@ public class ShowHotelsCommand implements Command {
         PaginateHotelDto paginateHotelDto = getPaginateHotelDto(numberOfPage, recordsOnPage);
         ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
         HotelService hotelService = contextInjector.getHotelService();
-        List<HotelDto> allHotels = hotelService.findAll(paginateHotelDto);
+        List<HotelDto> allHotels = hotelService.findAll(paginateHotelDto)
+                .stream()
+                .sorted(Comparator.comparing(HotelDto::getName))
+                .collect(Collectors.toList());
         request.setAttribute("listOfHotels", allHotels);
-        request.setAttribute("pages", hotelService.getPages(paginateHotelDto));
+        request.setAttribute("pages", hotelService.getNumberOfPages(paginateHotelDto));
         request.setAttribute("recordsOnPage", recordsOnPage);
-        request.setAttribute("numberOfPage",numberOfPage);
+        request.setAttribute("numberOfPage", numberOfPage);
         return PagesConstant.SHOW_HOTELS;
     }
 

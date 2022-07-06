@@ -109,16 +109,7 @@
                         src="https://setupmyhotel.com/images/Room-Type-Twin-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
                         alt=""></p></div>
 
-            <div class="ip"><b>8) Hollywood Twin Room: </b> A room that can accommodate two persons with two
-                twin beds joined together by a common headboard. Most of the budget hotels tend to provide
-                many of these room settings which cater both couples and parties in two.
-
-                The room size or area of Hollywood Twin Rooms are generally between 32 m² to 40 m².
-                Room Type In hotel - Hollywood Twin Room | Twin bed with common head board<p><img
-                        src="https://setupmyhotel.com/images/Room-Type-Hollywood-Twin-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                        alt=""></p></div>
-
-            <div class="ip"><b>9) Double-double:</b> A Room with two double ( or perhaps queen) beds. And
+            <div class="ip"><b>8) Double-double:</b> A Room with two double ( or perhaps queen) beds. And
                 can accommodate two to four persons with two twin, double or queen-size beds.
 
                 The room size or area of Double-double / Double Twin rooms are generally between 50 m² to 70
@@ -128,15 +119,7 @@
                         src="https://setupmyhotel.com/images/Room-Type-double-double-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
                         alt=""></p></div>
 
-            <div class="ip"><b>10) Studio:</b> A room with a studio bed- a couch which can be converted into
-                a bed. May also have an additional bed.
-
-                The room size or area of Studio room types are generally between 25 m² to 40 m².
-                Room Type In hotel - Studio Room | Bed a Couch Room in hotel Sample<p><img
-                        src="https://setupmyhotel.com/images/Room-Type-studio-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                        alt=""></p></div>
-
-            <div class="ip"><b>11) Suite / Executive Suite: </b> A parlour or living room connected with to
+            <div class="ip"><b>9) Suite / Executive Suite: </b> A parlour or living room connected with to
                 one or more bedrooms. (A room with one or more bedrooms and a separate living space.)
 
                 The room size or area of Suite rooms are generally between 70 m² to 100 m².
@@ -145,16 +128,8 @@
                         src="https://setupmyhotel.com/images/Room-Type-suite-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
                         alt=""></p></div>
 
-            <div class="ip"><b>12) Mini Suite or Junior Suite:</b> A single room with a bed and sitting
-                area. Sometimes the sleeping area is in a bedroom separate from the parlour or living room.
-
-                The room size or area of Junior Suites are generally between 60 m² to 80 m².
-                Room Type In hotel - Junior Suite Room | Kids Suite Room | Mini Suite Room<p><img
-                        src="https://setupmyhotel.com/images/Room-Type-Junior-suite-Room.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                        alt=""></p></div>
-
             <div class="ip">
-                <b>13) President Suite | Presidential Suite:</b> The most expensive room provided by a
+                <b>10) President Suite | Presidential Suite:</b> The most expensive room provided by a
                 hotel. Usually, only one president suite is available in one single hotel property. Similar
                 to the normal suites, a president suite always has one or more bedrooms and a living space
                 with a strong emphasis on grand in-room decoration, high-quality amenities and supplies, and
@@ -168,31 +143,6 @@
                          alt=""></p>
             </div>
 
-            <div class="ip"><b>14) Apartments / Room for Extended Stay:</b> This room type can be found in
-                service apartments and hotels which target for long stay guests. Open kitchens, cooking
-                equipment, dryer, washer etc. are usually available in the room. Housekeeping services are
-                only provided once in a week or two times in a week.
-                The room size or area of Serviced Apartments are generally between 96 m² to 250 m².
-                Room Type In hotel - Serviced Apartment | Apart hotel Room | Apartment with Kitchen in hotel
-                <p>
-                    <img src="https://setupmyhotel.com/images/Room-Type-serviced-apartment.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                         alt=""></p></div>
-
-            <div class="ip"><b>15) Connecting rooms:</b> Rooms with individual entrance doors from the
-                outside and a connecting door between. Guests can move between rooms without going through
-                the hallway.
-                The room size or area of Connecting rooms are generally between 30 m² to 50 m².
-                Room Type In hotel - Connecting Room | Inter Connecting Room | Joining Room <p><img
-                        src="https://setupmyhotel.com/images/Room-Type-connecting-rooms.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                        alt=""></p></div>
-
-            <div class="ip"><b>16) Murphy Room:</b> A room that is fitted with a sofa bed or a Murphy bed
-                (i.e. a bed that folds out of a wall or closet) which can be transformed from a bedroom in
-                the night time to a living room in daytime.
-                The room size or area of Murphy Room Types are generally between 20 m² to 40 m².
-                Room Type In hotel - Murphy Room | Studio Room | Folding cum bed Room<p><img
-                        src="https://setupmyhotel.com/images/Room-Type-murphy-bed-rooms.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
-                        alt=""></p></div>
 
         </div>
         <div class="col-2"></div>

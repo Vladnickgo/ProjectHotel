@@ -17,11 +17,11 @@ import java.util.Set;
 import static com.vladnickgofj.hotel.dao.mapper.ResultSetMapper.mapResultSetToHotel;
 
 public class HotelDaoImpl extends AbstractCrudDaoImpl<Hotel> implements HotelDao {
-    private final static String INSERT_INTO = "INSERT INTO hotel(name) VALUES (?)";
+    private final static String INSERT_INTO = "INSERT INTO hotel(hotel_name) VALUES (?)";
     private static final String FIND_BY_ID = "SELECT * FROM hotel WHERE hotel_id=?";
-    private static final String FIND_ALL = "SELECT * FROM hotel";
-    private static final String UPDATE_HOTEL = "UPDATE hotel SET name=? WHERE hotel_id=?";
-    private static final String FIND_ALL_BY_PARAM = "SELECT * FROM hotel LIMIT ? OFFSET ?";
+    private static final String FIND_ALL = "SELECT * FROM hotel ORDER BY hotel_name";
+    private static final String UPDATE_HOTEL = "UPDATE hotel SET hotel_name=? WHERE hotel_id=?";
+    private static final String FIND_ALL_BY_PARAM = "SELECT * FROM hotel ORDER BY hotel_name LIMIT ? OFFSET ?";
     private static final String COUNT_ALL = "SELECT COUNT(hotel_id) AS count_hotels FROM hotel";
 
     public HotelDaoImpl(HikariConnectionPool connector) {

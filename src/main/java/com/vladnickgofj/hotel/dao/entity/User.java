@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.dao.entity;
 import java.util.Objects;
 
 public class User {
-    private final int id;
+    private final Integer id;
     private final String firstName;
     private final String lastName;
     private final String email;
@@ -26,7 +26,7 @@ public class User {
 
     public static final class Builder {
 
-        private int id;
+        private Integer id;
         private String firstName;
         private String lastName;
         private String email;
@@ -35,7 +35,7 @@ public class User {
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -72,7 +72,7 @@ public class User {
     }
 
 
-    public int getId() {return id; }
+    public Integer getId() {return id; }
 
     public String getFirstName() {
         return firstName;

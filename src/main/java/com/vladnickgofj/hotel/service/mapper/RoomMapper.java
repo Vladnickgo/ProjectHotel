@@ -1,30 +1,23 @@
 package com.vladnickgofj.hotel.service.mapper;
 
-import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.dto.RoomDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
-import com.vladnickgofj.hotel.service.HotelService;
-import com.vladnickgofj.hotel.service.RoomStatusService;
-import com.vladnickgofj.hotel.service.RoomTypeService;
 
 public class RoomMapper implements Mapper<RoomDto, Room> {
 
     @Override
     public Room mapDtoToEntity(RoomDto roomDto) {
-        HotelService hotelService = ApplicationContextInjector.getInstance().getHotelService();
-        RoomStatusService roomStatusService = ApplicationContextInjector.getInstance().getRoomStatusService();
-        RoomTypeService roomTypeService = ApplicationContextInjector.getInstance().getRoomTypeService();
-
         return Room.newBuilder()
                 .id(roomDto.getId())
-                .roomType(getRoomType(roomDto, roomTypeService))
+                .roomType(getRoomType(roomDto))
                 .numberOfBeds(roomDto.getNumberOfBeds())
-                .roomStatus(getRoomStatus(roomDto, roomStatusService))
+                .roomStatus(getRoomStatus(roomDto))
                 .price(roomDto.getPrice())
-                .hotel(getHotel(roomDto, hotelService))
+                .hotel(getHotel(roomDto))
                 .build();
     }
 
@@ -40,24 +33,21 @@ public class RoomMapper implements Mapper<RoomDto, Room> {
                 .build();
     }
 
-    private Hotel getHotel(RoomDto roomDto, HotelService hotelService) {
+    private Hotel getHotel(RoomDto roomDto) {
         return Hotel.newBuilder()
-                .id(roomDto.getHotelId())
-                .name(hotelService.getHotelById(roomDto.getHotelId()).getName())
+                .id(roomDto == null ? null : roomDto.getHotelId())
                 .build();
     }
 
-    private RoomStatus getRoomStatus(RoomDto roomDto, RoomStatusService roomStatusService) {
+    private RoomStatus getRoomStatus(RoomDto roomDto) {
         return RoomStatus.newBuilder()
-                .id(roomDto.getRoomStatusId())
-                .name(roomStatusService.getRoomStatusById(roomDto.getRoomStatusId()).getStatusName())
+                .id(roomDto == null ? null : roomDto.getRoomStatusId())
                 .build();
     }
 
-    private RoomType getRoomType(RoomDto roomDto, RoomTypeService roomTypeService) {
+    private RoomType getRoomType(RoomDto roomDto) {
         return RoomType.newBuilder()
-                .id(roomDto.getRoomTypeId())
-                .typeName(roomTypeService.getRoomTypeById(roomDto.getRoomTypeId()).getTypeName())
+                .id(roomDto == null ? null : roomDto.getRoomTypeId())
                 .build();
     }
 }

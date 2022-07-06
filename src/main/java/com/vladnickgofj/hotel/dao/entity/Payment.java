@@ -3,17 +3,10 @@ package com.vladnickgofj.hotel.dao.entity;
 import java.util.Objects;
 
 public class Payment {
-    private final int id;
+    private final Integer id;
     private final Booking booking;
     private final User user;
     private final int amount;
-
-    public Payment(int id, Booking booking, User user, int amount) {
-        this.id = id;
-        this.booking = booking;
-        this.user = user;
-        this.amount = amount;
-    }
 
     private Payment(Builder builder) {
         id = builder.id;
@@ -26,9 +19,9 @@ public class Payment {
         return new Builder();
     }
 
-    public static final class Builder {
 
-        private int id;
+    public static final class Builder {
+        private Integer id;
         private Booking booking;
         private User user;
         private int amount;
@@ -36,7 +29,7 @@ public class Payment {
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -59,10 +52,9 @@ public class Payment {
         public Payment build() {
             return new Payment(this);
         }
-
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -83,7 +75,7 @@ public class Payment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return id == payment.id && amount == payment.amount && Objects.equals(booking, payment.booking) && Objects.equals(user, payment.user);
+        return amount == payment.amount && Objects.equals(id, payment.id) && Objects.equals(booking, payment.booking) && Objects.equals(user, payment.user);
     }
 
     @Override

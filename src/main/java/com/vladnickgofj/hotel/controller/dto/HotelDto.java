@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.controller.dto;
 import java.util.Objects;
 
 public class HotelDto {
-    private final int id;
+    private final Integer id;
     private final String name;
 
     private HotelDto(Builder builder) {
@@ -16,13 +16,13 @@ public class HotelDto {
     }
 
     public static final class Builder {
-        private int id;
+        private Integer id;
         private String name;
 
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -37,7 +37,7 @@ public class HotelDto {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -50,7 +50,7 @@ public class HotelDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HotelDto hotelDto = (HotelDto) o;
-        return id == hotelDto.id && Objects.equals(name, hotelDto.name);
+        return Objects.equals(id, hotelDto.id) && Objects.equals(name, hotelDto.name);
     }
 
     @Override

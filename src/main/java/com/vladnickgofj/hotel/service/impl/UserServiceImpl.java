@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
-import static com.vladnickgofj.hotel.validator.Patterns.REGEX_FOR_EMAIL;
 import static com.vladnickgofj.hotel.validator.ValidatorErrorMessage.*;
 
 public class UserServiceImpl implements UserService {
@@ -39,8 +38,9 @@ public class UserServiceImpl implements UserService {
     public void save(UserDto userDto) {
         userValidator.validate(userDto);
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            LOGGER.info(USER_ALREADY_EXIST_ERROR_MESSAGE);
-            throw new EntityAlreadyExistException(String.format(USER_ALREADY_EXIST_ERROR_MESSAGE, userDto.getEmail()));
+            String message = String.format(USER_ALREADY_EXIST_ERROR_MESSAGE, userDto.getEmail());
+            LOGGER.info(message);
+            throw new EntityAlreadyExistException(message);
         }
         String password = userDto.getPassword();
         String confirmationPassword = userDto.getConfirmationPassword();
@@ -55,24 +55,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(String email, String password) {
         UserDto user = findByEmail(email);
-        if (emailValidation(email)) {
-            LOGGER.info(EMAIL_ERROR_MESSAGE);
-            throw new IllegalArgumentException(EMAIL_ERROR_MESSAGE);
-        }
-        if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
-            return UserDto.newBuilder()
-                    .id(user.getId())
-                    .firstName(user.getFirstName())
-                    .lastName(user.getLastName())
-                    .email(user.getEmail())
-                    .role(user.getRole())
-                    .build();
+//        if (emailValidation(email)) {
+//            LOGGER.info(EMAIL_ERROR_MESSAGE);
+//            System.out.println(EMAIL_ERROR_MESSAGE);
+//            throw new IllegalArgumentException(EMAIL_ERROR_MESSAGE);
+//        }
+        if (password.equals(user.getPassword())) {
+            return user;
         } else {
             throw new IllegalArgumentException(PASSWORD_ERROR_MESSAGE);
         }
     }
 
-    private boolean emailValidation(String email) {
-        return !email.matches(REGEX_FOR_EMAIL);
-    }
+//    private boolean emailValidation(String email) {
+//        return !email.matches(REGEX_FOR_EMAIL);
+//    }
 }

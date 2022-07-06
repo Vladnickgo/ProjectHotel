@@ -54,7 +54,7 @@ public class ResultSetMapper {
     public static Hotel mapResultSetToHotel(ResultSet resultSet) throws SQLException {
         return Hotel.newBuilder()
                 .id(resultSet.getInt("hotel_id"))
-                .name(resultSet.getString("hotel_name"))
+                .name(resultSet.getString("name"))
                 .build();
     }
 

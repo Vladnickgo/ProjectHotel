@@ -1,17 +1,16 @@
-package com.vladnickgofj.hotel.dao.entity;
+package com.vladnickgofj.hotel.controller.dto;
 
-import java.lang.reflect.Type;
 import java.util.Objects;
 
-public class Room {
+public class RoomDtoResponse {
     private final Integer id;
-    private final RoomType roomType;
-    private final int numberOfBeds;
-    private final RoomStatus roomStatus;
-    private final int price;
-    private final Hotel hotel;
+    private final RoomTypeDto roomType;
+    private final Integer numberOfBeds;
+    private final RoomStatusDto roomStatus;
+    private final Integer price;
+    private final HotelDto hotel;
 
-    private Room(Builder builder) {
+    private RoomDtoResponse(Builder builder) {
         id = builder.id;
         roomType = builder.roomType;
         numberOfBeds = builder.numberOfBeds;
@@ -24,13 +23,14 @@ public class Room {
         return new Builder();
     }
 
+
     public static final class Builder {
         private Integer id;
-        private RoomType roomType;
-        private int numberOfBeds;
-        private RoomStatus roomStatus;
-        private int price;
-        private Hotel hotel;
+        private RoomTypeDto roomType;
+        private Integer numberOfBeds;
+        private RoomStatusDto roomStatus;
+        private Integer price;
+        private HotelDto hotel;
 
         private Builder() {
         }
@@ -40,33 +40,33 @@ public class Room {
             return this;
         }
 
-        public Builder roomType(RoomType val) {
+        public Builder roomType(RoomTypeDto val) {
             roomType = val;
             return this;
         }
 
-        public Builder numberOfBeds(int val) {
+        public Builder numberOfBeds(Integer val) {
             numberOfBeds = val;
             return this;
         }
 
-        public Builder roomStatus(RoomStatus val) {
+        public Builder roomStatus(RoomStatusDto val) {
             roomStatus = val;
             return this;
         }
 
-        public Builder price(int val) {
+        public Builder price(Integer val) {
             price = val;
             return this;
         }
 
-        public Builder hotel(Hotel val) {
+        public Builder hotel(HotelDto val) {
             hotel = val;
             return this;
         }
 
-        public Room build() {
-            return new Room(this);
+        public RoomDtoResponse build() {
+            return new RoomDtoResponse(this);
         }
     }
 
@@ -74,23 +74,23 @@ public class Room {
         return id;
     }
 
-    public RoomType getRoomType() {
+    public RoomTypeDto getRoomType() {
         return roomType;
     }
 
-    public int getNumberOfBeds() {
+    public Integer getNumberOfBeds() {
         return numberOfBeds;
     }
 
-    public RoomStatus getRoomStatus() {
+    public RoomStatusDto getRoomStatus() {
         return roomStatus;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public Hotel getHotel() {
+    public HotelDto getHotel() {
         return hotel;
     }
 
@@ -98,8 +98,8 @@ public class Room {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Room room = (Room) o;
-        return numberOfBeds == room.numberOfBeds && price == room.price && Objects.equals(id, room.id) && Objects.equals(roomType, room.roomType) && Objects.equals(roomStatus, room.roomStatus) && Objects.equals(hotel, room.hotel);
+        RoomDtoResponse that = (RoomDtoResponse) o;
+        return Objects.equals(id, that.id) && Objects.equals(roomType, that.roomType) && Objects.equals(numberOfBeds, that.numberOfBeds) && Objects.equals(roomStatus, that.roomStatus) && Objects.equals(price, that.price) && Objects.equals(hotel, that.hotel);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
+        return "RoomDtoResponse{" +
                 "id=" + id +
                 ", roomType=" + roomType +
                 ", numberOfBeds=" + numberOfBeds +

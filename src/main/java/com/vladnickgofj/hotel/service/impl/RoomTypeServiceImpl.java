@@ -10,8 +10,8 @@ import static com.vladnickgofj.hotel.validator.ValidatorErrorMessage.ROOM_TYPE_N
 
 public class RoomTypeServiceImpl implements RoomTypeService {
 
-    RoomTypeDao roomTypeRepository;
-    Mapper<RoomTypeDto, RoomType> mapper;
+    private final RoomTypeDao roomTypeRepository;
+    private final Mapper<RoomTypeDto, RoomType> mapper;
 
     public RoomTypeServiceImpl(RoomTypeDao roomTypeRepository, Mapper<RoomTypeDto, RoomType> mapper) {
         this.roomTypeRepository = roomTypeRepository;

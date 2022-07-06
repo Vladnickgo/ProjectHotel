@@ -20,11 +20,11 @@ CREATE TABLE IF NOT EXISTS hotel (
 );
 CREATE TABLE IF NOT EXISTS room_status (
                                            status_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                           name VARCHAR(255) NOT NULL
+                                           status_name VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS room_type (
                                          type_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                         name VARCHAR(255) NOT NULL
+                                         type_name VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS room(
                                    room_id INTEGER PRIMARY KEY auto_increment,

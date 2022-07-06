@@ -5,11 +5,9 @@ import com.vladnickgofj.hotel.controller.dto.PaginateHotelDto;
 import com.vladnickgofj.hotel.dao.HotelDao;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.service.HotelService;
-import com.vladnickgofj.hotel.service.mapper.HotelMapper;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class HotelServiceImpl implements HotelService {
@@ -25,20 +23,19 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public List<HotelDto> findAll(PaginateHotelDto paginateHotelDto) {
         return hotelRepository
-                .findAll(firstRecordOnPageNumber(paginateHotelDto), paginateHotelDto.getHotelsOnPage())
+                .findAll(getFirstRecordOnPage(paginateHotelDto), paginateHotelDto.getHotelsOnPage())
                 .stream()
                 .map(hotelMapper::mapEntityToDto)
                 .collect(Collectors.toList());
-
     }
 
-    private Integer firstRecordOnPageNumber(PaginateHotelDto paginateHotelDto) {
-        Integer pages = getPages(paginateHotelDto);
+    private Integer getFirstRecordOnPage(PaginateHotelDto paginateHotelDto) {
+        Integer pages = getNumberOfPages(paginateHotelDto);
         return paginateHotelDto.getHotelsOnPage() * ((Math.min(paginateHotelDto.getNumberOfPage(), pages)) - 1);
     }
 
     @Override
-    public Integer getPages(PaginateHotelDto paginateHotelDto) {
+    public Integer getNumberOfPages(PaginateHotelDto paginateHotelDto) {
         Integer size = hotelRepository.countAll();
         return size / paginateHotelDto.getHotelsOnPage() + (size % paginateHotelDto.getHotelsOnPage() > 0 ? 1 : 0);
     }
@@ -47,6 +44,11 @@ public class HotelServiceImpl implements HotelService {
     public HotelDto getHotelById(Integer id) {
         Hotel byId = hotelRepository.findById(id).orElse(null);
         return hotelMapper.mapEntityToDto(byId);
+    }
+
+    @Override
+    public Integer countAll(){
+        return hotelRepository.countAll();
     }
 
 }

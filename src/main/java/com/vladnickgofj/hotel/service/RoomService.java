@@ -1,14 +1,17 @@
 package com.vladnickgofj.hotel.service;
 
+import com.vladnickgofj.hotel.controller.dto.PaginateRoomDto;
 import com.vladnickgofj.hotel.controller.dto.RoomDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface RoomService {
-    List<RoomDto> findByHotelId(List<RoomDto> dtoList,Integer hotelId);
-    List<RoomDto> findByTypeId(List<RoomDto> dtoList,Integer id);
-    List<RoomDto> findByStatusId(List<RoomDto> dtoList,Integer statusId);
-    List<RoomDto> findByNumberOfBeds(List<RoomDto> dtoList,Integer numberOfBeds);
-    List<RoomDto> findAll();
 
+    List<RoomDtoResponse> findAll(Integer hotelId, String sorting, String ordering, Comparator<RoomDtoResponse> comparator, PaginateRoomDto paginateRoomDto);
+
+    Integer countAll(Integer hotelId);
+
+    Integer getNumberOfPages(PaginateRoomDto paginateRoomDto, Integer hotelId);
 }

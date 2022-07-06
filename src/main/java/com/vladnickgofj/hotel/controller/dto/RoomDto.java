@@ -1,18 +1,14 @@
 package com.vladnickgofj.hotel.controller.dto;
 
-import com.vladnickgofj.hotel.dao.entity.Hotel;
-import com.vladnickgofj.hotel.dao.entity.RoomStatus;
-import com.vladnickgofj.hotel.dao.entity.RoomType;
-
 import java.util.Objects;
 
 public class RoomDto {
-    private final int id;
-    private final int roomTypeId;
-    private final int numberOfBeds;
-    private final int roomStatusId;
-    private final int price;
-    private final int hotelId;
+    private final Integer id;
+    private final Integer roomTypeId;
+    private final Integer numberOfBeds;
+    private final Integer roomStatusId;
+    private final Integer price;
+    private final Integer hotelId;
 
     private RoomDto(Builder builder) {
         id = builder.id;
@@ -28,42 +24,42 @@ public class RoomDto {
     }
 
     public static final class Builder {
-        private int id;
-        private int roomTypeId;
-        private int numberOfBeds;
-        private int roomStatusId;
-        private int price;
-        private int hotelId;
+        private Integer id;
+        private Integer roomTypeId;
+        private Integer numberOfBeds;
+        private Integer roomStatusId;
+        private Integer price;
+        private Integer hotelId;
 
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
 
-        public Builder roomTypeId(int val) {
+        public Builder roomTypeId(Integer val) {
             roomTypeId = val;
             return this;
         }
 
-        public Builder numberOfBeds(int val) {
+        public Builder numberOfBeds(Integer val) {
             numberOfBeds = val;
             return this;
         }
 
-        public Builder roomStatusId(int val) {
+        public Builder roomStatusId(Integer val) {
             roomStatusId = val;
             return this;
         }
 
-        public Builder price(int val) {
+        public Builder price(Integer val) {
             price = val;
             return this;
         }
 
-        public Builder hotelId(int val) {
+        public Builder hotelId(Integer val) {
             hotelId = val;
             return this;
         }
@@ -73,27 +69,27 @@ public class RoomDto {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public int getRoomTypeId() {
+    public Integer getRoomTypeId() {
         return roomTypeId;
     }
 
-    public int getNumberOfBeds() {
+    public Integer getNumberOfBeds() {
         return numberOfBeds;
     }
 
-    public int getRoomStatusId() {
+    public Integer getRoomStatusId() {
         return roomStatusId;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public int getHotelId() {
+    public Integer getHotelId() {
         return hotelId;
     }
 
@@ -102,7 +98,7 @@ public class RoomDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomDto roomDto = (RoomDto) o;
-        return id == roomDto.id && roomTypeId == roomDto.roomTypeId && numberOfBeds == roomDto.numberOfBeds && roomStatusId == roomDto.roomStatusId && price == roomDto.price && hotelId == roomDto.hotelId;
+        return Objects.equals(id, roomDto.id) && Objects.equals(roomTypeId, roomDto.roomTypeId) && Objects.equals(numberOfBeds, roomDto.numberOfBeds) && Objects.equals(roomStatusId, roomDto.roomStatusId) && Objects.equals(price, roomDto.price) && Objects.equals(hotelId, roomDto.hotelId);
     }
 
     @Override

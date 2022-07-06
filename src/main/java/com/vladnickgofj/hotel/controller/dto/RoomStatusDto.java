@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.controller.dto;
 import java.util.Objects;
 
 public class RoomStatusDto {
-    private final int statusId;
+    private final Integer statusId;
     private final String statusName;
 
     private RoomStatusDto(Builder builder) {
@@ -17,13 +17,13 @@ public class RoomStatusDto {
 
 
     public static final class Builder {
-        private int statusId;
+        private Integer statusId;
         private String statusName;
 
         private Builder() {
         }
 
-        public Builder statusId(int val) {
+        public Builder statusId(Integer val) {
             statusId = val;
             return this;
         }
@@ -38,7 +38,7 @@ public class RoomStatusDto {
         }
     }
 
-    public int getStatusId() {
+    public Integer getStatusId() {
         return statusId;
     }
 
@@ -51,7 +51,7 @@ public class RoomStatusDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomStatusDto that = (RoomStatusDto) o;
-        return statusId == that.statusId && Objects.equals(statusName, that.statusName);
+        return Objects.equals(statusId, that.statusId) && Objects.equals(statusName, that.statusName);
     }
 
     @Override

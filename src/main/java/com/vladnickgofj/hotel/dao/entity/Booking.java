@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Booking {
-    private final int id;
+    private final Integer id;
     private final Date checkIn;
     private final Date checkOut;
     private final Room room;
@@ -28,8 +28,9 @@ public class Booking {
         return new Builder();
     }
 
+
     public static final class Builder {
-        private int id;
+        private Integer id;
         private Date checkIn;
         private Date checkOut;
         private Room room;
@@ -41,7 +42,7 @@ public class Booking {
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -86,7 +87,7 @@ public class Booking {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -123,7 +124,7 @@ public class Booking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return id == booking.id && night == booking.night && Objects.equals(checkIn, booking.checkIn) && Objects.equals(checkOut, booking.checkOut) && Objects.equals(room, booking.room) && Objects.equals(bookTime, booking.bookTime) && Objects.equals(bookingStatus, booking.bookingStatus) && Objects.equals(user, booking.user);
+        return night == booking.night && Objects.equals(id, booking.id) && Objects.equals(checkIn, booking.checkIn) && Objects.equals(checkOut, booking.checkOut) && Objects.equals(room, booking.room) && Objects.equals(bookTime, booking.bookTime) && Objects.equals(bookingStatus, booking.bookingStatus) && Objects.equals(user, booking.user);
     }
 
     @Override

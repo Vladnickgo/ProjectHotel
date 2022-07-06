@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.controller.dto;
 import com.vladnickgofj.hotel.dao.entity.Role;
 
 public class UserDto {
-    private final int id;
+    private final Integer id;
     private final String firstName;
     private final String lastName;
     private final String email;
@@ -27,7 +27,7 @@ public class UserDto {
 
     public static final class Builder {
 
-        private int id;
+        private Integer id;
         private String firstName;
         private String lastName;
         private String email;
@@ -37,7 +37,7 @@ public class UserDto {
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -78,7 +78,7 @@ public class UserDto {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

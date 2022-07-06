@@ -14,7 +14,7 @@ public class RoomTypeDaoImpl extends AbstractCrudDaoImpl<RoomType> implements Ro
     private final static String INSERT_INTO = "INSERT INTO room_type(type_name) VALUES (?)";
     private static final String FIND_BY_ID = "SELECT * FROM room_type WHERE type_id=?";
     private static final String FIND_ALL = "SELECT * FROM room_type";
-    private static final String UPDATE_ROOM = "UPDATE room_type SET type_name=? WHERE type_id=?";
+    private static final String UPDATE_ROOM = "UPDATE room_type SET name=? WHERE type_id=?";
 
     public RoomTypeDaoImpl(HikariConnectionPool connector) {
         super(connector, INSERT_INTO, FIND_BY_ID, FIND_ALL, UPDATE_ROOM);

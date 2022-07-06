@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.dao.entity;
 import java.util.Objects;
 
 public class RoomStatus {
-    private final int id;
+    private final Integer id;
     private final String name;
 
     private RoomStatus(Builder builder) {
@@ -17,13 +17,13 @@ public class RoomStatus {
 
 
     public static final class Builder {
-        private int id;
+        private Integer id;
         private String name;
 
         private Builder() {
         }
 
-        public Builder id(int val) {
+        public Builder id(Integer val) {
             id = val;
             return this;
         }
@@ -38,7 +38,7 @@ public class RoomStatus {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -51,7 +51,7 @@ public class RoomStatus {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomStatus that = (RoomStatus) o;
-        return id == that.id && Objects.equals(name, that.name);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
@@ -67,3 +67,5 @@ public class RoomStatus {
                 '}';
     }
 }
+
+
