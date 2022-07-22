@@ -1,15 +1,16 @@
 package com.vladnickgofj.hotel.dao.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Booking {
     private final Integer id;
-    private final Date checkIn;
-    private final Date checkOut;
+    private final LocalDate checkIn;
+    private final LocalDate checkOut;
     private final Room room;
     private final int night;
-    private final Date bookTime;
+    private final LocalDate bookTime;
     private final BookingStatus bookingStatus;
     private final User user;
 
@@ -31,11 +32,11 @@ public class Booking {
 
     public static final class Builder {
         private Integer id;
-        private Date checkIn;
-        private Date checkOut;
+        private LocalDate checkIn;
+        private LocalDate checkOut;
         private Room room;
         private int night;
-        private Date bookTime;
+        private LocalDate bookTime;
         private BookingStatus bookingStatus;
         private User user;
 
@@ -47,12 +48,12 @@ public class Booking {
             return this;
         }
 
-        public Builder checkIn(Date val) {
+        public Builder checkIn(LocalDate val) {
             checkIn = val;
             return this;
         }
 
-        public Builder checkOut(Date val) {
+        public Builder checkOut(LocalDate val) {
             checkOut = val;
             return this;
         }
@@ -67,7 +68,7 @@ public class Booking {
             return this;
         }
 
-        public Builder bookTime(Date val) {
+        public Builder bookTime(LocalDate val) {
             bookTime = val;
             return this;
         }
@@ -91,11 +92,11 @@ public class Booking {
         return id;
     }
 
-    public Date getCheckIn() {
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public Date getCheckOut() {
+    public LocalDate getCheckOut() {
         return checkOut;
     }
 
@@ -107,7 +108,7 @@ public class Booking {
         return night;
     }
 
-    public Date getBookTime() {
+    public LocalDate getBookTime() {
         return bookTime;
     }
 

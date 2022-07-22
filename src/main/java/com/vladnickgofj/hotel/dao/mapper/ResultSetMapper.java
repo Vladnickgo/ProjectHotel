@@ -30,11 +30,11 @@ public class ResultSetMapper {
     public static Booking mapResultSetToBooking(ResultSet resultSet) throws SQLException {
         return Booking.newBuilder()
                 .id(resultSet.getInt("booking_id"))
-                .checkIn(resultSet.getDate("check_in"))
-                .checkOut(resultSet.getDate("check_out"))
+                .checkIn(resultSet.getDate("check_in").toLocalDate())
+                .checkOut(resultSet.getDate("check_out").toLocalDate())
                 .room(mapResultSetToRoom(resultSet))
                 .night(resultSet.getInt("night"))
-                .bookTime(resultSet.getDate("book_time"))
+                .bookTime(resultSet.getDate("book_time").toLocalDate())
                 .bookingStatus(mapResultSetToBookingStatus(resultSet))
                 .user(mapResultSetToUser(resultSet))
                 .build();
@@ -45,7 +45,7 @@ public class ResultSetMapper {
                 .id(resultSet.getInt("room_id"))
                 .roomType(mapResultSetToRoomType(resultSet))
                 .numberOfBeds(resultSet.getInt("number_of_beds"))
-                .roomStatus(mapResultSetToRoomStatus(resultSet))
+//                .roomStatus(mapResultSetToRoomStatus(resultSet))
                 .price(resultSet.getInt("price"))
                 .hotel(mapResultSetToHotel(resultSet))
                 .build();
@@ -54,7 +54,7 @@ public class ResultSetMapper {
     public static Hotel mapResultSetToHotel(ResultSet resultSet) throws SQLException {
         return Hotel.newBuilder()
                 .id(resultSet.getInt("hotel_id"))
-                .name(resultSet.getString("name"))
+                .name(resultSet.getString("hotel_name"))
                 .build();
     }
 
@@ -68,7 +68,17 @@ public class ResultSetMapper {
     public static RoomStatus mapResultSetToRoomStatus(ResultSet resultSet) throws SQLException {
         return RoomStatus.newBuilder()
                 .id(resultSet.getInt("status_id"))
-                .name(resultSet.getString("status_name"))
+                .dateStart(resultSet.getDate("date_start").toLocalDate())
+                .dateEnd(resultSet.getDate("date_end").toLocalDate())
+                .room(mapResultSetToRoom(resultSet))
+                .statusStatement(mapResultSetToStatusStatement(resultSet))
+                .build();
+    }
+
+    private static StatusStatement mapResultSetToStatusStatement(ResultSet resultSet) throws SQLException{
+        return StatusStatement.newBuilder()
+                .statusStatementId(resultSet.getInt("status_statement_id"))
+                .statusStatementName(resultSet.getString("status_statement_name"))
                 .build();
     }
 

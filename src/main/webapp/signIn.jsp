@@ -1,4 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%--<%@ page contentType="text/html; charset=UTF-8; pageEncoding=utf-8" %>--%>
+
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -12,6 +14,11 @@
 
 <c:import url="views/head.jsp"/>
 
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html lang="ru">
 <body>
 
 <c:import url="views/header.jsp"/>
@@ -34,6 +41,7 @@
             <h1 class="mb-5">
                 <f:message key="userRegistration" bundle="${bunCont}"/>
             </h1>
+            <%request.setCharacterEncoding("UTF-8");%>
             <form action="home" method="post">
                 <label>
                     <input name="command" value="register" hidden>

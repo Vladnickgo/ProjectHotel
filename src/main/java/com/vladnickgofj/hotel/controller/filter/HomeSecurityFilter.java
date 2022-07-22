@@ -29,7 +29,7 @@ public class HomeSecurityFilter implements Filter {
         logger.info("doFiler");
         UserDto user = (UserDto) req.getSession().getAttribute("user");
         String command = req.getParameter("command");
-        if ((user == null || !Role.USER.equals(user.getRole())) && "show-profile".equals(command)) {
+        if ((user == null /*|| !Role.USER.equals(user.getRole())*/) && "show-profile".equals(command)) {
             throw new AuthorisationFailException(NOT_AVAILABLE_PAGE);
         }
         chain.doFilter(req, response);

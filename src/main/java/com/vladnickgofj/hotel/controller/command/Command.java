@@ -1,7 +1,5 @@
 package com.vladnickgofj.hotel.controller.command;
 
-import com.vladnickgofj.hotel.controller.dto.PaginateRoomDto;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

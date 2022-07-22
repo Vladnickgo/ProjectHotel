@@ -15,7 +15,6 @@
 <body>
 
 <c:import url="views/header.jsp"/>
-
 <div class="container mt-5 mb-5 pb-5">
     <div class="row text-center">
         <div class="col-4"></div>

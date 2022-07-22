@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.dao;
 
-import com.vladnickgofj.hotel.controller.dto.PaginateRoomDto;
 import com.vladnickgofj.hotel.dao.entity.Room;
 
 import java.util.List;

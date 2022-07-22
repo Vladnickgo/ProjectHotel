@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+н<%@ page contentType="text/html;charset=UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -10,11 +10,11 @@
 
 <c:set var="Title" scope="request" value="Homepage"/>
 
-<c:import url="views/head.jsp"/>
+<c:import url="../views/head.jsp"/>
 
 <body>
 
-<c:import url="views/header.jsp"/>
+<c:import url="../views/header.jsp"/>
 <div class="row container-fluid mt-4">
     <div class="col-3">
     </div>
@@ -50,6 +50,6 @@
     </div>
 
 </div>
-<c:import url="views/footer.jsp"/>
+<c:import url="../views/footer.jsp"/>
 </body>
 </html>

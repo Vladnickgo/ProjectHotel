@@ -15,7 +15,6 @@ public class RoomMapper implements Mapper<RoomDto, Room> {
                 .id(roomDto.getId())
                 .roomType(getRoomType(roomDto))
                 .numberOfBeds(roomDto.getNumberOfBeds())
-                .roomStatus(getRoomStatus(roomDto))
                 .price(roomDto.getPrice())
                 .hotel(getHotel(roomDto))
                 .build();
@@ -27,7 +26,6 @@ public class RoomMapper implements Mapper<RoomDto, Room> {
                 .id(room.getId())
                 .roomTypeId(room.getRoomType().getId())
                 .numberOfBeds(room.getNumberOfBeds())
-                .roomStatusId(room.getRoomStatus().getId())
                 .price(room.getPrice())
                 .hotelId(room.getHotel().getId())
                 .build();
@@ -36,12 +34,6 @@ public class RoomMapper implements Mapper<RoomDto, Room> {
     private Hotel getHotel(RoomDto roomDto) {
         return Hotel.newBuilder()
                 .id(roomDto == null ? null : roomDto.getHotelId())
-                .build();
-    }
-
-    private RoomStatus getRoomStatus(RoomDto roomDto) {
-        return RoomStatus.newBuilder()
-                .id(roomDto == null ? null : roomDto.getRoomStatusId())
                 .build();
     }
 

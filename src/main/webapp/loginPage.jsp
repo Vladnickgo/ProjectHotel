@@ -37,7 +37,9 @@
                         <td><input type="password" name="password"></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>
+
+                        </td>
                         <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
                     </tr>
                 </table>
@@ -47,7 +49,10 @@
                 </div>
             </form>
         </div>
-        <div class="col-3"></div>
+        <div class="col-3">
+            ivan@mail.com<br>
+            1234
+        </div>
     </div>
 </div>
 <c:import url="views/footer.jsp"/>

@@ -1,8 +1,11 @@
 package com.vladnickgofj.hotel.service.impl;
 
+import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
 import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
 import com.vladnickgofj.hotel.dao.RoomStatusDao;
+import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
+import com.vladnickgofj.hotel.dao.entity.StatusStatement;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -48,7 +52,7 @@ class RoomStatusServiceImplTest {
         Mockito.when(roomStatusRepository.findById(id)).thenReturn(Optional.ofNullable(roomStatus));
         Mockito.when(mapper.mapEntityToDto(roomStatus)).thenReturn(roomStatusDto);
         RoomStatusDto actualRoomStatusDto = roomStatusService.getRoomStatusById(id);
-        assertEquals(roomStatusDto,actualRoomStatusDto);
+        assertEquals(roomStatusDto, actualRoomStatusDto);
 
     }
 
@@ -75,42 +79,50 @@ class RoomStatusServiceImplTest {
                 Arguments.of(1,
                         RoomStatus.newBuilder()
                                 .id(1)
-                                .name("free")
+                                .dateStart(LocalDate.of(2022, 6, 1))
+                                .dateEnd(LocalDate.of(2022, 6, 10))
+                                .room(Room.newBuilder()
+                                        .id(25)
+                                        .build())
+                                .statusStatement(StatusStatement.newBuilder()
+                                        .statusStatementId(1)
+                                        .build())
                                 .build(),
                         RoomStatusDto.newBuilder()
                                 .statusId(1)
-                                .statusName("free")
+                                .dateStart(LocalDate.of(2022, 6, 1))
+                                .dateEnd(LocalDate.of(2022, 6, 10))
+                                .roomDtoResponse(RoomDtoResponse.newBuilder()
+                                        .id(25)
+                                        .build())
+                                .statusStatement(StatusStatement.newBuilder()
+                                        .statusStatementId(1)
+                                        .build())
                                 .build(),
                         "check for roomStatus free"),
-                Arguments.of(2,
+                Arguments.of(1,
                         RoomStatus.newBuilder()
-                                .id(2)
-                                .name("booked")
+                                .id(100)
+                                .dateStart(LocalDate.of(2022, 6, 1))
+                                .dateEnd(LocalDate.of(2022, 6, 10))
+                                .room(Room.newBuilder()
+                                        .id(55)
+                                        .build())
+                                .statusStatement(StatusStatement.newBuilder()
+                                        .statusStatementId(2)
+                                        .build())
                                 .build(),
                         RoomStatusDto.newBuilder()
-                                .statusId(2)
-                                .statusName("booked")
+                                .statusId(100)
+                                .dateStart(LocalDate.of(2022, 6, 1))
+                                .dateEnd(LocalDate.of(2022, 6, 10))
+                                .roomDtoResponse(RoomDtoResponse.newBuilder()
+                                        .id(55)
+                                        .build())
+                                .statusStatement(StatusStatement.newBuilder()
+                                        .statusStatementId(2)
+                                        .build())
                                 .build(),
-                        "check for roomStatus booked"),
-                Arguments.of(3,
-                        RoomStatus.newBuilder()
-                                .id(3)
-                                .name("busy")
-                                .build(),
-                        RoomStatusDto.newBuilder()
-                                .statusId(3)
-                                .statusName("busy")
-                                .build(),
-                        "check for roomStatus busy"),
-                Arguments.of(4,
-                        RoomStatus.newBuilder()
-                                .id(4)
-                                .name("not available")
-                                .build(),
-                        RoomStatusDto.newBuilder()
-                                .statusId(4)
-                                .statusName("not available")
-                                .build(),
-                        "check for roomStatus not available "));
+                        "check for roomStatus booked"));
     }
 }

@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS hotel;
 USE hotel;
 CREATE TABLE IF NOT EXISTS role (
                                     role_id INTEGER PRIMARY KEY auto_increment,
-                                    name VARCHAR(255) NOT NULL
+                                    name VARCHAR(255) NOT NULL UNIQUE
 );
 CREATE TABLE IF NOT EXISTS users (
                                      user_id INTEGER PRIMARY KEY auto_increment,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 CREATE TABLE IF NOT EXISTS hotel (
                                      hotel_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                     name VARCHAR(255) NOT NULL
+                                     hotel_name VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS room_status (
                                            status_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -38,21 +38,21 @@ CREATE TABLE IF NOT EXISTS room(
                                    FOREIGN KEY(type_id) REFERENCES Room_type(type_id)
 );
 
-CREATE TABLE IF NOT EXISTS bookings_status (
+CREATE TABLE IF NOT EXISTS booking_status (
                                                booking_status_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                               name VARCHAR(255) NOT NULL
+                                               booking_status_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS bookings (
                                         booking_id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                         check_in DATE NOT NULL,
-                                        check_out DATE NOT NULL,
+                                        check_out DATE NOT NULL CHECK ( check_out>bookings.check_in ),
                                         room_id INTEGER NOT NULL,
-                                        night INTEGER NOT NULL,
+                                        night INTEGER AS (datediff(check_out, check_in)),
                                         book_time DATE NOT NULL,
                                         booking_status_id INTEGER NOT NULL,
                                         user_id INTEGER NOT NULL,
-                                        FOREIGN KEY (booking_status_id) REFERENCES Bookings_status (booking_status_id),
+                                        FOREIGN KEY (booking_status_id) REFERENCES booking_status (booking_status_id),
                                         FOREIGN KEY (user_id) REFERENCES users (user_id),
                                         FOREIGN KEY (room_id) REFERENCES room(room_id)
 );

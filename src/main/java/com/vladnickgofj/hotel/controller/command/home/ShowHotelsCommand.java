@@ -4,7 +4,7 @@ import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.PaginateHotelDto;
+import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.service.HotelService;
 
 import javax.servlet.ServletException;
@@ -22,26 +22,34 @@ public class ShowHotelsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String numberOfPage = request.getParameter("page");
+        String numberOfPage = request.getParameter("numberOfPage");
         String recordsOnPage = request.getParameter("recordsOnPage");
-        PaginateHotelDto paginateHotelDto = getPaginateHotelDto(numberOfPage, recordsOnPage);
+        Integer numberOfPageInteger = parseStringToInt(numberOfPage, DEFAULT_PAGE_NUMBER);
+        Integer recordsOnPageInteger = parseStringToInt(recordsOnPage, DEFAULT_HOTELS_ON_PAGE);
+
+        PagenableElementsDto pagenableElementsDto = getPagenableElements(recordsOnPageInteger, numberOfPageInteger);
+
         ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
         HotelService hotelService = contextInjector.getHotelService();
-        List<HotelDto> allHotels = hotelService.findAll(paginateHotelDto)
+        if (numberOfPage == null) {
+            numberOfPage = "1";
+        }
+
+        List<HotelDto> allHotels = hotelService.findAll(pagenableElementsDto)
                 .stream()
                 .sorted(Comparator.comparing(HotelDto::getName))
                 .collect(Collectors.toList());
         request.setAttribute("listOfHotels", allHotels);
-        request.setAttribute("pages", hotelService.getNumberOfPages(paginateHotelDto));
+        request.setAttribute("totalPages", hotelService.getNumberOfPages(pagenableElementsDto));
         request.setAttribute("recordsOnPage", recordsOnPage);
         request.setAttribute("numberOfPage", numberOfPage);
         return PagesConstant.SHOW_HOTELS;
     }
 
-    private PaginateHotelDto getPaginateHotelDto(String numberOfPage, String recordsOnPage) {
-        return PaginateHotelDto.newBuilder()
-                .numberOfPage(parseStringToInt(numberOfPage, DEFAULT_PAGE_NUMBER))
-                .hotelsOnPage(parseStringToInt(recordsOnPage, DEFAULT_HOTELS_ON_PAGE))
+    private PagenableElementsDto getPagenableElements(Integer roomsOnPage, Integer numberOfPage) {
+        return PagenableElementsDto.newBuilder()
+                .numberOfPage(numberOfPage)
+                .itemsOnPage(roomsOnPage)
                 .build();
     }
 

@@ -41,7 +41,7 @@ public final class ApplicationContextInjector {
 
     private static final Mapper<RoomDtoResponse, Room> ROOM_MAPPER = new RoomResponseMapper();
 
-//    private static final Mapper<RoomDtoResponse, Room> ROOM_MAPPER = new RoomResponseMapper();
+    private static final Mapper<BookingDto, Booking> BOOKING_MAPPER = new BookingMapper();
 
     private static final UserValidator USER_VALIDATOR = new UserValidator();
 
@@ -54,6 +54,8 @@ public final class ApplicationContextInjector {
     private static final RoomStatusService ROOM_STATUS_SERVICE = new RoomStatusServiceImpl(ROOM_STATUS_DAO, ROOM_STATUS_MAPPER);
 
     private static final RoomTypeService ROOM_TYPE_SERVICE = new RoomTypeServiceImpl(ROOM_TYPE_DAO, ROOM_TYPE_MAPPER);
+
+    private static final ChangeRoomStatusService CHANGE_ROOM_STATUS_SERVICE = new ChangeRoomStatusServiceImpl(ROOM_STATUS_DAO, ROOM_STATUS_MAPPER, BOOKING_MAPPER);
 
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
 
@@ -79,11 +81,11 @@ public final class ApplicationContextInjector {
 
     private static final Command SHOW_ROOMS_COMMAND = new ShowRoomsCommand();
 
+    private static final Command CHANGE_ROOM_STATUS_COMMAND = new ChangeRoomStatusCommand();
+
     private static final Map<String, Command> USER_COMMAND_NAME_TO_COMMAND = initUserCommand();
 
     private static final Map<String, Command> HOME_COMMAND_NAME_TO_COMMAND = initHomeCommand();
-
-    //private static final RoomService ROOM_SERVICE=new RoomServiceImpl();
 
     private static ApplicationContextInjector applicationContextInjector;
 
@@ -110,6 +112,7 @@ public final class ApplicationContextInjector {
         homeCommandNameToCommand.put("show-profile", SHOW_PROFILE_COMMAND);
         homeCommandNameToCommand.put("showHotels", SHOW_HOTELS_COMMAND);
         homeCommandNameToCommand.put("showRooms", SHOW_ROOMS_COMMAND);
+        homeCommandNameToCommand.put("changeRoomStatus", CHANGE_ROOM_STATUS_COMMAND);
         homeCommandNameToCommand.put("defaultCommand", DEFAULT_COMMAND);
 
         return Collections.unmodifiableMap(homeCommandNameToCommand);
@@ -138,7 +141,9 @@ public final class ApplicationContextInjector {
         return HOTEL_SERVICE;
     }
 
-    public RoomService getRoomService() { return ROOM_SERVICE; }
+    public RoomService getRoomService() {
+        return ROOM_SERVICE;
+    }
 
     public RoomStatusService getRoomStatusService() {
         return ROOM_STATUS_SERVICE;
@@ -146,6 +151,10 @@ public final class ApplicationContextInjector {
 
     public RoomTypeService getRoomTypeService() {
         return ROOM_TYPE_SERVICE;
+    }
+
+    public ChangeRoomStatusService getChangeRoomStatusService() {
+        return CHANGE_ROOM_STATUS_SERVICE;
     }
 
     public Map<String, Command> getHomeCommandNameToCommand() {

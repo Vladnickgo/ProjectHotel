@@ -23,7 +23,7 @@
 
         </div>
         <div class="col-8">
-            <h1 class="text-center">USER PROFILE</h1>
+            <h1 class="text-center">${user.role} PROFILE</h1>
         </div>
         <div class="col-2">
             <table class="table table-sm">
@@ -43,6 +43,24 @@
         </div>
     </div>
 </div>
+
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-4">
+            <form action="">
+
+            </form>
+
+        </div>
+        <div class="col-4 text-center">
+            <h1 class="display-1"></h1>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

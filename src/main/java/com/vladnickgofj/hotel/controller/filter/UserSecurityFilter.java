@@ -39,6 +39,5 @@ public class UserSecurityFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

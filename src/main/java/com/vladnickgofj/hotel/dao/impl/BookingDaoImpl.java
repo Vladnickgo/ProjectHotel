@@ -11,14 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements BookingDao {
-    private static final String FIND_ALL = "SELECT * " +
-            "FROM bookings\n" +
-            "         LEFT JOIN room r ON r.room_id = bookings.room_id " +
-            "         LEFT JOIN bookings_status bs ON bs.booking_status_id = bookings.booking_status_id " +
-            "         LEFT JOIN users u ON u.user_id = bookings.user_id " +
-            "         LEFT JOIN room_type rt ON rt.type_id = r.type_id " +
-            "         LEFT JOIN room_status rs ON rs.status_id = r.status_id " +
-            "         LEFT JOIN hotel h ON h.hotel_id = r.hotel_id";
+    private static final String FIND_ALL = "SELECT * FROM bookings "+
+    "LEFT JOIN room r ON r.room_id = bookings.room_id "+
+    "LEFT JOIN booking_status bs ON bs.booking_status_id = bookings.booking_status_id "+
+    "LEFT JOIN users u ON u.user_id = bookings.user_id "+
+    "LEFT JOIN room_type rt ON rt.type_id = r.type_id "+
+    "LEFT JOIN room_status rs ON rs.room_id= r.room_id "+
+    "LEFT JOIN hotel h ON h.hotel_id = r.hotel_id ";
     private static final String FIND_BY_ID = "SELECT * " +
             "FROM bookings " +
             "         LEFT JOIN room r ON r.room_id = bookings.room_id " +
@@ -45,11 +44,11 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
 
     @Override
     protected void mapForInsertStatement(PreparedStatement preparedStatement, Booking entity) throws SQLException {
-        preparedStatement.setDate(1, (Date) entity.getCheckIn());
-        preparedStatement.setDate(2, (Date) entity.getCheckOut());
+        preparedStatement.setDate(1, Date.valueOf(entity.getCheckIn()));
+        preparedStatement.setDate(2, Date.valueOf(entity.getCheckOut()));
         preparedStatement.setInt(3, entity.getRoom().getId());
         preparedStatement.setInt(4, entity.getNight());
-        preparedStatement.setDate(5, (Date) entity.getBookTime());
+        preparedStatement.setDate(5, Date.valueOf(entity.getBookTime()));
         preparedStatement.setInt(6, entity.getBookingStatus().getId());
         preparedStatement.setInt(7, entity.getUser().getId());
     }

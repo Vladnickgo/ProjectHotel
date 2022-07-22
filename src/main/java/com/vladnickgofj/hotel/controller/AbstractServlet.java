@@ -57,7 +57,7 @@ public abstract class AbstractServlet extends HttpServlet {
         LOGGER.info("Command name: " + commandName);
         Command command = commandNameToCommand.getOrDefault(commandName, defaultCommand);
         final String page = command.execute(req, resp);
-        LOGGER.info("page: "+page);
+        LOGGER.info("page: " + page);
         req.getRequestDispatcher(page).forward(req, resp);
     }
 }

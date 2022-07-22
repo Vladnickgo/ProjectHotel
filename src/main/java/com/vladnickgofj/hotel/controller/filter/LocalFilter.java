@@ -1,6 +1,7 @@
 package com.vladnickgofj.hotel.controller.filter;
 
 import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,11 @@ public class LocalFilter implements Filter {
     private static final String LANGUAGE = "language";
     private static final Logger LOGGER = Logger.getLogger(LocalFilter.class);
 
-    public LocalFilter(){
+    public LocalFilter() {
     }
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
         LOGGER.info("LocalFilter init");
     }
 
@@ -24,6 +25,8 @@ public class LocalFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         servletRequest.setCharacterEncoding(UTF_8);
+        servletResponse.setCharacterEncoding(UTF_8);
+
         if (req.getParameter(LANGUAGE) != null) {
             req.getSession().setAttribute(LANGUAGE, req.getParameter(LANGUAGE));
             LOGGER.info(req.getSession().getAttribute("language"));

@@ -1,7 +1,7 @@
 package com.vladnickgofj.hotel.service.impl;
 
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.PaginateHotelDto;
+import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.dao.HotelDao;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.service.HotelService;
@@ -21,23 +21,23 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelDto> findAll(PaginateHotelDto paginateHotelDto) {
+    public List<HotelDto> findAll(PagenableElementsDto paginateHotelDto) {
         return hotelRepository
-                .findAll(getFirstRecordOnPage(paginateHotelDto), paginateHotelDto.getHotelsOnPage())
+                .findAll(getFirstRecordOnPage(paginateHotelDto), paginateHotelDto.getItemsOnPage())
                 .stream()
                 .map(hotelMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
-    private Integer getFirstRecordOnPage(PaginateHotelDto paginateHotelDto) {
+    private Integer getFirstRecordOnPage(PagenableElementsDto paginateHotelDto) {
         Integer pages = getNumberOfPages(paginateHotelDto);
-        return paginateHotelDto.getHotelsOnPage() * ((Math.min(paginateHotelDto.getNumberOfPage(), pages)) - 1);
+        return paginateHotelDto.getItemsOnPage() * ((Math.min(paginateHotelDto.getNumberOfPage(), pages)) - 1);
     }
 
     @Override
-    public Integer getNumberOfPages(PaginateHotelDto paginateHotelDto) {
+    public Integer getNumberOfPages(PagenableElementsDto paginateHotelDto) {
         Integer size = hotelRepository.countAll();
-        return size / paginateHotelDto.getHotelsOnPage() + (size % paginateHotelDto.getHotelsOnPage() > 0 ? 1 : 0);
+        return size / paginateHotelDto.getItemsOnPage() + (size % paginateHotelDto.getItemsOnPage() > 0 ? 1 : 0);
     }
 
     @Override

@@ -18,7 +18,7 @@ import static com.vladnickgofj.hotel.dao.mapper.ResultSetMapper.mapResultSetToRo
 
 public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
     private final static String INSERT_INTO = "INSERT INTO " +
-            "room(type_id, number_of_beds, status_id, price, hotel_id) VALUES (?,?,?,?,?)";
+            "room(type_id, number_of_beds, price, hotel_id) VALUES (?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM room " +
             "LEFT OUTER JOIN room_type rt on rt.type_id = room.type_id " +
             "LEFT JOIN room_status rs on rs.status_id = room.status_id " +
@@ -32,7 +32,7 @@ public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
             "SET type_id=?, number_of_beds=?, status_id=?, price=?, hotel_id=? WHERE room_id=?";
     public static final String FIND_ALL_BY_HOTEL_ID_PARAMETER = "SELECT * FROM room " +
             "LEFT JOIN room_type rt on room.type_id = rt.type_id " +
-            "LEFT JOIN room_status rs on room.status_id = rs.status_id " +
+            "LEFT JOIN room_status rs on room.room_id = rs.room_id " +
             "LEFT OUTER JOIN hotel h on h.hotel_id = room.hotel_id " +
             "WHERE room.hotel_id=? " +
             "ORDER BY %S %S " +
@@ -52,9 +52,8 @@ public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
     protected void mapForInsertStatement(PreparedStatement preparedStatement, Room entity) throws SQLException {
         preparedStatement.setInt(1, entity.getRoomType().getId());
         preparedStatement.setInt(2, entity.getNumberOfBeds());
-        preparedStatement.setInt(3, entity.getRoomStatus().getId());
-        preparedStatement.setInt(4, entity.getPrice());
-        preparedStatement.setInt(5, entity.getHotel().getId());
+        preparedStatement.setInt(3, entity.getPrice());
+        preparedStatement.setInt(4, entity.getHotel().getId());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.vladnickgofj.hotel.service.mapper;
 
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.PaginateHotelDto;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 
 public class HotelMapper implements Mapper<HotelDto, Hotel>{

@@ -36,7 +36,14 @@
 
 <div class="container mt-5 pt-5">
     <div class="row">
-        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="">
+                <p>
+                    Hotel name
+                </p>
+            </form>
+
+        </div>
         <div class="col-4 text-center">
             <h1 class="display-1"></h1>
         </div>

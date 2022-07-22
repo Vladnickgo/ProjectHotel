@@ -1,6 +1,6 @@
 package com.vladnickgofj.hotel.service.impl;
 
-import com.vladnickgofj.hotel.controller.dto.PaginateRoomDto;
+import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
 import com.vladnickgofj.hotel.dao.RoomDao;
 import com.vladnickgofj.hotel.dao.entity.Room;
@@ -22,9 +22,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDtoResponse> findAll(Integer hotelId, String sorting, String ordering, Comparator<RoomDtoResponse> comparator, PaginateRoomDto paginateRoomDto) {
+    public List<RoomDtoResponse> findAll(Integer hotelId, String sorting, String ordering, Comparator<RoomDtoResponse> comparator, PagenableElementsDto pagenableElementsDto) {
         return roomRepository
-                .findAll(hotelId, getFirstRecordOnPage(paginateRoomDto, hotelId), paginateRoomDto.getRoomsOnPage(), sorting, ordering)
+                .findAll(hotelId, getFirstRecordOnPage(pagenableElementsDto, hotelId), pagenableElementsDto.getItemsOnPage(), sorting, ordering)
                 .stream()
                 .map(mapper::mapEntityToDto)
                 .sorted(comparator)
@@ -36,16 +36,15 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.countAll(hotelId);
     }
 
-
-    private Integer getFirstRecordOnPage(PaginateRoomDto paginateRoomDto, Integer hotelId) {
-        Integer pages = getNumberOfPages(paginateRoomDto, hotelId);
-        return paginateRoomDto.getRoomsOnPage() * ((Math.min(paginateRoomDto.getNumberOfPage(), pages)) - 1);
+    private Integer getFirstRecordOnPage(PagenableElementsDto pagenableElementsDto, Integer hotelId) {
+        Integer pages = getNumberOfPages(pagenableElementsDto, hotelId);
+        return pagenableElementsDto.getItemsOnPage() * ((Math.min(pagenableElementsDto.getNumberOfPage(), pages)) - 1);
     }
 
     @Override
-    public Integer getNumberOfPages(PaginateRoomDto paginateRoomDto, Integer hotelId) {
+    public Integer getNumberOfPages(PagenableElementsDto paginableElementsDto, Integer hotelId) {
         Integer size = countAll(hotelId);
-        return size / paginateRoomDto.getRoomsOnPage() + (size % paginateRoomDto.getRoomsOnPage() > 0 ? 1 : 0);
+        return size / paginableElementsDto.getItemsOnPage() + (size % paginableElementsDto.getItemsOnPage() > 0 ? 1 : 0);
     }
 
 }

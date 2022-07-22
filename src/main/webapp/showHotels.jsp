@@ -17,49 +17,44 @@
 <c:import url="views/head.jsp"/>
 
 <c:import url="views/header.jsp"/>
+
 <html>
 <head>
     <title>ShowHotels</title>
 </head>
 <body>
+
 <div class="container">
     <h1 style="text-align: center">
         <f:message key="hotels" bundle="${bunCont}"/>
     </h1>
-    <form action="home" method="post" onchange="submit()">
-        <div style="text-align: right">
-            <label>
+    <form action="home" method="get" onchange="submit()">
+        <div class="row">
+            <div class="col-5">
                 <input name="command" value="showHotels" hidden>
-            </label>
-            <select name="recordsOnPage">
-                <option value="8" ${recordsOnPage==8?'selected':''}>8 на сторінці</option>
-                <option value="16" ${recordsOnPage==16?'selected':''}>16 на сторінці</option>
-                <option value="20" ${recordsOnPage==20?'selected':''}>20 на сторінці</option>
-            </select>
-<%--            <input type="submit" value="Send"/>--%>
-        </div>
-
-        <div class="fixed-bottom row text-center" style="bottom: 65px">
-            <ul class="pagination" name="page"
-                style="display:flex; flex-direction: row; justify-content: center;">
-                <c:forEach var="i" begin="1" end="${pages}">
-                    <input class="${(numberOfPage==i)?'btn-primary':'btn btn-light'}" style="width: 35px;
-                            border-radius: ${(numberOfPage==i)?'20%':''};"
-                           type="submit" name="page" value=${i}>
+<%--                <input name="numberOfPage" value="${numberOfPage==null?1:numberOfPage}" hidden>--%>
+                <select name="recordsOnPage">
+                    <option value="8" ${recordsOnPage==8?'selected':''}>8 на сторінці</option>
+                    <option value="16" ${recordsOnPage==16?'selected':''}>16 на сторінці</option>
+                    <option value="20" ${recordsOnPage==20?'selected':''}>20 на сторінці</option>
+                </select>
+            </div>
+            <div class="col-7">
+                <a class="btn btn-light"
+                   href="home?command=showHotels&numberOfPage=${numberOfPage-1<1?1:numberOfPage-1}&recordsOnPage=${recordsOnPage}" ${numberOfPage==1?'hidden':''}><</a>
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <a href="" ${numberOfPage>3&&i==1?'':'hidden'} style="text-decoration: none;">...</a>
+                    <a class="${(numberOfPage==i)?'btn btn-primary':'btn btn-light'}"
+                       href="home?command=showHotels&numberOfPage=${i}&recordsOnPage=${recordsOnPage}" ${Math.abs(numberOfPage-i)<3||i==totalPages?'':'hidden'}>${i}</a>
+                    <a href="" ${Math.abs(numberOfPage-totalPages)>3&&i==totalPages-1?'':'hidden'}
+                       style="text-decoration: none;">...</a>
                 </c:forEach>
-            </ul>
+                <a class="btn btn-light"
+                   href="home?command=showHotels&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&recordsOnPage=${recordsOnPage}"
+                ${numberOfPage==totalPages?'hidden':''}>></a>
+            </div>
         </div>
-
     </form>
-
-    <%--    <table>--%>
-    <%--        <c:forEach items="${list}" var="item">--%>
-    <%--            <tr style="border: 1px solid lightgray; margin: 3px;padding: 3px;">--%>
-    <%--                <td><i class='fas fa-hotel' style='font-size:48px;color:lightskyblue'></i></td>--%>
-    <%--                <td style="font-size: 14pt"><c:out value="${item}"/></td>--%>
-    <%--            </tr>--%>
-    <%--        </c:forEach>--%>
-    <%--    </table>--%>
 
     <div class="row text-center">
         <c:set var="salary" value="0"/>
@@ -69,14 +64,13 @@
                 <c:if test="${row==1}">
                     <tr style="margin: 50px;padding: 30px;">
                     <td>
-                            <%--                        <i class='fas fa-hotel' style='font-size:48px;color:lightskyblue'></i>--%>
                     </td>
                     <td style="font-size: 14pt; width: 350px;">
                         <form action="home" method="get" style="margin: auto;">
                             <button class="btn btn-outline-primary" name="command" value="showRooms" type="submit"
                                     style="width: 500px;height: 60px;">
                                 <b><c:out value="${item.name}"/></b>
-<%--                                <c:out value="${item.id}"/>--%>
+                                    <%--                                <c:out value="${item.id}"/>--%>
                             </button>
                             <input name="hotelId" value="${item.id}" hidden>
                             <input name="hotelName" value="${item.name}" hidden>
@@ -91,7 +85,6 @@
                             <button class="btn btn-outline-primary" name="command" value="showRooms" type="submit"
                                     style="width: 500px;height: 60px;">
                                 <b><c:out value="${item.name}"/></b>
-<%--                                <c:out value="${item.id}"/>--%>
                             </button>
                             <input name="hotelId" value="${item.id}" hidden>
                             <input name="hotelName" value="${item.name}" hidden>

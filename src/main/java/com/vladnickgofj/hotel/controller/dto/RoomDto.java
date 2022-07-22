@@ -6,7 +6,6 @@ public class RoomDto {
     private final Integer id;
     private final Integer roomTypeId;
     private final Integer numberOfBeds;
-    private final Integer roomStatusId;
     private final Integer price;
     private final Integer hotelId;
 
@@ -14,7 +13,6 @@ public class RoomDto {
         id = builder.id;
         roomTypeId = builder.roomTypeId;
         numberOfBeds = builder.numberOfBeds;
-        roomStatusId = builder.roomStatusId;
         price = builder.price;
         hotelId = builder.hotelId;
     }
@@ -27,7 +25,6 @@ public class RoomDto {
         private Integer id;
         private Integer roomTypeId;
         private Integer numberOfBeds;
-        private Integer roomStatusId;
         private Integer price;
         private Integer hotelId;
 
@@ -46,11 +43,6 @@ public class RoomDto {
 
         public Builder numberOfBeds(Integer val) {
             numberOfBeds = val;
-            return this;
-        }
-
-        public Builder roomStatusId(Integer val) {
-            roomStatusId = val;
             return this;
         }
 
@@ -81,10 +73,6 @@ public class RoomDto {
         return numberOfBeds;
     }
 
-    public Integer getRoomStatusId() {
-        return roomStatusId;
-    }
-
     public Integer getPrice() {
         return price;
     }
@@ -98,12 +86,16 @@ public class RoomDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomDto roomDto = (RoomDto) o;
-        return Objects.equals(id, roomDto.id) && Objects.equals(roomTypeId, roomDto.roomTypeId) && Objects.equals(numberOfBeds, roomDto.numberOfBeds) && Objects.equals(roomStatusId, roomDto.roomStatusId) && Objects.equals(price, roomDto.price) && Objects.equals(hotelId, roomDto.hotelId);
+        return Objects.equals(id, roomDto.id) &&
+                Objects.equals(roomTypeId, roomDto.roomTypeId) &&
+                Objects.equals(numberOfBeds, roomDto.numberOfBeds) &&
+                Objects.equals(price, roomDto.price) &&
+                Objects.equals(hotelId, roomDto.hotelId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomTypeId, numberOfBeds, roomStatusId, price, hotelId);
+        return Objects.hash(id, roomTypeId, numberOfBeds, price, hotelId);
     }
 
     @Override
@@ -112,7 +104,6 @@ public class RoomDto {
                 "id=" + id +
                 ", roomTypeId=" + roomTypeId +
                 ", numberOfBeds=" + numberOfBeds +
-                ", roomStatusId=" + roomStatusId +
                 ", price=" + price +
                 ", hotelId=" + hotelId +
                 '}';

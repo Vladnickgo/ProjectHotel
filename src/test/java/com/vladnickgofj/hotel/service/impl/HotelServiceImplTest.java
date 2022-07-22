@@ -1,7 +1,7 @@
 package com.vladnickgofj.hotel.service.impl;
 
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.PaginateHotelDto;
+import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.dao.HotelDao;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.service.HotelService;
@@ -21,8 +21,8 @@ class HotelServiceImplTest {
     @CsvFileSource(resources = "/paginateDtoAndSizeSource.csv")
     void getPagesTest(int size, int hotelsOnPage, int expected, String description) {
         Mockito.when(hotelRepository.countAll()).thenReturn(size);
-        PaginateHotelDto paginateHotelDto = PaginateHotelDto.newBuilder().hotelsOnPage(hotelsOnPage).build();
-        Integer actual = hotelService.getNumberOfPages(paginateHotelDto);
+        PagenableElementsDto pagenableElementsDto = PagenableElementsDto.newBuilder().itemsOnPage(hotelsOnPage).build();
+        Integer actual = hotelService.getNumberOfPages(pagenableElementsDto);
         assertEquals(expected, actual);
     }
 
