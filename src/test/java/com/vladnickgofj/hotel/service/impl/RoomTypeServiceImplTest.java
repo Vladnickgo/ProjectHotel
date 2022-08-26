@@ -4,7 +4,6 @@ import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.RoomTypeDao;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,7 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class RoomTypeServiceImplTest {

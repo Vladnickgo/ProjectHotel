@@ -21,36 +21,41 @@
             <h1 class="mb-5">
                 <f:message key="logForUsers" bundle="${bunCont}"/>
             </h1>
-            <form action="home" method="post">
-                <label>
+            <div style="display: flex; flex-direction: row; justify-content: center;">
+                <form action="home" method="post">
                     <input name="command" value="login" hidden>
-                </label>
-                <table>
-                    <tr>
-                        <td>email</td>
-                        <td><input type="text" value="${loginPageEmail}" name="email"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <f:message key="password" bundle="${bunCont}"/>
-                        </td>
-                        <td><input type="password" name="password"></td>
-                    </tr>
-                    <tr>
-                        <td>
+                    <input name="method" value="post" hidden>
 
-                        </td>
-                        <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
-                    </tr>
-                </table>
-                <div class="alert alert-warning" style="${errorMessage==null?'display: none':'margin-top:10px'};">
-                    <p><f:message key="authFailed" bundle="${bunCont}"/></p>
-                    <p>${errroMessage}</p>
-                </div>
-            </form>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <%--                            <td><input type="text" value="${loginPageEmail}" name="email"></td>--%>
+                            <td><input type="text" name="email"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <f:message key="password" bundle="${bunCont}"/>
+                            </td>
+                            <td><input type="password" name="password"></td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
+                        </tr>
+                    </table>
+                    <div class="alert alert-warning" style="${errorMessage==null?'display: none':'margin-top:10px'};">
+                        <p><f:message key="authFailed" bundle="${bunCont}"/></p>
+                        <%--                        <p>${errroMessage}</p>--%>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col-3">
             ivan@mail.com<br>
+            admin@mail.com<br>
+
             1234
         </div>
     </div>

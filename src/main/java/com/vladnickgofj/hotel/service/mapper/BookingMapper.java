@@ -1,10 +1,7 @@
 package com.vladnickgofj.hotel.service.mapper;
 
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
-import com.vladnickgofj.hotel.dao.entity.Booking;
-import com.vladnickgofj.hotel.dao.entity.BookingStatus;
-import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.User;
+import com.vladnickgofj.hotel.dao.entity.*;
 
 public class BookingMapper implements Mapper<BookingDto, Booking> {
 
@@ -12,12 +9,21 @@ public class BookingMapper implements Mapper<BookingDto, Booking> {
     public Booking mapDtoToEntity(BookingDto bookingDto) {
         return Booking.newBuilder()
                 .id(bookingDto.getId())
-                .checkIn(bookingDto.getCheck_in())
-                .checkOut(bookingDto.getCheck_out())
+                .checkIn(bookingDto.getCheckIn())
+                .checkOut(bookingDto.getCheckOut())
                 .room(Room.newBuilder()
-                        .id(bookingDto.getRoomId())
+                        .id(bookingDto.getRoom().getId())
+                        .numberOfBeds(bookingDto.getRoom().getNumberOfBeds())
+                        .roomType(RoomType.newBuilder()
+                                .typeName(bookingDto.getRoom().getRoomType().getTypeName())
+                                .build())
+                        .price(bookingDto.getRoom().getPrice())
+                        .hotel(Hotel.newBuilder()
+                                .name(bookingDto.getRoom().getHotel().getName())
+                                .build())
                         .build())
                 .bookTime(bookingDto.getBookTime())
+                .night(bookingDto.getNights())
                 .bookingStatus(BookingStatus.newBuilder()
                         .id(bookingDto.getBookingStatusId())
                         .build())
@@ -31,10 +37,21 @@ public class BookingMapper implements Mapper<BookingDto, Booking> {
     public BookingDto mapEntityToDto(Booking booking) {
         return BookingDto.newBuilder()
                 .id(booking.getId())
-                .check_in(booking.getCheckIn())
-                .check_out(booking.getCheckOut())
-                .roomId(booking.getRoom().getId())
+                .checkIn(booking.getCheckIn())
+                .checkOut(booking.getCheckOut())
+                .room(Room.newBuilder()
+                        .id(booking.getRoom().getId())
+                        .numberOfBeds(booking.getRoom().getNumberOfBeds())
+                        .hotel(Hotel.newBuilder()
+                                .name(booking.getRoom().getHotel().getName())
+                                .build())
+                        .price(booking.getRoom().getPrice())
+                        .roomType(RoomType.newBuilder()
+                                .typeName(booking.getRoom().getRoomType().getTypeName())
+                                .build())
+                        .build())
                 .bookTime(booking.getBookTime())
+                .nights(booking.getNight())
                 .bookingStatusId(booking.getBookingStatus().getId())
                 .userId(booking.getUser().getId())
                 .build();

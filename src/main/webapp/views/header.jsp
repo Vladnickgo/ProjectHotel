@@ -9,7 +9,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 ">
                 <a class="navbar-brand" href="#">{Hello Hotel} </a>
-
                 <form class="d-flex" action="home" method="get">
                     <button class="btn btn-outline-primary" name="command" value="homePage" type="submit">
                         <f:message key="home"></f:message>
@@ -31,24 +30,34 @@
                             <f:message key="signin"></f:message>
                         </button>
                     </c:if>
-                    <c:if test="${user != null}">
-                        <button class="btn btn-outline-primary" name="command" value="show-profile"
-                                type="submit">
-                            <f:message key="cabinet"></f:message>
-                        </button>
-                    </c:if>
+                    <button class="btn btn-outline-primary" name="command" value="usersOrderPage"
+                            type="submit" ${user.role != 'USER'?'hidden':''}>
+                        <f:message key="order"></f:message>
+                    </button>
+                    <button class="btn btn-outline-primary" name="command" value="showUserProfile"
+                            type="submit" ${user.role == 'USER'?'':'hidden'}>
+                        <f:message key="cabinet"></f:message>
+                    </button>
+                    <button class="btn btn-outline-primary" name="command" value="showAdminProfile"
+                            type="submit" ${user.role == 'ADMIN'?'':'hidden'}>
+                        <f:message key="cabinet"></f:message>
+                    </button>
                 </form>
-                <c:if test="${user != null}">
-                    <li class="nav-item ">
-                        <a>
-                            <form class="d-flex" action="user" method="post">
-                                <button class="btn btn-primary" name="command" value="logout" type="submit">
-                                    <f:message key="logout"></f:message>
-                                </button>
-                            </form>
-                        </a>
-                    </li>
-                </c:if>
+                <li class="nav-item ">
+                    <form class="d-flex" action="user" method="post">
+                        <button class="btn btn-primary" name="command" value="logout"
+                                type="submit" ${user == null?'hidden':''}>
+                            <f:message key="logout"></f:message>
+                        </button>
+
+                    </form>
+
+                </li>
+
+            </ul>
+            <ul style="list-style: none; margin-right:25px; font-size: 14px">
+                <li>${user.role}: ${user.firstName} ${user.lastName} </li>
+                <li>${user.email}</li>
             </ul>
             <form class="d-flex" method="post" onchange="submit()">
                 <select class=" form-control select-size" id="language" name="language"
@@ -56,6 +65,8 @@
                     <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
+                <input name="command" value="${command==null?'homePage':command}" hidden>
+                <input name="url" value="${url}" hidden>
             </form>
         </div>
     </div>

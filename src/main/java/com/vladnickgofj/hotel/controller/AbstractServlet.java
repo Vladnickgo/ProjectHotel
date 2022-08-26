@@ -17,6 +17,8 @@ public abstract class AbstractServlet extends HttpServlet {
 
     private static final String NOT_VALID_PATH = "Not valid path";
 
+    private static final String DEFAULT_URL = "home?command=homePage";
+
     private final Map<String, Command> commandNameToCommand;
 
     private final Command defaultCommand;
@@ -44,20 +46,33 @@ public abstract class AbstractServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        forward(req, resp);
+        String page = forward(req, resp);
+        LOGGER.info("doGet: " + page);
+        req.getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        forward(req, resp);
+        String url = forward(req, resp);
+        LOGGER.info("doPost: " + url);
+        resp.sendRedirect(url);
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private String forward(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String commandName = req.getParameter("command");
+        String method = req.getMethod();
+        String url = req.getParameter("url");
+//        String requestUrl = req.getParameter("url");
+//        String sessionUrl = (String) req.getSession().getAttribute("url");
+//        String url = requestUrl == null ? sessionUrl == null ? DEFAULT_URL : sessionUrl : requestUrl;
         LOGGER.info("Command name: " + commandName);
+        LOGGER.info("method: " + method);
+        LOGGER.info("url: " + url);
+//        LOGGER.info("sessionUrl: " + sessionUrl);
         Command command = commandNameToCommand.getOrDefault(commandName, defaultCommand);
         final String page = command.execute(req, resp);
         LOGGER.info("page: " + page);
-        req.getRequestDispatcher(page).forward(req, resp);
+        return page;
+//        return "POST".equals(method) ? url : page;
     }
 }

@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.controller.dto;
 import java.util.Date;
 import java.util.Objects;
 
-public class RoomDtoResponse {
+public class  RoomDtoResponse {
     private final Integer id;
     private final RoomTypeDto roomType;
     private final Integer numberOfBeds;

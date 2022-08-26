@@ -85,6 +85,10 @@ public class RoomStatusDto {
         return statusStatement;
     }
 
+    public Integer getNumberOfNights(){
+        return (int) (dateEnd.toEpochDay() - dateStart.toEpochDay());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

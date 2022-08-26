@@ -41,7 +41,6 @@
             <h1 class="mb-5">
                 <f:message key="userRegistration" bundle="${bunCont}"/>
             </h1>
-            <%request.setCharacterEncoding("UTF-8");%>
             <form action="home" method="post">
                 <label>
                     <input name="command" value="register" hidden>

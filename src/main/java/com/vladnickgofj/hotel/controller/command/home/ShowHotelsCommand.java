@@ -4,63 +4,47 @@ import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.service.HotelService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShowHotelsCommand implements Command {
 
-    private static final Integer DEFAULT_PAGE_NUMBER = 1;
-    private static final Integer DEFAULT_HOTELS_ON_PAGE = 8;
+    private final static Logger LOGGER = Logger.getLogger(ShowHotelsCommand.class);
+    private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
+    private final HotelService hotelService = contextInjector.getHotelService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String numberOfPage = request.getParameter("numberOfPage");
         String recordsOnPage = request.getParameter("recordsOnPage");
-        Integer numberOfPageInteger = parseStringToInt(numberOfPage, DEFAULT_PAGE_NUMBER);
-        Integer recordsOnPageInteger = parseStringToInt(recordsOnPage, DEFAULT_HOTELS_ON_PAGE);
+        String command = request.getParameter("command");
+        request.setAttribute("command", command);
 
-        PagenableElementsDto pagenableElementsDto = getPagenableElements(recordsOnPageInteger, numberOfPageInteger);
+        Integer pageNumber = hotelService.initNumberOfPage(numberOfPage);
+        Integer itemsOnPage = hotelService.initItemsOnPage(recordsOnPage);
 
-        ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
-        HotelService hotelService = contextInjector.getHotelService();
-        if (numberOfPage == null) {
-            numberOfPage = "1";
-        }
+        LOGGER.info("Items on page: " + itemsOnPage);
+        LOGGER.info("Page: " + pageNumber);
 
-        List<HotelDto> allHotels = hotelService.findAll(pagenableElementsDto)
-                .stream()
-                .sorted(Comparator.comparing(HotelDto::getName))
-                .collect(Collectors.toList());
+        List<HotelDto> allHotels = hotelService.findAll(itemsOnPage, pageNumber);
+        Integer pages = hotelService.getNumberOfPages(itemsOnPage);
+        LOGGER.info("Pages: " + pages);
         request.setAttribute("listOfHotels", allHotels);
-        request.setAttribute("totalPages", hotelService.getNumberOfPages(pagenableElementsDto));
-        request.setAttribute("recordsOnPage", recordsOnPage);
-        request.setAttribute("numberOfPage", numberOfPage);
+        request.setAttribute("totalPages", pages);
+        request.setAttribute("recordsOnPage", itemsOnPage);
+        request.setAttribute("numberOfPage", pageNumber);
+        request.setAttribute("command", command);
+        String url = "home?command=showHotels&numberOfPage=" +
+                pageNumber + "&recordsOnPage=" + itemsOnPage;
+        request.setAttribute("url", url);
         return PagesConstant.SHOW_HOTELS;
     }
 
-    private PagenableElementsDto getPagenableElements(Integer roomsOnPage, Integer numberOfPage) {
-        return PagenableElementsDto.newBuilder()
-                .numberOfPage(numberOfPage)
-                .itemsOnPage(roomsOnPage)
-                .build();
-    }
-
-    private Integer parseStringToInt(String page, Integer defaultValue) {
-        Integer intValue;
-        try {
-            intValue = Integer.valueOf(page);
-        } catch (NumberFormatException e) {
-            intValue = defaultValue;
-        }
-        return intValue;
-    }
 
 }

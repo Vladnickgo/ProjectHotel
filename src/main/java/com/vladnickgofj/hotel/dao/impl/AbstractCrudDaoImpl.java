@@ -72,7 +72,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Integer> {
     public void save(E entity) {
         try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(saveQuery)) {
             mapForInsertStatement(preparedStatement, entity);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (SQLException e) {
             LOGGER.error("Insertion is failed", e);
             throw new DataBaseRuntimeException("Insertion is failed", e);

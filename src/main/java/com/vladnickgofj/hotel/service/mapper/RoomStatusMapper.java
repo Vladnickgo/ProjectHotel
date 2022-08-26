@@ -4,9 +4,7 @@ import com.vladnickgofj.hotel.controller.dto.HotelDto;
 import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
 import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
 import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
-import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.RoomStatus;
-import com.vladnickgofj.hotel.dao.entity.StatusStatement;
+import com.vladnickgofj.hotel.dao.entity.*;
 
 public class RoomStatusMapper implements Mapper<RoomStatusDto, RoomStatus> {
     @Override
@@ -17,6 +15,14 @@ public class RoomStatusMapper implements Mapper<RoomStatusDto, RoomStatus> {
                 .dateEnd(roomStatusDto.getDateEnd())
                 .room(Room.newBuilder()
                         .id(roomStatusDto.getRoomDtoResponse().getId())
+                        .roomType(RoomType.newBuilder()
+                                .typeName(roomStatusDto.getRoomDtoResponse().getRoomType().getTypeName())
+                                .build())
+//                        .numberOfBeds(roomStatusDto.getRoomDtoResponse().getNumberOfBeds())
+                        .price(roomStatusDto.getNumberOfNights())
+                        .hotel(Hotel.newBuilder()
+                                .name(roomStatusDto.getRoomDtoResponse().getHotel().getName())
+                                .build())
                         .build())
                 .statusStatement(StatusStatement.newBuilder()
                         .statusStatementId(roomStatusDto.getStatusStatement().getStatusStatementId())

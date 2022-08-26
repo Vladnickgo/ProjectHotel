@@ -1,22 +1,26 @@
 package com.vladnickgofj.hotel.controller.dto;
 
+import com.vladnickgofj.hotel.dao.entity.Room;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class BookingDto {
     private final Integer id;
-    private final LocalDate check_in;
-    private final LocalDate check_out;
-    private final Integer roomId;
+    private final LocalDate checkIn;
+    private final LocalDate checkOut;
+    private final Room room;
+    private final Integer nights;
     private final LocalDate bookTime;
     private final Integer bookingStatusId;
     private final Integer userId;
 
     private BookingDto(Builder builder) {
         id = builder.id;
-        check_in = builder.check_in;
-        check_out = builder.check_out;
-        roomId = builder.roomId;
+        checkIn = builder.checkIn;
+        checkOut = builder.checkOut;
+        room = builder.room;
+        nights = builder.nights;
         bookTime = builder.bookTime;
         bookingStatusId = builder.bookingStatusId;
         userId = builder.userId;
@@ -29,9 +33,10 @@ public class BookingDto {
 
     public static final class Builder {
         private Integer id;
-        private LocalDate check_in;
-        private LocalDate check_out;
-        private Integer roomId;
+        private LocalDate checkIn;
+        private LocalDate checkOut;
+        private Room room;
+        private Integer nights;
         private LocalDate bookTime;
         private Integer bookingStatusId;
         private Integer userId;
@@ -44,18 +49,23 @@ public class BookingDto {
             return this;
         }
 
-        public Builder check_in(LocalDate val) {
-            check_in = val;
+        public Builder checkIn(LocalDate val) {
+            checkIn = val;
             return this;
         }
 
-        public Builder check_out(LocalDate val) {
-            check_out = val;
+        public Builder checkOut(LocalDate val) {
+            checkOut = val;
             return this;
         }
 
-        public Builder roomId(Integer val) {
-            roomId = val;
+        public Builder room(Room val) {
+            room = val;
+            return this;
+        }
+
+        public Builder nights(Integer val) {
+            nights = val;
             return this;
         }
 
@@ -83,16 +93,20 @@ public class BookingDto {
         return id;
     }
 
-    public LocalDate getCheck_in() {
-        return check_in;
+    public LocalDate getCheckIn() {
+        return checkIn;
     }
 
-    public LocalDate getCheck_out() {
-        return check_out;
+    public LocalDate getCheckOut() {
+        return checkOut;
     }
 
-    public Integer getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
+    }
+
+    public Integer getNights() {
+        return nights;
     }
 
     public LocalDate getBookTime() {
@@ -112,21 +126,22 @@ public class BookingDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookingDto that = (BookingDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(check_in, that.check_in) && Objects.equals(check_out, that.check_out) && Objects.equals(roomId, that.roomId) && Objects.equals(bookTime, that.bookTime) && Objects.equals(bookingStatusId, that.bookingStatusId) && Objects.equals(userId, that.userId);
+        return Objects.equals(id, that.id) && Objects.equals(checkIn, that.checkIn) && Objects.equals(checkOut, that.checkOut) && Objects.equals(room, that.room) && Objects.equals(nights, that.nights) && Objects.equals(bookTime, that.bookTime) && Objects.equals(bookingStatusId, that.bookingStatusId) && Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, check_in, check_out, roomId, bookTime, bookingStatusId, userId);
+        return Objects.hash(id, checkIn, checkOut, room, nights, bookTime, bookingStatusId, userId);
     }
 
     @Override
     public String toString() {
         return "BookingDto{" +
                 "id=" + id +
-                ", check_in=" + check_in +
-                ", check_out=" + check_out +
-                ", roomId=" + roomId +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
+                ", room=" + room +
+                ", nights=" + nights +
                 ", bookTime=" + bookTime +
                 ", bookingStatusId=" + bookingStatusId +
                 ", userId=" + userId +

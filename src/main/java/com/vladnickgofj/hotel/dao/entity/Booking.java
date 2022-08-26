@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Booking {
+public class  Booking {
     private final Integer id;
     private final LocalDate checkIn;
     private final LocalDate checkOut;

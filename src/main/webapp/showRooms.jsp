@@ -14,7 +14,6 @@
 
 <c:import url="views/header.jsp"/>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
 
@@ -33,42 +32,43 @@
                 <div id="inputData">
 
                     <label for="start"
-                           style="margin-left: 0px; width: 60px;font-size: 8pt; margin-right: 5px;font-weight: bold">Start
-                        date:</label>
+                           style="margin-left: 0px; width: 60px;font-size: 8pt; margin-right: 5px;font-weight: bold"><f:message
+                            key="signIn" bundle="${bunCont}"/>:</label>
 
-                    <input type="date" id="start" name="signIn" value="${signIn}"
-                           min="${minSignIn}" max="${maxSignIn}">
+                    <input type="date" id="start" name="checkIn" value="${checkIn}"
+                           min="${minCheckIn}" max="${maxCheckIn}">
 
                     <label for="start"
-                           style="margin-left: 20px; width: 60px;font-size: 8pt; margin-right: 5px;font-weight: bold">Finish
-                        date:</label>
+                           style="margin-left: 20px; width: 60px;font-size: 8pt; margin-right: 5px;font-weight: bold"><f:message
+                            key="signOut" bundle="${bunCont}"/>:</label>
 
-                    <input type="date" id="finish" name="signOut"
-                           value="${signOut}"
-                           min="${minSignOut}" max="${maxSignOut}">
+                    <input type="date" id="finish" name="checkOut"
+                           value="${checkOut}"
+                           min="${minCheckOut}" max="${maxCheckOut}">
                 </div>
 
-                <label style="margin-left: 50px; width: 40px;font-size: 8pt; margin-right: 5px;font-weight: bold">Room
-                    status:</label>
+                <label style="margin-left: 50px; width: 40px;font-size: 8pt; margin-right: 5px;font-weight: bold"><f:message
+                        key="roomStatus" bundle="${bunCont}"/>:</label>
                 <div style="font-size: 10pt;margin-left: 10px;">
                     <input type="checkbox" id="free" name="statusFree" value="free" ${statusFree=='free'?'checked':''}>
-                    <label for="free">free</label><br>
+                    <label for="free"><f:message key="free" bundle="${bunCont}"/></label><br>
                     <input type="checkbox" id="booked" name="statusBooked"
                            value="booked" ${statusBooked=='booked'?'checked':''}>
-                    <label for="booked">booked</label><br>
+                    <label for="booked"><f:message key="booked" bundle="${bunCont}"/></label><br>
                 </div>
 
                 <label for="roomsOnPage"
                        style="width: 70px;font-size: 8pt; margin-left: 30px; margin-right: 5px;font-weight: bold">
-                    Order items by
+                    <f:message key="orderItemsBy" bundle="${bunCont}"/>
                 </label>
                 <select class="select-size form-control" name="sorting" style="width: 140px;">
-                    <option value="price" ${sorting == 'price' ? 'selected' : ''}>Price</option>
+                    <option value="price" ${sorting == 'price' ? 'selected' : ''}><f:message key="price"
+                                                                                             bundle="${bunCont}"/></option>
                     <option value="number_of_beds" ${sorting == 'number_of_beds' ? 'selected' : ''}>
-                        Number of beds
+                        <f:message key="numberOfBeds" bundle="${bunCont}"/>
                     </option>
-                    <option value="type_name" ${sorting == 'type_name'? 'selected' : ''}>Room type</option>
-                    </option>
+                    <option value="type_name" ${sorting == 'type_name'? 'selected' : ''}><f:message key="roomType"
+                                                                                                    bundle="${bunCont}"/></option>
                 </select>
 
                 <select class="select-size form-control" name="ordering"
@@ -78,8 +78,8 @@
                 </select>
 
                 <label for="roomsOnPage"
-                       style="width: 50px;font-size: 8pt;margin-left: 30px; margin-right: 5px;font-weight: bold">
-                    Items per page
+                       style="width: 65px;font-size: 8pt;margin-left: 30px; margin-right: 5px;font-weight: bold">
+                    <f:message key="itemsPerPage" bundle="${bunCont}"/>
                 </label>
                 <select class="select-size form-control" id="roomsOnPage" name="recordsOnPage"
                         style="width: 60px;margin-right: 15%;">
@@ -97,20 +97,6 @@
     </div>
 
     <div class="col-2">
-        <table class="table table-sm">
-            <tr ${user.firstName==null?'hidden':''}>
-                <th><f:message key="firstName" bundle="${bunCont}"/></th>
-                <td>${user.firstName}: ${user.id}</td>
-            </tr>
-            <tr ${user.lastName==null?'hidden':''}>
-                <th><f:message key="lastName" bundle="${bunCont}"/></th>
-                <td>${user.lastName}</td>
-            </tr>
-            <tr ${user.email==null?'hidden':''}>
-                <th><f:message key="email" bundle="${bunCont}"/></th>
-                <td>${user.email}</td>
-            </tr>
-        </table>
     </div>
 
 </div>
@@ -124,15 +110,14 @@
 
             <table class="table table-striped">
                 <tr class="table-primary">
-                    <th>#</th>
-                    <th>Room type</th>
-                    <th>Number of beds</th>
-                    <th>Room status</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Price</th>
+                    <th><f:message key="indexNumber" bundle="${bunCont}"/></th>
+                    <th><f:message key="roomType" bundle="${bunCont}"/></th>
+                    <th><f:message key="numberOfBeds" bundle="${bunCont}"/></th>
+                    <th><f:message key="roomStatus" bundle="${bunCont}"/></th>
+                    <th><f:message key="From" bundle="${bunCont}"/></th>
+                    <th><f:message key="To" bundle="${bunCont}"/></th>
+                    <th><f:message key="price" bundle="${bunCont}"/></th>
                     <th></th>
-
                 </tr>
                 <c:set var="i" value="${(numberOfPage-1)*recordsOnPage}"/>
                 <c:forEach items="${listOfRooms}" var="item">
@@ -145,19 +130,14 @@
                         <td>${item.dateEnd}</td>
                         <td>${item.roomDtoResponse.price} грн</td>
                         <td>
-                            <form class="d-flex" action="home" method="post">
-                                <button class="btn btn-primary" name="command" value="changeRoomStatus"
-                                        type="submit" ${item.statusStatement.statusStatementName=='free'?'':'disabled'} ${user==null?'hidden':''}>
-                                    book...
-                                    <a class=""
-                                       href="home?command=showRooms&numberOfPage=${i}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&signIn=${signIn}&signOut=${signOut}&statusFree=${statusFree}&statusBooked=${statusBooked}"
-                                       hidden></a>
-                                </button>
+                            <form action="home" method="get">
+
                                 <input name="roomId" value="${item.roomDtoResponse.id}" hidden>
                                 <input name="roomStatusId" value="${item.statusId}" hidden>
-                                <input name="dateStart" value="${signIn}" hidden>
-                                <input name="dateEnd" value="${signOut}" hidden>
-                                <input name="userId" value="${user.id}" hidden>
+                                <input name="dateStart" value="${item.dateStart}" hidden>
+                                <input name="dateEnd" value="${item.dateEnd}" hidden>
+                                <input name="checkIn" value="${checkIn}" hidden>
+                                <input name="checkOut" value="${checkOut}" hidden>
                                 <input name="sorting" value="${sorting}" hidden>
                                 <input name="ordering" value="${ordering}" hidden>
                                 <input name="hotelId" value="${hotelId}" hidden>
@@ -166,35 +146,41 @@
                                 <input name="statusBooked" value="${statusBooked}" hidden>
                                 <input name="recordsOnPage" value="${recordsOnPage}" hidden>
 
+                                <button class="btn btn-outline-primary ${item.statusStatement.statusStatementName=='booked'?'disabled':''}"
+                                        name="command" value="createBookingCommand"
+                                        type="submit"
+                                        style="width: 100px"
+                                    ${user==null||user.role!='USER'?'hidden':''}
+                                    ${item.statusStatement.statusStatementName=='booked'?'hidden':''}>
+                                    book it
+                                </button>
                             </form>
                         </td>
-
                     </tr>
                 </c:forEach>
             </table>
+
+
             <a class="btn btn-light"
-               href="home?command=showRooms&numberOfPage=${numberOfPage-1<1?1:numberOfPage-1}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&signIn=${signIn}&signOut=${signOut}&statusFree=${statusFree}&statusBooked=${statusBooked}"
+               href="home?command=showRooms&numberOfPage=${numberOfPage-1<1?1:numberOfPage-1}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&checkIn=${checkIn}&checkOut=${checkOut}&statusFree=${statusFree}&statusBooked=${statusBooked}&sorting=${sorting}&ordering=${ordering}"
             ${numberOfPage==1?'hidden':''}><</a>
 
             <c:forEach var="i" begin="1" end="${totalPages}">
                 <a href="" ${numberOfPage>3&&i==1?'':'hidden'} style="text-decoration: none;">...</a>
 
                 <a class="${(numberOfPage==i)?'btn btn-primary':'btn btn-light'}"
-                   href="home?command=showRooms&numberOfPage=${i}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&signIn=${signIn}&signOut=${signOut}&statusFree=${statusFree}&statusBooked=${statusBooked}"
+                   href="home?command=showRooms&numberOfPage=${i}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&checkIn=${checkIn}&checkOut=${checkOut}&statusFree=${statusFree}&statusBooked=${statusBooked}&sorting=${sorting}&ordering=${ordering}"
                     ${Math.abs(numberOfPage-i)<3||i==totalPages?'':'hidden'}>${i}</a>
 
                 <a href="" ${Math.abs(numberOfPage-totalPages)>3&&i==totalPages-1?'':'hidden'}
                    style="text-decoration: none;">...</a>
-
             </c:forEach>
-
             <a class="btn btn-light"
-               href="home?command=showRooms&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&signIn=${signIn}&signOut=${signOut}&statusFree=${statusFree}&statusBooked=${statusBooked}"
-            ${numberOfPage==totalPages?'hidden':''}>></a>
+               href="home?command=showRooms&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&recordsOnPage=${recordsOnPage}&hotelId=${hotelId}&hotelName=${hotelName}&checkIn=${checkIn}&checkOut=${checkOut}&statusFree=${statusFree}&statusBooked=${statusBooked}&sorting=${sorting}&ordering=${ordering}"
+            ${numberOfPage==totalPages||totalPages<=2?'hidden':''}>></a>
         </div>
 
         <div class="col-2">
-
 
         </div>
     </div>

@@ -4,6 +4,7 @@ import com.vladnickgofj.hotel.dao.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ResultSetMapper {
 
@@ -89,4 +90,30 @@ public class ResultSetMapper {
                 .build();
     }
 
+    public static UsersOrder mapResultSetToUsersOrder(ResultSet resultSet) throws SQLException{
+        return UsersOrder.newBuilder()
+                .id(resultSet.getInt("order_id"))
+                .user(User.newBuilder()
+                        .id(resultSet.getInt("user_id"))
+                        .firstName(resultSet.getString("first_name"))
+                        .lastName(resultSet.getString("last_name"))
+                        .email(resultSet.getString("email"))
+                        .build())
+                .hotel(Hotel.newBuilder()
+                        .id(resultSet.getInt("hotel_id"))
+                        .name(resultSet.getString("hotel_name"))
+                        .build())
+                .dateStart(resultSet.getDate("date_start").toLocalDate())
+                .dateEnd(resultSet.getDate("date_end").toLocalDate())
+                .orderDate(resultSet.getDate("order_date").toLocalDate())
+                .numberOfPersons(resultSet.getInt("number_of_persons"))
+                .room(Room.newBuilder()
+                        .roomType(RoomType.newBuilder()
+                                .id(resultSet.getInt("room_type_id"))
+                                .typeName(resultSet.getString("type_name"))
+                                .build())
+                        .build())
+                .orderStatus(OrderStatus.getOrderStatus(resultSet.getInt("order_status_id")))
+                .build();
+    }
 }

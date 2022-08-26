@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegisterCommand implements Command {
-    private final UserService userService;
     public static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
+    private final UserService userService;
 
     public RegisterCommand(UserService userService) {
         this.userService = userService;
@@ -21,8 +21,13 @@ public class RegisterCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         UserDto userDto = mapRequestToUserDto(request);
         LOGGER.info("userDto" + userDto);
+        String method = request.getMethod();
+        String command = request.getParameter("command");
+        LOGGER.info("command: " + command);
+        request.setAttribute("command", command);
         try {
             request.getSession();
             request.getSession().invalidate();
@@ -40,14 +45,13 @@ public class RegisterCommand implements Command {
         return PagesConstant.REGISTRATION_PAGE;
     }
 
-    private UserDto mapRequestToUserDto(HttpServletRequest request){
+    private UserDto mapRequestToUserDto(HttpServletRequest request) {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmationPassword = request.getParameter("confirmationPassword");
         return UserDto.newBuilder()
-                .id(1)
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)

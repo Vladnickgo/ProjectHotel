@@ -8,7 +8,7 @@
 
 <f:setBundle var="bunCont" basename="resources"/>
 
-<c:set var="Title" scope="request" value="LogIn"/>
+<c:set var="Title" scope="request" value="Show hotels"/>
 
 <%--<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>--%>
 
@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-5">
                 <input name="command" value="showHotels" hidden>
-<%--                <input name="numberOfPage" value="${numberOfPage==null?1:numberOfPage}" hidden>--%>
+                <%--                <input name="numberOfPage" value="${numberOfPage==null?1:numberOfPage}" hidden>--%>
                 <select name="recordsOnPage">
                     <option value="8" ${recordsOnPage==8?'selected':''}>8 на сторінці</option>
                     <option value="16" ${recordsOnPage==16?'selected':''}>16 на сторінці</option>

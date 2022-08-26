@@ -36,7 +36,9 @@ public class ExceptionHandler extends HttpServlet {
 
             if (code.equals(404)) {
                 LOGGER.info("HTTP Status " + code);
-                resp.sendRedirect(PagesConstant.PAGE_NOT_FOUND);
+                req.getRequestDispatcher(PagesConstant.PAGE_NOT_FOUND).forward(req, resp);
+//                req.getSession().invalidate();
+//                resp.sendRedirect(PagesConstant.PAGE_NOT_FOUND);
             }
 
             Throwable throwable = (Throwable) req.getAttribute("javax.servlet.error.exception");
@@ -49,7 +51,8 @@ public class ExceptionHandler extends HttpServlet {
 
             if ("AuthorisationFailException".equals(exceptionName)) {
                 req.getSession().invalidate();
-                resp.sendRedirect(PagesConstant.NOT_AUTHORIZED_USER_PAGE);
+                LOGGER.info("AuthorisationFailException "+"HTTP Status " + code);
+                req.getRequestDispatcher(PagesConstant.NOT_AUTHORIZED_USER_PAGE).forward(req,resp);
             }
 
             if (code.equals(500)) {

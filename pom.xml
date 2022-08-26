@@ -16,9 +16,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <junit.version>5.8.1</junit.version>
         <apache.commons.version>3.12.0</apache.commons.version>
-        <msq.connector.java>8.0.27</msq.connector.java>
+        <msq.connector.java>8.0.30</msq.connector.java>
         <hikari.cp>5.0.1</hikari.cp>
-        <javax.servlet.api>3.1.0</javax.servlet.api>
+        <javax.servlet.api>4.0.1</javax.servlet.api>
         <tomcat.embed.core>9.0.58</tomcat.embed.core>
         <json.simple>1.1.1</json.simple>
         <jstl.ver>1.2</jstl.ver>
@@ -92,6 +92,11 @@
             <version>4.6.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>wisp</artifactId>
+            <version>2.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,6 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

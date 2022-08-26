@@ -21,7 +21,10 @@
         <div class="col-4">
             <h1>Hello Hotel</h1>
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+
+            ${sessionScope.user.firstName}
+        </div>
     </div>
 </div>
 
@@ -35,6 +38,8 @@
         <div class="col-4"></div>
     </div>
 </div>
+<%@ taglib uri="/WEB-INF/mytags.tld" prefix="m" %>
+Current Date and Time is: <m:today/>
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

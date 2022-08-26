@@ -6,6 +6,9 @@ import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.service.RoomTypeService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.vladnickgofj.hotel.validator.ValidatorErrorMessage.ROOM_TYPE_NOT_DEFINED;
 
 public class RoomTypeServiceImpl implements RoomTypeService {
@@ -25,4 +28,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
                 .orElseThrow(() -> new IllegalArgumentException(String.format(ROOM_TYPE_NOT_DEFINED, id)));
         return mapper.mapEntityToDto(roomType);
     }
+
+    @Override
+    public List<RoomTypeDto> findAll() {
+        return roomTypeRepository.findAll()
+                .stream()
+                .map(mapper::mapEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+
 }

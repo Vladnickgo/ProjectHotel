@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.connection;
 
-import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.log4j.Logger;
 

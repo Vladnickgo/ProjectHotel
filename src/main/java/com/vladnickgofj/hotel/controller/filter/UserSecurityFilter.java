@@ -2,7 +2,6 @@ package com.vladnickgofj.hotel.controller.filter;
 
 import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.controller.dto.UserDto;
-import com.vladnickgofj.hotel.dao.entity.Role;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -19,7 +18,7 @@ public class UserSecurityFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(UserSecurityFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
         LOGGER.info("Log from UserSecurityFilter, method init()");
     }
 
@@ -29,10 +28,10 @@ public class UserSecurityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         UserDto user = (UserDto) request.getSession().getAttribute("user");
 
-        if (user == null || !Role.USER.equals(user.getRole())) {
-            request.getRequestDispatcher(PagesConstant.LOGIN_PAGE).forward(request, servletResponse);
-        } else {
+        if (user != null /*|| user.getRole().equals(Role.USER) || user.getRole().equals(Role.ADMIN)*/) {
             filterChain.doFilter(request, servletResponse);
+        } else {
+            request.getRequestDispatcher(PagesConstant.LOGIN_PAGE).forward(request, servletResponse);
         }
 
     }
