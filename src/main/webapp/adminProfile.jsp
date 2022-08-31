@@ -16,14 +16,30 @@
     <title>Title</title>
 </head>
 <body>
-<c:import url="views/header.jsp"/>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
 <div>
     <div class="row container-fluid">
         <div class="col-2" style="">
 
         </div>
         <div class="col-8">
-            <h1 class="text-center">${user.role} PROFILE</h1>
+            <h1 class="text-center"><f:message key="adminProfile" bundle="${bunCont}"/> </h1>
             <hr>
             <h3 style="text-align: left; margin-bottom: 20px; color: darkslateblue">
                 <f:message key="usersOrders" bundle="${bunCont}"/>
@@ -91,11 +107,11 @@
         <div class="col-8 text-center">
             <table class="table table-striped" style="width: 100%;padding-bottom: 30px">
                 <tr class="table-primary">
-                    <th>Дата замовлення</th>
-                    <th>Готель</th>
-                    <th>Дата заїзду</th>
-                    <th>Дата від'їзду</th>
-                    <th>Тип кімнати</th>
+                    <th><f:message key="orderDate" bundle="${bunCont}"/> </th>
+                    <th><f:message key="hotel" bundle="${bunCont}"/></th>
+                    <th><f:message key="checkIn" bundle="${bunCont}"/></th>
+                    <th><f:message key="checkOut" bundle="${bunCont}"/></th>
+                    <th><f:message key="roomType" bundle="${bunCont}"/></th>
                     <th><f:message key="numberOfPersons" bundle="${bunCont}"/></th>
                     <th><f:message key="client" bundle="${bunCont}"/></th>
                     <th></th>
@@ -115,7 +131,7 @@
                                         name="command" value="orderHandlerPage"
                                         type="submit"
                                         style="">
-                                    View
+                                    <f:message key="view" bundle="${bunCont}"/>
                                 </button>
                                 <input name="userId" value="${usersOrder.userDto.id}" hidden>
                                 <input name="firstName" value="${usersOrder.userDto.firstName}" hidden>
@@ -151,6 +167,8 @@
                    href="home?command=showAdminProfile&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&itemsOnPage=${itemsOnPage}&statusNotDone=${statusNotDone}&statusCompleted=${statusCompleted}&sorting=${sorting}&ordering=${ordering}"
                 ${numberOfPage>=totalPages?'hidden':''}>></a>
             </div>
+            ${usersOrderDtoList}<br>
+            ${roomStatusList}
         </div>
         <div class="col-2"></div>
     </div>

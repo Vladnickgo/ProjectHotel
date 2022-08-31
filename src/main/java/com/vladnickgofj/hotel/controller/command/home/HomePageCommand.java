@@ -14,7 +14,6 @@ public class HomePageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String method = request.getMethod();
         String command = request.getParameter("command");
         request.setAttribute("command", command);
         return PagesConstant.HOME_PAGE;

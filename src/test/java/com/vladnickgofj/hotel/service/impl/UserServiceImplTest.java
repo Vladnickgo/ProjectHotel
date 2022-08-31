@@ -6,6 +6,7 @@ import com.vladnickgofj.hotel.dao.entity.Role;
 import com.vladnickgofj.hotel.dao.entity.User;
 import com.vladnickgofj.hotel.service.exception.EntityAlreadyExistException;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.service.util.PasswordEncryptionService;
 import com.vladnickgofj.hotel.validator.UserValidator;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,11 +17,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
@@ -36,6 +38,9 @@ public class UserServiceImplTest {
 
     @Mock
     private UserDto userDto;
+
+    @Mock
+    private PasswordEncryptionService passwordEncryptionService;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -62,11 +67,9 @@ public class UserServiceImplTest {
 
     @ParameterizedTest(name = "[{index}]{4}")
     @MethodSource("provideNotValidEmail")
-    public void loginTestForNotValidPassword(String email, String password, User user, UserDto userDto, String expectedExceptionMessage, String message) {
+    public void loginTestForNotValidPassword(String email, String password, User user, UserDto userDto, String expectedExceptionMessage, String message) throws NoSuchAlgorithmException, InvalidKeySpecException {
         Mockito.doNothing().when(userValidator).validateEmail(email);
         Mockito.when(userDao.findByEmail(email)).thenReturn(Optional.of(user));
-        Mockito.when(mapper.mapEntityToDto(user)).thenReturn(userDto);
-        UserDto byEmail = userService.findByEmail(email);
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.login(email, password));
         String actualExceptionMessage = illegalArgumentException.getMessage();
         assertEquals(expectedExceptionMessage, actualExceptionMessage);
@@ -143,10 +146,11 @@ public class UserServiceImplTest {
         return Stream.of(
                 Arguments.of(
                         "van@test.com",
-                        "1234",
+                        "12345",
                         User.newBuilder()
                                 .email("ivan@mail.com")
-                                .password("123")
+                                .password("fd06dd38d1fd964b21fbfa73c207cda337c45c3a")
+                                .salt("7f1195dbf9222e9a")
                                 .build(),
                         UserDto.newBuilder()
                                 .email("ivan@mail.com")
@@ -160,6 +164,7 @@ public class UserServiceImplTest {
                         User.newBuilder()
                                 .email("ivan@mail.com")
                                 .password("12345")
+                                .salt("7f1195dbf9222e9a")
                                 .build(),
                         UserDto.newBuilder()
                                 .email("ivan@mail.com")
@@ -173,6 +178,7 @@ public class UserServiceImplTest {
                         User.newBuilder()
                                 .email("ivan@mail.com")
                                 .password("")
+                                .salt("7f1195dbf9222e9a")
                                 .build(),
                         UserDto.newBuilder()
                                 .email("ivan@mail.com")
@@ -234,7 +240,8 @@ public class UserServiceImplTest {
                                 .firstName("Bob")
                                 .lastName("Martin")
                                 .email("bob_martin@test.com")
-                                .password("martin123")
+                                .password("57023bb780e4e312a44c02dcdbbd1fd441e71736")
+                                .salt("813722871d5975e0")
                                 .role(Role.ADMIN)
                                 .build(),
                         UserDto.newBuilder()
@@ -255,7 +262,8 @@ public class UserServiceImplTest {
                                 .firstName("Bertrand")
                                 .lastName("Mayer")
                                 .email("bertrand_mayer@test.com")
-                                .password("mayer23")
+                                .password("b56f081bf515e3222e26e12f14a6171fed53486a")
+                                .salt("958788940305a349")
                                 .role(Role.ADMIN)
                                 .build(),
                         UserDto.newBuilder()

@@ -18,7 +18,6 @@ public class RoomStatusMapper implements Mapper<RoomStatusDto, RoomStatus> {
                         .roomType(RoomType.newBuilder()
                                 .typeName(roomStatusDto.getRoomDtoResponse().getRoomType().getTypeName())
                                 .build())
-//                        .numberOfBeds(roomStatusDto.getRoomDtoResponse().getNumberOfBeds())
                         .price(roomStatusDto.getNumberOfNights())
                         .hotel(Hotel.newBuilder()
                                 .name(roomStatusDto.getRoomDtoResponse().getHotel().getName())

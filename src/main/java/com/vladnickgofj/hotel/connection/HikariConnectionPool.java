@@ -23,7 +23,6 @@ public class HikariConnectionPool {
             dataSource.setMinimumIdle(Integer.parseInt(resource.getString("dataSource.minimumIdle")));
             dataSource.setMaximumPoolSize(Integer.parseInt(resource.getString("dataSource.MaximumPoolSize")));
             dataSource.setLoginTimeout(Integer.parseInt(resource.getString("dataSource.setLoginTimeout")));
-            System.out.println("Connection established ");
         } catch (SQLException e) {
             LOGGER.error(" Database access error", e);
 //            throw new DataBaseRuntimeException(e);

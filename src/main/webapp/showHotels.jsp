@@ -11,19 +11,29 @@
 <c:set var="Title" scope="request" value="Show hotels"/>
 
 <%--<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>--%>
-
-<body>
-
 <c:import url="views/head.jsp"/>
 
-<c:import url="views/header.jsp"/>
-
 <html>
-<head>
-    <title>ShowHotels</title>
-</head>
 <body>
-
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+                <input name="numberOfPage" value="${numberOfPage}" hidden>
+                <input name="recordsOnPage" value="${recordsOnPage}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="container">
     <h1 style="text-align: center">
         <f:message key="hotels" bundle="${bunCont}"/>
@@ -95,7 +105,9 @@
             </c:forEach>
         </table>
     </div>
+
 </div>
 <c:import url="views/footer.jsp"/>
+
 </body>
 </html>

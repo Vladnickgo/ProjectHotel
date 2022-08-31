@@ -13,7 +13,24 @@
 <c:import url="views/head.jsp"/>
 
 <body>
-<c:import url="views/header.jsp"/>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-5">
     <div class="row text-center">
         <div class="col-3"></div>
@@ -24,8 +41,6 @@
             <div style="display: flex; flex-direction: row; justify-content: center;">
                 <form action="home" method="post">
                     <input name="command" value="login" hidden>
-                    <input name="method" value="post" hidden>
-
                     <table>
                         <tr>
                             <td>email</td>

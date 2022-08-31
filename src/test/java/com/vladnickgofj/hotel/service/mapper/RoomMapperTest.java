@@ -3,7 +3,6 @@ package com.vladnickgofj.hotel.service.mapper;
 import com.vladnickgofj.hotel.controller.dto.RoomDto;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,7 +13,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoomMapperTest {
-    Mapper<RoomDto, Room> mapper = new RoomMapper();
+    private final Mapper<RoomDto, Room> mapper = new RoomMapper();
 
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideRoomAndRoomDtoForCheckMapping")

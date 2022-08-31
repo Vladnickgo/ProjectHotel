@@ -28,6 +28,9 @@ public class ShowAdminProfileCommand implements Command {
         String numberOfPage = request.getParameter("numberOfPage");
         String statusNotDone = request.getParameter("statusNotDone");
         String statusCompleted = request.getParameter("statusCompleted");
+
+
+
         String command = request.getParameter("command");
         request.setAttribute("command", command);
         String method = request.getMethod();

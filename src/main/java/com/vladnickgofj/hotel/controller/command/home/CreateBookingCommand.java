@@ -66,8 +66,7 @@ public class CreateBookingCommand implements Command {
         request.getSession().setAttribute("statusFree", statusFree);
         request.getSession().setAttribute("statusBooked", statusBooked);
         request.getSession().setAttribute("numberOfNights", numberOfNights);
-        String url = "home?command=createBookingCommand" +
-                "&roomId=" + roomId +
+        String parameters = "&roomId=" + roomId +
                 "&roomStatusId=" + roomStatusId +
                 "&dateStart=" + dateStart +
                 "&dateEnd=" + dateEnd +
@@ -81,7 +80,7 @@ public class CreateBookingCommand implements Command {
                 "&statusBooked=" + statusBooked +
                 "&recordsOnPage=" + recordsOnPage +
                 "&numberOfNights=" + numberOfNights;
-        String page = PagesConstant.CREATE_BOOKING_PAGE;
-        return "post".equals(method) ? url : page;
+        request.setAttribute("parameters", parameters);
+        return PagesConstant.CREATE_BOOKING_PAGE;
     }
 }

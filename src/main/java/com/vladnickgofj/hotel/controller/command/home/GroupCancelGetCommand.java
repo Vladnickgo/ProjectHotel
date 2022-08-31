@@ -14,8 +14,7 @@ public class GroupCancelGetCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<BookingDto> bookingDtoList = (List<BookingDto>) request.getSession().getAttribute("bookingDtoList");
-        request.setAttribute("bookingDtoList",bookingDtoList);
-        request.getSession().removeAttribute("bookingDtoList");
+        request.setAttribute("bookingDtoList", bookingDtoList);
         return PagesConstant.CANCEL_BOOKING_RESULT_PAGE;
     }
 }

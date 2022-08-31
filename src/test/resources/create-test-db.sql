@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS hotel;
-CREATE DATABASE IF NOT EXISTS hotel;
-USE hotel;
+DROP DATABASE IF EXISTS testdb;
+CREATE DATABASE IF NOT EXISTS testdb;
+USE testdb;
 CREATE TABLE IF NOT EXISTS role
 (
     role_id INTEGER PRIMARY KEY auto_increment,
@@ -108,3 +108,100 @@ CREATE TABLE IF NOT EXISTS users_order
     FOREIGN KEY (room_type_id) REFERENCES room_type (type_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
+
+INSERT INTO role(name)
+VALUES ('admin'),
+       ('user');
+
+INSERT INTO room_type (type_name)
+VALUES ('Single'),
+       ('Double'),
+       ('Triple'),
+       ('Quad'),
+       ('Queen'),
+       ('King'),
+       ('Twin'),
+       ('Double-double'),
+       ('Suite'),
+       ('President Suite');
+
+INSERT INTO room_status_statement (status_statement_name)
+VALUES ('free'),
+       ('booked'),
+       ('busy'),
+       ('not available');
+
+INSERT INTO booking_status(booking_status_name)
+VALUES ('not paid'),
+       ('paid'),
+       ('canceled');
+
+INSERT INTO users_order_status (order_status_name)
+VALUES ('not done'),
+       ('completed');
+
+INSERT INTO hotel (hotel_name)
+VALUES ('Eleon'),
+       ('Kyiv');
+
+INSERT INTO room (type_id, number_of_beds, price, hotel_id)
+VALUES (1, 1, 700, 1),
+       (1, 1, 600, 1),
+       (2, 1, 1200, 1),
+       (2, 2, 1100, 1),
+       (1, 1, 800, 1),
+       (1, 1, 650, 1),
+       (2, 2, 1100, 1),
+       (2, 2, 1100, 1),
+       (3, 3, 1500, 1),
+       (4, 4, 1800, 1),
+       (5, 2, 1200, 1),
+       (6, 2, 1300, 1),
+       (8, 4, 1800, 1),
+       (8, 4, 1800, 1),
+       (10, 2, 50000, 1),
+       (1, 1, 600, 2),
+       (1, 1, 600, 2),
+       (2, 2, 1100, 2),
+       (4, 4, 1800, 2),
+       (5, 2, 1200, 2),
+       (7, 2, 1000, 2),
+       (7, 2, 1000, 2),
+       (8, 4, 1800, 2),
+       (8, 4, 1800, 2),
+       (9, 2, 10000, 2),
+       (9, 2, 10000, 2),
+       (9, 2, 10000, 2),
+       (9, 2, 10000, 2),
+       (9, 2, 10000, 2);
+
+INSERT INTO room_status(date_start, date_end, room_id, status_statement_id)
+VALUES ('2022-08-01', '2022-11-01', 1, 1),
+       ('2022-08-01', '2022-11-01', 2, 1),
+       ('2022-08-01', '2022-11-01', 3, 1),
+       ('2022-08-01', '2022-11-01', 4, 1),
+       ('2022-08-01', '2022-11-01', 5, 1),
+       ('2022-08-01', '2022-11-01', 6, 1),
+       ('2022-08-01', '2022-11-01', 7, 1),
+       ('2022-08-01', '2022-11-01', 8, 1),
+       ('2022-08-01', '2022-11-01', 9, 1),
+       ('2022-08-01', '2022-11-01', 10, 1),
+       ('2022-08-01', '2022-11-01', 11, 1),
+       ('2022-08-01', '2022-11-01', 12, 1),
+       ('2022-08-01', '2022-11-01', 13, 1),
+       ('2022-08-01', '2022-11-01', 14, 1),
+       ('2022-08-01', '2022-11-01', 15, 1),
+       ('2022-08-01', '2022-11-01', 16, 1),
+       ('2022-08-01', '2022-11-01', 17, 1),
+       ('2022-08-01', '2022-11-01', 18, 1),
+       ('2022-08-01', '2022-11-01', 19, 1),
+       ('2022-08-01', '2022-11-01', 20, 1),
+       ('2022-08-01', '2022-11-01', 21, 1),
+       ('2022-08-01', '2022-11-01', 22, 1),
+       ('2022-08-01', '2022-11-01', 23, 1),
+       ('2022-08-01', '2022-11-01', 24, 1),
+       ('2022-08-01', '2022-11-01', 25, 1),
+       ('2022-08-01', '2022-11-01', 26, 1),
+       ('2022-08-01', '2022-11-01', 27, 1),
+       ('2022-08-01', '2022-11-01', 28, 1),
+       ('2022-08-01', '2022-11-01', 29, 1);

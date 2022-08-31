@@ -4,18 +4,18 @@ INSERT INTO role(name)
 VALUES ('admin'),
        ('user');
 
-INSERT INTO users (first_name, last_name, email, password, role_id)
-VALUES ('Vladimir', 'Golubkov', 'admin@mail.com', '1234', 1),
-       ('Andrey', 'Mastykov', 'andrey@mail.com', '1234', 2),
-       ('Sergey', 'Galushtenko', 'sergey@mail.com', '1234', 2),
-       ('Yeugen', 'Litvinov', 'yevgeniy@mail.com', '1234', 2),
-       ('Gennadiy', 'Stolyarov', 'gena@mail.com', '1234', 2),
-       ('Sergey', 'Chuiko', 'chuiko@mail.com', '1234', 2),
-       ('Ivan', 'Gnedenko', 'ivan@mail.com', '1234', 2),
-       ('Artem', 'Fateev', 'artem@mail.com', '1234', 2),
-       ('Sofiia', 'Holubkova', 'holubkova@test.com', '1234', 2),
-       ('Inna', 'Golubkova', 'inna@gmail.com', '1234', 2),
-       ('Aleksandr', 'Golubkov', 'algol@gmail.com', '123qwe', 2);
+INSERT INTO users (first_name, last_name, email, password, salt, role_id)
+VALUES ('Vladimir', 'Golubkov', 'admin@mail.com', 'fd06dd38d1fd964b21fbfa73c207cda337c45c3a', '7f1195dbf9222e9a', 1),
+       ('Andrey', 'Mastykov', 'andrey@mail.com', '0a233ec67ca2b482e6d3e3c62941135d1b660199', 'e8afd5d44e2be783', 2),
+       ('Sergey', 'Galushtenko', 'sergey@mail.com', '922e22af7f9762d93d314d2b9deea821f8666581', '420f28d49532f09a', 2),
+       ('Gennadiy', 'Stolyarov', 'gena@mail.com', 'cd700eac16298b74fce0cab8de4051648e21578b', 'f69b200de4bbb082', 2),
+       ('Sergey', 'Chuiko', 'chuiko@mail.com', 'bc20d1ba99e8021971b4c073ae48e9e144c0f7df', '7f9efb781541fa50', 2),
+       ('Ivan', 'Gnedenko', 'ivan@mail.com', '5e87510eae3c500a14bd2f2a25cfc26ee20360f3', 'b4daf39742c51fda', 2),
+       ('Artem', 'Fateev', 'artem@mail.com', 'b78fb14a82f826e85e11a562ac7d93139fe7226d', '6e8e77a3159f0775', 2),
+       ('Sofiia', 'Holubkova', 'holubkova@test.com', 'e6fb21c876bb0e499e1a395ec7831bf2c4b4ae99', '650149f0bb2ccf45', 2),
+       ('Inna', 'Golubkova', 'inna@gmail.com', '03393f4baefbe1570153bbb5b0f9686916f2fb33', '965925dec6b906e2', 2),
+       ('Aleksandr', 'Golubkov', 'algol@gmail.com', 'e5c22a6d35adcf0f962be188349080ea60be9d5c', '37a16e31dced8345', 2);
+
 
 INSERT INTO room_type (type_name)
 VALUES ('Single'),

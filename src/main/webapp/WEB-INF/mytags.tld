@@ -11,7 +11,7 @@
     <uri>https://tomcat.apache.org/example-taglib</uri>
 
     <tag>
-        <name>today</name>
+        <name>userinfo</name>
         <tag-class>tagHandler.MyTagHandler</tag-class>
     </tag>
 </taglib>

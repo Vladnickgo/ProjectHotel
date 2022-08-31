@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.controller.command.home;
 
-import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.*;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderCompletionConfirmationCommand implements Command {
-    private static final Logger LOGGER=Logger.getLogger(OrderCompletionConfirmationCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(OrderCompletionConfirmationCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final UsersOrderService usersOrderService = contextInjector.getUsersOrderService();
     private final List<UsersOrderDto> usersOrderDtoList = new ArrayList<>();
@@ -37,8 +36,6 @@ public class OrderCompletionConfirmationCommand implements Command {
         String email = request.getParameter("email");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
 
         String userOrderId = request.getParameter("userOrderId");
         String hotelId = request.getParameter("hotelId");
@@ -107,6 +104,11 @@ public class OrderCompletionConfirmationCommand implements Command {
         }
         usersOrderService.completeUsersOrder(usersOrderDtoList, roomStatusList);
 
-        return PagesConstant.ABOUT_PAGE;
+        request.setCharacterEncoding("windows-1251");
+        String s = request.getCharacterEncoding();
+        System.out.println("request.getCharacterEncoding(): " + s);
+        request.getSession().setAttribute("usersOrderDtoList", usersOrderDtoList);
+        request.getSession().setAttribute("roomStatusList", roomStatusList);
+        return "home?command=showAdminProfile";
     }
 }

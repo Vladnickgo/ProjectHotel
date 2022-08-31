@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ShowRoomsCommand implements Command {
 
-    private static Logger LOGGER = Logger.getLogger(ShowRoomsCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(ShowRoomsCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final RoomStatusService roomStatusService = contextInjector.getRoomStatusService();
 
@@ -35,10 +35,6 @@ public class ShowRoomsCommand implements Command {
         String checkInStr = request.getParameter("checkIn");
         String checkOutStr = request.getParameter("checkOut");
         String command = request.getParameter("command");
-        request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
-
         RoomStatusDtoRequest roomStatusDtoRequest = RoomStatusDtoRequest.newBuilder()
                 .hotelId(hotelId)
                 .hotelName(hotelName)
@@ -70,6 +66,19 @@ public class ShowRoomsCommand implements Command {
         LOGGER.info("minCheckOut: " + roomStatusDtoRequest.getMinSignOut());
         LOGGER.info("maxCheckOut: " + roomStatusDtoRequest.getMaxSignOut());
 
+        sorting = roomStatusDtoRequest.getSorting();
+        ordering = roomStatusDtoRequest.getOrdering();
+        recordsOnPage = roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage().toString();
+        numberOfPage = roomStatusDtoRequest.getNumberOfPage().toString();
+        checkInStr = roomStatusDtoRequest.getSignIn().toString();
+        checkOutStr = roomStatusDtoRequest.getSignOut().toString();
+        statusFree = roomStatusDtoRequest.getStatusFree();
+        statusBooked = roomStatusDtoRequest.getStatusBooked();
+        String parameters = "&checkIn=" + checkInStr + "&checkOut=" + checkOutStr + "&statusFree=" + statusFree + "&statusBooked=" + statusBooked + "&sorting=" + sorting + "&ordering=" + ordering + "&recordsOnPage="
+                + recordsOnPage + "&hotelId=" + hotelId + "&hotelName=" + hotelName + "&numberOfPage=" + numberOfPage;
+
+        request.setAttribute("command", command);
+        request.setAttribute("parameters", parameters);
         request.setAttribute("hotelId", hotelId);
         request.setAttribute("hotelName", hotelName);
         request.setAttribute("sorting", roomStatusDtoRequest.getSorting());
@@ -86,8 +95,7 @@ public class ShowRoomsCommand implements Command {
         request.setAttribute("maxCheckIn", roomStatusDtoRequest.getMaxSignIn());
         request.setAttribute("minCheckOut", roomStatusDtoRequest.getMinSignOut());
         request.setAttribute("maxCheckOut", roomStatusDtoRequest.getMaxSignOut());
-        String url = "home?command=showRooms&hotelId="+hotelId+"&hotelName="+hotelName;
-//        return "post".equals(method) ? url : page;
+        String url = "home?command=showRooms&hotelId=" + hotelId + "&hotelName=" + hotelName;
         return PagesConstant.SHOW_ROOMS;
     }
 

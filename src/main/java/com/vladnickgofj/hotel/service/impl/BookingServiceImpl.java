@@ -20,8 +20,8 @@ public class BookingServiceImpl implements BookingService {
     private final BookingDao bookingRepository;
     private final Mapper<BookingDto, Booking> bookingMapper;
     private final Mapper<RoomStatusDto, RoomStatus> roomStatusMapper;
-    private static final Logger LOGGER = Logger.getLogger(BookingServiceImpl.class);
     private BookingRequestDtoUtil bookingRequestDtoUtil;
+    private static final Logger LOGGER = Logger.getLogger(BookingServiceImpl.class);
 
     public BookingServiceImpl(BookingDao bookingRepository, Mapper<BookingDto, Booking> bookingMapper, Mapper<RoomStatusDto, RoomStatus> roomStatusMapper) {
         this.bookingRepository = bookingRepository;

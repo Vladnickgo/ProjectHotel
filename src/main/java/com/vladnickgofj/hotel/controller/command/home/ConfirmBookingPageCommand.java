@@ -16,8 +16,6 @@ public class ConfirmBookingPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String url = "home?command=confirmBookingPageCommand";
-        request.setAttribute("url", url);
         return PagesConstant.BOOKING_PAYMENT_PAGE;
     }
 }

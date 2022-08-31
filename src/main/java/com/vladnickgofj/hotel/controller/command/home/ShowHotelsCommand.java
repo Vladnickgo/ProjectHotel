@@ -25,7 +25,7 @@ public class ShowHotelsCommand implements Command {
         String recordsOnPage = request.getParameter("recordsOnPage");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-
+        String parameters = "&numberOfPage="+numberOfPage+"&recordsOnPage="+recordsOnPage;
         Integer pageNumber = hotelService.initNumberOfPage(numberOfPage);
         Integer itemsOnPage = hotelService.initItemsOnPage(recordsOnPage);
 
@@ -40,9 +40,7 @@ public class ShowHotelsCommand implements Command {
         request.setAttribute("recordsOnPage", itemsOnPage);
         request.setAttribute("numberOfPage", pageNumber);
         request.setAttribute("command", command);
-        String url = "home?command=showHotels&numberOfPage=" +
-                pageNumber + "&recordsOnPage=" + itemsOnPage;
-        request.setAttribute("url", url);
+        request.setAttribute("parameters", parameters);
         return PagesConstant.SHOW_HOTELS;
     }
 

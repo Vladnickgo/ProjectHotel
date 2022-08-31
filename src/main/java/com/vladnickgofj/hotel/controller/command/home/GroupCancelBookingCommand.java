@@ -25,7 +25,6 @@ public class GroupCancelBookingCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-
         UserDto user = (UserDto) request.getSession().getAttribute("user");
         Integer userId = user.getId();
         String statusNotPaid = request.getParameter("statusNotPaid");
@@ -47,8 +46,6 @@ public class GroupCancelBookingCommand implements Command {
             }
             request.setAttribute("bookingDtoList", bookingDtoList);
             LOGGER.info("Found " + bookingDtoList.size() + " items BookingDto");
-            LOGGER.info("url: " + urlStringBuilder.toString());
-            LOGGER.info("command: " + command);
             request.setAttribute("bookingId", bookingIds);
             request.setAttribute("url", urlStringBuilder.toString());
             return PagesConstant.CONFIRM_CANCEL_BOOKING_PAGE;

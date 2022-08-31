@@ -14,7 +14,6 @@ public class RegisterPageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String method = request.getMethod();
         String command = request.getParameter("command");
         LOGGER.info("command: " + command);
         request.setAttribute("command", command);

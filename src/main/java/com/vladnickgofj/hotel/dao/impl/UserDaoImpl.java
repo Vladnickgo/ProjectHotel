@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public class UserDaoImpl extends AbstractCrudDaoImpl<User> implements com.vladnickgofj.hotel.dao.UserDao {
 
-    private static final String INSERT_QUERY = "INSERT INTO users(first_name, last_name, email, password, role_id) "+
-            "VALUES(?,?,?,?,?)";
+    private static final String INSERT_QUERY = "INSERT INTO users(first_name, last_name, email, password,salt, role_id) "+
+            "VALUES(?,?,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM users WHERE user_id=?";
     private static final String UPDATE_USER = "UPDATE users "+
             "SET first_name=?, last_name=?, email=?, password=?, role_id=? WHERE user_id=?";
@@ -36,13 +36,14 @@ public class UserDaoImpl extends AbstractCrudDaoImpl<User> implements com.vladni
         preparedStatement.setString(2, entity.getLastName());
         preparedStatement.setString(3, entity.getEmail());
         preparedStatement.setString(4, entity.getPassword());
-        preparedStatement.setInt(5, DEFAULT_USER_ROLE_ID);
+        preparedStatement.setString(5, entity.getSalt());
+        preparedStatement.setInt(6, DEFAULT_USER_ROLE_ID);
     }
 
     @Override
     protected void mapForUpdateStatement(PreparedStatement preparedStatement, User entity) throws SQLException {
         mapForInsertStatement(preparedStatement, entity);
-        preparedStatement.setInt(6, entity.getId());
+        preparedStatement.setInt(7, entity.getId());
     }
 
     @Override

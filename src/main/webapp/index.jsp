@@ -13,8 +13,27 @@
 <c:import url="views/head.jsp"/>
 
 <body>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
 
-<c:import url="views/header.jsp"/>
+
+<%--<c:import url="views/header.jsp"/>--%>
+
 <div class="container mt-5 mb-5 pb-5">
     <div class="row text-center">
         <div class="col-4"></div>
@@ -22,8 +41,6 @@
             <h1>Hello Hotel</h1>
         </div>
         <div class="col-4">
-
-            ${sessionScope.user.firstName}
         </div>
     </div>
 </div>
@@ -38,8 +55,6 @@
         <div class="col-4"></div>
     </div>
 </div>
-<%@ taglib uri="/WEB-INF/mytags.tld" prefix="m" %>
-Current Date and Time is: <m:today/>
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

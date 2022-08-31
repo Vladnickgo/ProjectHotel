@@ -119,9 +119,8 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             resultSet.next();
             return mapResultSetToEntity(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataBaseRuntimeException(e);
         }
-        return null;
     }
 
     @Override

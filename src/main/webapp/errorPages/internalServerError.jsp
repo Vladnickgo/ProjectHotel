@@ -20,8 +20,8 @@
 <body>
 <c:import url="../views/header.jsp"/>
 <div style="text-align: center; margin:30px;background-color: crimson;color: #F8F9FA;padding: 10px;">
-    <h1>HTTP 500</h1>
-    <h2>Internal Server Error</h2>
+    <h1>Ouch!</h1>
+    <h2>Something went wrong</h2>
 </div>
 <c:import url="../views/footer.jsp"/>
 </body>

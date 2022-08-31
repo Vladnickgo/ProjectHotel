@@ -24,6 +24,7 @@ public class ResultSetMapper {
                 .lastName(resultSet.getString("last_name"))
                 .email(resultSet.getString("email"))
                 .password(resultSet.getString("password"))
+                .salt(resultSet.getString("salt"))
                 .role(Role.getRole(resultSet.getInt("role_id")))
                 .build();
     }
@@ -40,6 +41,17 @@ public class ResultSetMapper {
                 .user(mapResultSetToUser(resultSet))
                 .build();
     }
+
+//    public static Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
+//        return Room.newBuilder()
+//                .id(resultSet.getInt("room_id"))
+//                .roomType(mapResultSetToRoomType(resultSet))
+//                .numberOfBeds(resultSet.getInt("number_of_beds"))
+////                .roomStatus(mapResultSetToRoomStatus(resultSet))
+//                .price(resultSet.getInt("price"))
+//                .hotel(mapResultSetToHotel(resultSet))
+//                .build();
+//    }
 
     public static Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
         return Room.newBuilder()

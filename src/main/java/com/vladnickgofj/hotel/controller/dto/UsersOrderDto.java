@@ -138,12 +138,12 @@ public class UsersOrderDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersOrderDto that = (UsersOrderDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(userDto, that.userDto) && Objects.equals(hotelDto, that.hotelDto) && Objects.equals(dateStart, that.dateStart) && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(orderDate, that.orderDate) && Objects.equals(numberOfPersons, that.numberOfPersons) && Objects.equals(roomDtoResponse, that.roomDtoResponse) && orderStatus == that.orderStatus;
+        return Objects.equals(id, that.id) && Objects.equals(userDto.getId(), that.userDto.getId()) && Objects.equals(hotelDto, that.hotelDto) && Objects.equals(dateStart, that.dateStart) && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(orderDate, that.orderDate) && Objects.equals(numberOfPersons, that.numberOfPersons) && Objects.equals(roomDtoResponse, that.roomDtoResponse) && orderStatus == that.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userDto, hotelDto, dateStart, dateEnd, orderDate, numberOfPersons, roomDtoResponse, orderStatus);
+        return Objects.hash(id, userDto.getId(), hotelDto, dateStart, dateEnd, orderDate, numberOfPersons, roomDtoResponse, orderStatus);
     }
 
     @Override

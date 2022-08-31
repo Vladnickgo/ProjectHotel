@@ -18,10 +18,26 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<html lang="ru">
+<html lang="${sessionScope.language}">
 <body>
 
-<c:import url="views/header.jsp"/>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

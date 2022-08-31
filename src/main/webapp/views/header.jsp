@@ -44,7 +44,7 @@
                     </button>
                 </form>
                 <li class="nav-item ">
-                    <form class="d-flex" action="user" method="post">
+                    <form class="d-flex" action="user" method="get">
                         <button class="btn btn-primary" name="command" value="logout"
                                 type="submit" ${user == null?'hidden':''}>
                             <f:message key="logout"></f:message>
@@ -56,18 +56,18 @@
 
             </ul>
             <ul style="list-style: none; margin-right:25px; font-size: 14px">
-                <li>${user.role}: ${user.firstName} ${user.lastName} </li>
-                <li>${user.email}</li>
+                <%@ taglib uri="/WEB-INF/mytags.tld" prefix="m" %>
+                <m:userinfo/>
             </ul>
-            <form class="d-flex" method="post" onchange="submit()">
-                <select class=" form-control select-size" id="language" name="language"
-                        style="width: 120px;">
-                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
-                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
-                </select>
-                <input name="command" value="${command==null?'homePage':command}" hidden>
-                <input name="url" value="${url}" hidden>
-            </form>
+            <%--            <form class="d-flex" method="post" onchange="submit()">--%>
+            <%--                <select class=" form-control select-size" id="language" name="language"--%>
+            <%--                        style="width: 120px;">--%>
+            <%--                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>--%>
+            <%--                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>--%>
+            <%--                </select>--%>
+            <%--                <input name="command" value="${command==null?'homePage':command}" hidden>--%>
+            <%--                <input name="parameters" value="${parameters}" hidden>--%>
+            <%--            </form>--%>
         </div>
     </div>
 </nav>

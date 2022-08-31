@@ -1,19 +1,27 @@
 package tagHandler;
 
+import com.vladnickgofj.hotel.controller.dto.UserDto;
+
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 
 public class MyTagHandler extends TagSupport {
     public int doStartTag() throws JspException {
-        JspWriter out = pageContext.getOut();//returns the instance of JspWriter
+        JspWriter out = pageContext.getOut();
+        HttpSession session = pageContext.getSession();
+        UserDto user = (UserDto) session.getAttribute("user");
         try {
-            out.print(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        } catch (Exception e) {
-            throw new JspException(e);
+            if (user != null) {
+                out.print(user.getRole() + ": " + user.getFirstName() + " " + user.getLastName() + "<br>" + user.getEmail());
+            }
+
+        } catch (IOException e) {
+//            e.printStackTrace();
         }
-        return SKIP_BODY;//will not evaluate the body content of the tag
+        return SKIP_BODY;
     }
+
 }

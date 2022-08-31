@@ -11,6 +11,7 @@ import com.vladnickgofj.hotel.dao.impl.*;
 import com.vladnickgofj.hotel.service.*;
 import com.vladnickgofj.hotel.service.impl.*;
 import com.vladnickgofj.hotel.service.mapper.*;
+import com.vladnickgofj.hotel.service.util.PasswordEncryptionService;
 import com.vladnickgofj.hotel.validator.UserValidator;
 
 import java.util.Collections;
@@ -55,7 +56,9 @@ public final class ApplicationContextInjector {
 
     private static final UserValidator USER_VALIDATOR = new UserValidator();
 
-    private static final UserService USER_SERVICE = new UserServiceImpl(USER_DAO, USER_MAPPER, USER_VALIDATOR);
+    private static final PasswordEncryptionService PASSWORD_ENCRYPTION_SERVICE =new PasswordEncryptionService();
+
+    private static final UserService USER_SERVICE = new UserServiceImpl(USER_DAO, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCRYPTION_SERVICE);
 
     private static final HotelService HOTEL_SERVICE = new HotelServiceImpl(HOTEL_DAO, HOTEL_MAPPER);
 
@@ -135,6 +138,10 @@ public final class ApplicationContextInjector {
 
     private static final Command GROUP_CANCEL_GET_COMMAND = new GroupCancelGetCommand();
 
+    private static final Command SUCCESS_REGISTER_COMMAND = new SuccessRegisterCommand();
+
+    private static final Command UNSUCCESSFUL_REGISTER_COMMAND = new UnsuccessfulRegisterCommand();
+
     private static final Map<String, Command> USER_COMMAND_NAME_TO_COMMAND = initUserCommand();
 
     private static final Map<String, Command> HOME_COMMAND_NAME_TO_COMMAND = initHomeCommand();
@@ -161,6 +168,8 @@ public final class ApplicationContextInjector {
         homeCommandNameToCommand.put("loginPage", LOGIN_PAGE_COMMAND);
         homeCommandNameToCommand.put("registerPage", REGISTER_PAGE_COMMAND);
         homeCommandNameToCommand.put("register", REGISTER_COMMAND);
+        homeCommandNameToCommand.put("successRegister", SUCCESS_REGISTER_COMMAND);
+        homeCommandNameToCommand.put("unsuccessfulRegister", UNSUCCESSFUL_REGISTER_COMMAND);
         homeCommandNameToCommand.put("login", LOGIN_COMMAND);
         homeCommandNameToCommand.put("showUserProfile", SHOW_USER_PROFILE_COMMAND);
         homeCommandNameToCommand.put("showAdminProfile", SHOW_ADMIN_PROFILE_COMMAND);

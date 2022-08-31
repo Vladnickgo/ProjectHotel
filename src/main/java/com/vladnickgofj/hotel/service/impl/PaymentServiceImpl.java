@@ -17,7 +17,6 @@ public class PaymentServiceImpl implements PaymentService {
     private static final String REGEX_FOR_CARD_CVV = "^([0-9]{3})";
     private final PaymentDao paymentDao;
     private final BookingDao bookingDao;
-    //    private final BookingValidator bookingValidator;
     private final Mapper<PaymentDto, Payment> paymentMapper;
 
     private static final Logger LOGGER = Logger.getLogger(PaymentServiceImpl.class);
@@ -31,9 +30,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void addPayment(BookingDto bookingServiceById) {
         Integer bookingStatusId = bookingServiceById.getBookingStatusId();
-        Booking booking = bookingDao.findById(bookingStatusId).orElseThrow(() -> {
-            return new IllegalArgumentException(String.format(BOOKING_WITH_ID_NOT_FOUND, bookingStatusId));
-        });
+        Booking booking = bookingDao.findById(bookingStatusId).orElseThrow(() -> new IllegalArgumentException(String.format(BOOKING_WITH_ID_NOT_FOUND, bookingStatusId)));
         if (booking.getBookingStatus().equals("2"))
             throw new IllegalArgumentException(String.format(BOOKING_WITH_ID_ALREADY_PAID, bookingStatusId));
 

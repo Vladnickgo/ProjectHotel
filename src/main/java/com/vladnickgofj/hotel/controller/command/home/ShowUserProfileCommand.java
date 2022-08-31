@@ -23,6 +23,7 @@ public class ShowUserProfileCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("bookingDtoList");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
         BookingRequestDto bookingRequestDto = getBookingRequestDto(request);
@@ -65,7 +66,7 @@ public class ShowUserProfileCommand implements Command {
         String ordering = request.getParameter("ordering");
         String itemsOnPage = request.getParameter("itemsOnPage");
         String numberOfPage = request.getParameter("numberOfPage");
-        BookingRequestDto bookingRequestDto = BookingRequestDto.newBuilder()
+        return BookingRequestDto.newBuilder()
                 .userId(userId)
                 .statusNotPaid(statusNotPaid)
                 .statusPaid(statusPaid)
@@ -75,6 +76,5 @@ public class ShowUserProfileCommand implements Command {
                 .itemsOnPage(itemsOnPage)
                 .numberOfPage(numberOfPage)
                 .build();
-        return bookingRequestDto;
     }
 }

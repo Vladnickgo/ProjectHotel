@@ -12,10 +12,36 @@
 
 <c:import url="views/head.jsp"/>
 
-<c:import url="views/header.jsp"/>
 
 <html>
 <body>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="${command}" hidden>
+                <input name="checkIn" value="${checkIn}" hidden>
+                <input name="checkOut" value="${checkOut}" hidden>
+                <input name="statusFree" value="${statusFree}" hidden>
+                <input name="statusBooked" value="${statusBooked}" hidden>
+                <input name="sorting" value="${sorting}" hidden>
+                <input name="ordering" value="${ordering}" hidden>
+                <input name="recordsOnPage" value="${recordsOnPage}" hidden>
+                <input name="hotelId" value="${hotelId}" hidden>
+                <input name="hotelName" value="${hotelName}" hidden>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="row mt-4">
     <div class="col-2">

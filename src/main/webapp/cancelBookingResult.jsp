@@ -4,11 +4,13 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
 
-<c:set var="Title" scope="request" value="Confirm group cancelled"/>
+<c:set var="Title" scope="request" value="Сancel booking result"/>
 
 <c:import url="views/head.jsp"/>
 <html>
@@ -16,25 +18,42 @@
     <title>Title</title>
 </head>
 <body>
-<c:import url="views/header.jsp"/>
+<div class="">
+    <div class="row text-center" style="background-color:#F8F9FA">
+        <div class="col-11">
+            <c:import url="views/header.jsp"/>
+        </div>
+        <div class="col-1 pt-2">
+            <form class="d-flex" method="get" onchange="submit()">
+                <select class=" form-control select-size" id="language" name="language"
+                        style="width: 120px;">
+                    <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                </select>
+                <input name="command" value="groupCancelGetCommand" hidden>
+                <input name="bookingDtoList" value="${bookingDtoList}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="row" style="margin-top: 30px">
     <div class="col-2"></div>
 
     <div class="col-8">
-        <h2>Замовлення відмінено</h2>
+        <h2><f:message key="orderCancelled" bundle="${bunCont}"/></h2>
         <form action="home" method="get">
             <table class="table table-striped" style="width: 100%;padding-bottom: 30px">
                 <tr class="table-primary">
-                    <th>№ замовлення</th>
-                    <th>Дата замовлення</th>
-                    <th>Готель</th>
-                    <th>Дата заїзду</th>
-                    <th>Дата від'їзду</th>
-                    <th>Тип кімнати</th>
-                    <th>Кількість місць</th>
-                    <th>Ціна</th>
-                    <th>Кількість ночей</th>
-                    <th>Сума</th>
+                    <th><f:message key="order" bundle="${bunCont}"/></th>
+                    <th><f:message key="orderDate" bundle="${bunCont}"/></th>
+                    <th><f:message key="hotel" bundle="${bunCont}"/></th>
+                    <th><f:message key="checkIn" bundle="${bunCont}"/></th>
+                    <th><f:message key="checkOut" bundle="${bunCont}"/></th>
+                    <th><f:message key="roomType" bundle="${bunCont}"/></th>
+                    <th><f:message key="numberOfBeds" bundle="${bunCont}"/></th>
+                    <th><f:message key="price" bundle="${bunCont}"/></th>
+                    <th><f:message key="nights" bundle="${bunCont}"/></th>
+                    <th><t:message key="toPay" bundle="${bunCont}"/></th>
                 </tr>
                 <c:set var="sum" value="0"/>
                 <c:forEach var="booking" items="${bookingDtoList}">

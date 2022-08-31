@@ -6,9 +6,12 @@ import com.vladnickgofj.hotel.dao.entity.User;
 import com.vladnickgofj.hotel.service.UserService;
 import com.vladnickgofj.hotel.service.exception.EntityAlreadyExistException;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.service.util.PasswordEncryptionService;
 import com.vladnickgofj.hotel.validator.UserValidator;
 import org.apache.log4j.Logger;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Objects;
 
 import static com.vladnickgofj.hotel.validator.ValidatorErrorMessage.*;
@@ -18,20 +21,26 @@ public class UserServiceImpl implements UserService {
     private final UserDao userRepository;
     private final Mapper<UserDto, User> mapper;
     private final UserValidator userValidator;
+    private final PasswordEncryptionService passwordEncryptionService;
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
-    public UserServiceImpl(UserDao userRepository, Mapper<UserDto, User> mapper, UserValidator userValidator) {
+    public UserServiceImpl(UserDao userRepository, Mapper<UserDto, User> mapper, UserValidator userValidator, PasswordEncryptionService passwordEncryptionService) {
         this.userRepository = userRepository;
         this.mapper = mapper;
         this.userValidator = userValidator;
+        this.passwordEncryptionService = passwordEncryptionService;
     }
 
     @Override
     public UserDto findByEmail(String email) {
-        userValidator.validateEmail(email);
-        User user = userRepository.findByEmail(email).orElseThrow(() ->
-                new IllegalArgumentException(String.format(USER_WITH_EMAIL_NOT_FOUND, email)));
+        User user = getUser(email);
         return mapper.mapEntityToDto(user);
+    }
+
+    private User getUser(String email) {
+        userValidator.validateEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() ->
+                new IllegalArgumentException(String.format(USER_WITH_EMAIL_NOT_FOUND, email)));
     }
 
     @Override
@@ -54,20 +63,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto login(String email, String password) {
-        UserDto user = findByEmail(email);
-//        if (emailValidation(email)) {
-//            LOGGER.info(EMAIL_ERROR_MESSAGE);
-//            System.out.println(EMAIL_ERROR_MESSAGE);
-//            throw new IllegalArgumentException(EMAIL_ERROR_MESSAGE);
-//        }
-        if (password.equals(user.getPassword())) {
-            return user;
-        } else {
+        User user = getUser(email);
+        try {
+            if (passwordEncryptionService.authenticate(password, user.getPassword(), user.getSalt())) {
+                return mapper.mapEntityToDto(user);
+            }
+            throw new IllegalArgumentException(PASSWORD_ERROR_MESSAGE);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new IllegalArgumentException(PASSWORD_ERROR_MESSAGE);
         }
     }
 
-//    private boolean emailValidation(String email) {
-//        return !email.matches(REGEX_FOR_EMAIL);
-//    }
 }

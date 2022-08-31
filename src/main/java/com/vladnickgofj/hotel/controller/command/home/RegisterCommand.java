@@ -27,22 +27,23 @@ public class RegisterCommand implements Command {
         String method = request.getMethod();
         String command = request.getParameter("command");
         LOGGER.info("command: " + command);
-        request.setAttribute("command", command);
+//        request.setAttribute("command", command);
         try {
-            request.getSession();
             request.getSession().invalidate();
             userService.save(userDto);
-            request.getSession().invalidate();
-            request.getSession().setAttribute("userSaved", "true");
+            request.setAttribute("userSaved", "true");
+            LOGGER.info("User saved");
+            return "home?command=successRegister";
         } catch (IllegalArgumentException | EntityAlreadyExistException exception) {
             String errorMessage = exception.getMessage();
             LOGGER.info(errorMessage);
-            request.setAttribute("firstName", userDto.getFirstName());
-            request.setAttribute("lastName", userDto.getLastName());
-            request.setAttribute("email", userDto.getEmail());
-            request.setAttribute("errorMessage", errorMessage);
+            request.getSession().setAttribute("firstName", userDto.getFirstName());
+            request.getSession().setAttribute("lastName", userDto.getLastName());
+            request.getSession().setAttribute("email", userDto.getEmail());
+            request.getSession().setAttribute("errorMessage", errorMessage);
+            return "home?command=unsuccessfulRegister";
         }
-        return PagesConstant.REGISTRATION_PAGE;
+//        return PagesConstant.REGISTRATION_PAGE;
     }
 
     private UserDto mapRequestToUserDto(HttpServletRequest request) {

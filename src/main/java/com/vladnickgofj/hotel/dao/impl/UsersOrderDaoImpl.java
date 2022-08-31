@@ -91,7 +91,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
     protected void mapForUpdateStatement(PreparedStatement preparedStatement, UsersOrder entity) throws SQLException {
         preparedStatement.setInt(1, COMPLETED_STATUS);
         preparedStatement.setInt(2, entity.getId());
-
     }
 
     @Override
@@ -146,24 +145,15 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
              PreparedStatement updateUsersOrderById = connection.prepareStatement("UPDATE users_order SET order_status_id=? WHERE order_id=? ");
              PreparedStatement updateRoomStatus = connection.prepareStatement(UPDATE_ROOM_STATUS_BY_PARAMETERS);
              PreparedStatement insertIntoRoomStatus = connection.prepareStatement(INSERT_INTO_ROOM_STATUS);
-             PreparedStatement insertIntoBookings = connection.prepareStatement(INSERT_INTO_BOOKINGS)
-        ) {
-            System.out.println("-----------completeUsersOrder----------------");
-            System.out.println(usersOrdersList);
-            System.out.println("---------------------------------------------");
-
+             PreparedStatement insertIntoBookings = connection.prepareStatement(INSERT_INTO_BOOKINGS)) {
 
             try {
                 connection.setAutoCommit(false);
-                System.out.println("usersOrdersList.get(0).getId(): " + usersOrdersList.get(0).getId());
                 updateUsersOrderById.setInt(1, COMPLETED_STATUS);
                 updateUsersOrderById.setInt(2, usersOrdersList.get(0).getId());
                 updateUsersOrderById.executeUpdate();
 
                 for (int i = 0; i < usersOrdersList.size(); i++) {
-                    System.out.println("i=" + i);
-                    System.out.println("usersOrdersList.get(i).getDateStart(): " + usersOrdersList.get(i).getDateStart());
-                    System.out.println("roomStatusList.get(i).getId(): " + roomStatusList.get(i).getId());
                     updateRoomStatus.setDate(1, Date.valueOf(usersOrdersList.get(i).getDateStart()));
                     updateRoomStatus.setInt(2, roomStatusList.get(i).getId());
                     updateRoomStatus.executeUpdate();

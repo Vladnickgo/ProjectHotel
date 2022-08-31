@@ -7,7 +7,6 @@ import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.StatusStatement;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,7 +20,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class RoomStatusServiceImplTest {

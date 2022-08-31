@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CorrectOrderHandlerCommand implements Command {
@@ -37,10 +38,9 @@ public class CorrectOrderHandlerCommand implements Command {
         String userOrderId = request.getParameter("userOrderId");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
-
+        LOGGER.info("command" + command);
         String numberOfPersons = request.getParameter("numberOfPersons");
+        LOGGER.info("numberOfPersons" + numberOfPersons);
         roomStatusDtoList.clear();
         request.setAttribute("userId", userId);
         request.setAttribute("firstName", firstName);
@@ -53,21 +53,19 @@ public class CorrectOrderHandlerCommand implements Command {
         request.setAttribute("hotelName", hotelName);
         request.setAttribute("numberOfPersons", numberOfPersons);
         request.setAttribute("userOrderId", userOrderId);
-
         try {
             String[] roomStatusIds = request.getParameterValues("roomStatusId");
-            for (String roomStatusId : roomStatusIds) {
-                System.out.println(roomStatusId);
+            if(roomStatusIds!=null) {
+                request.getSession().setAttribute("roomStatusIdsArray",roomStatusIds);
             }
-            for (String roomStatusId : roomStatusIds) {
+            String[] roomStatusIdsArray = (String[]) request.getSession().getAttribute("roomStatusIdsArray");
+            for (String roomStatusId :  roomStatusIdsArray) {
                 RoomStatusDto roomStatusById = roomStatusService.getRoomStatusById(Integer.valueOf(roomStatusId));
                 roomStatusDtoList.add(roomStatusById);
             }
-            roomStatusDtoList.forEach(System.out::println);
             request.setAttribute("roomStatusDtoList", roomStatusDtoList);
             return PagesConstant.ORDER_HANDLER_CORRECTION;
         } catch (RuntimeException e) {
-
             UsersOrderDto orderDto = UsersOrderDto.newBuilder()
                     .hotelDto(HotelDto.newBuilder()
                             .id(Integer.valueOf(hotelId))
@@ -75,7 +73,6 @@ public class CorrectOrderHandlerCommand implements Command {
                     .dateStart(LocalDate.parse(dateStart))
                     .dateEnd(LocalDate.parse(dateEnd))
                     .build();
-
             request.setAttribute("error", "true");
             List<RoomStatusDto> roomStatusDtoList = roomStatusService.findAllFreeByParameters(orderDto);
             request.setAttribute("roomStatusDtoList", roomStatusDtoList);
