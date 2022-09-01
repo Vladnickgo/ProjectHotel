@@ -127,7 +127,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
     @Override
     public Integer countAll(UsersOrderRequestDto usersOrderRequestDto) {
         String querySubstitute = usersOrderRequestDto.getQuerySubstitute();
-        System.out.println("querySubstitute: " + querySubstitute);
 
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(String.format(COUNT_ALL_BY_PARAMETERS, querySubstitute))) {

@@ -15,10 +15,6 @@ public class SuccessPaymentPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
-        String page = PagesConstant.SUCCESS_PAGE;
-        String url = "home?command=successPaymentPage";
-        return "post".equals(method) ? url : page;
+        return PagesConstant.SUCCESS_PAGE;
     }
 }

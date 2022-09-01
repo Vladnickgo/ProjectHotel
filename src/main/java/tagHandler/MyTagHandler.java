@@ -19,7 +19,7 @@ public class MyTagHandler extends TagSupport {
             }
 
         } catch (IOException e) {
-//            e.printStackTrace();
+            throw new JspException(e);
         }
         return SKIP_BODY;
     }

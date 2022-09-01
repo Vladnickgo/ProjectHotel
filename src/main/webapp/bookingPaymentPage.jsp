@@ -11,6 +11,7 @@
 <c:set var="Title" scope="request" value="Booking Payment"/>
 
 <c:import url="views/head.jsp"/>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -41,8 +42,7 @@
         </div>
         <div class="col-6">
             <h1 class="mb-5">
-                <%--                <f:message key="confirmationBooking" bundle="${bunCont}"/>--%>
-                Створення замовлення
+                <th><f:message key="orderCreation" bundle="${bunCont}"/></th>
             </h1>
             <hr>
             <table class="table" style="width: 100%;">
@@ -93,21 +93,12 @@
             </table>
             <div style="display: flex; flex-direction: row;justify-content: center" ${changeRoomStatus==true?'hidden':''}>
                 <form action="home" method="get">
-<%--                    <a class="btn btn-outline-primary"--%>
-<%--                       style="margin: 2px;width: 100px" ${user==null||user.role!='USER'?'hidden':''}--%>
-<%--                    &lt;%&ndash;                       href="home?command=showRooms&roomId=${item.roomDtoResponse.id}&roomStatusId=${item.statusId}&dateStart=${dateStart}&dateEnd=${dateEnd}&checkIn=${checkIn}&checkOut=${checkOut}&userId=${user.id}&sorting=${sorting}&ordering=${ordering}&hotelId=${hotelId}&hotelName=${hotelName}&statusFree=${statusFree}&statusBooked=${statusBooked}&recordsOnPage=${recordsOnPage}"&ndash;%&gt;--%>
-<%--                       href="home?command=showRooms&dateStart=${dateStart}&dateEnd=${dateEnd}&checkIn=${checkIn}&checkOut=${checkOut}&sorting=${sorting}&ordering=${ordering}&hotelId=${hotelId}&hotelName=${hotelName}&statusFree=${statusFree}&recordsOnPage=${recordsOnPage}"--%>
-<%--                    >Cancel--%>
-<%--                    </a>--%>
                     <input name="roomId" value="${roomId}" hidden>
                     <input name="checkIn" value="${checkIn}" hidden>
                     <input name="checkOut" value="${checkOut}" hidden>
                     <input name="dateStart" value="${dateStart}" hidden>
                     <input name="dateEnd" value="${dateEnd}" hidden>
                     <input name="roomStatusId" value="${roomStatusId}" hidden>
-                    <%--                    <input name="userId" value="${user.id}" hidden>--%>
-                    <%--                    <input name="sorting" value="${sorting}" hidden>--%>
-                    <%--                    <input name="ordering" value="${ordering}" hidden>--%>
                     <input name="hotelId" value="${hotelId}" hidden>
                     <input name="hotelName" value="${hotelName}" hidden>
                     <input name="statusFree" value="${statusFree}" hidden>
@@ -117,39 +108,27 @@
                     <input name="typeName" value="${typeName}" hidden>
                     <input name="numberOfBeds" value="${numberOfBeds}" hidden>
                     <input name="price" value="${price}" hidden>
-
-
                 </form>
             </div>
+            <div style="display: flex; flex-direction: row; justify-content: center">
+                <div>
+                    <form action="home" method="get">
+                        <input name="command" value="payment" hidden>
+                        <input class="btn btn-outline-primary" type="submit" value="Pay now">
+                        <a class="btn btn-outline-primary"
+                           href="home?command=showUserProfile"
+                        >Pay later
+                        </a>
+                    </form>
 
-                        <div style="display: flex; flex-direction: row; justify-content: center">
-                            <div>
-                                <form action="home" method="get">
-                                    <input name="command" value="payment" hidden>
-<%--                                    <input name="roomId" value="${roomId}" hidden>--%>
-<%--                                    <input name="checkIn" value="${checkIn}" hidden>--%>
-<%--                                    <input name="checkOut" value="${checkOut}" hidden>--%>
-<%--                                    <input name="dateStart" value="${dateStart}" hidden>--%>
-<%--                                    <input name="dateEnd" value="${dateEnd}" hidden>--%>
-                                    <input class="btn btn-outline-primary" type="submit" value="Pay now">
-                                    <a class="btn btn-outline-primary"
-                                       href="home?command=showUserProfile"
-                                    >Pay later
-                                    </a>
-                                </form>
-
-
-                            </div>
-                        </div>
+                </div>
+            </div>
         </div>
         <div class="col-3">
             <c:import url="views/user/userInfo.jsp"/>
         </div>
     </div>
 </div>
-<%--${user}--%>
 <c:import url="views/footer.jsp"/>
-
-
 </body>
 </html>

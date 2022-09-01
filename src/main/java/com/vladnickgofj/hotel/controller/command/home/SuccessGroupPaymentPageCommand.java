@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class SuccessGroupPaymentPageCommand implements Command {
@@ -23,16 +24,16 @@ public class SuccessGroupPaymentPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
+        LOGGER.info(command);
         String[] bookingIds = request.getParameterValues("bookingIds");
-        LOGGER.info("bookingIds: " + bookingIds);
         List<BookingDto> bookingDtoList = new ArrayList<>();
         for (String bookingId : bookingIds) {
             BookingDto byId = bookingService.findById(Integer.valueOf(bookingId));
             bookingDtoList.add(byId);
         }
-        request.setAttribute("bookingDtoList", bookingDtoList);
+        request.getSession().setAttribute("bookingDtoList", bookingDtoList);
+        request.setAttribute("bookingIds", bookingIds);
+
         return PagesConstant.SUCCESS_PAYMENT_PAGE;
     }
 }

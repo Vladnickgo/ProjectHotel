@@ -26,9 +26,7 @@ public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
             "WHERE room_id=?;";
     private static final String FIND_ALL = "SELECT * FROM room " +
             "LEFT OUTER JOIN room_type rt on rt.type_id = room.type_id " +
-//            "LEFT JOIN room_status rs on rs.status_id = room.status_id " +
             "LEFT JOIN hotel h on h.hotel_id = room.hotel_id;";
-//    private static final String FIND_ALL = "SELECT * FROM room ";
 
 
     private static final String UPDATE_ROOM = "UPDATE room " +

@@ -12,10 +12,9 @@
 
 <c:import url="views/head.jsp"/>
 
-
 <html>
 <head>
-    <title>Title</title>
+    <title>Success payment page</title>
 </head>
 <body>
 <div class="">
@@ -31,6 +30,9 @@
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
                 <input name="command" value="${command}" hidden>
+                <c:forEach var="booking" items="${bookingDtoList}">
+                    <input name="bookingIds" value="${booking.id}" hidden>
+                </c:forEach>
             </form>
         </div>
     </div>
@@ -40,25 +42,24 @@
         <div class="col-2"></div>
         <div class="col-8">
             <h1>
-                USER PROFILE
+                <f:message key="userProfile" bundle="${bunCont}"/>
             </h1>
 
-            <h2 style="color: darkslateblue">Платіж успішно виконано</h2>
+            <h2 style="color: darkslateblue"><f:message key="successfullyPayment" bundle="${bunCont}"/></h2>
             <div>
                 <table class="table table-striped" style="width: 100%;padding-bottom: 30px">
                     <tr class="table-primary">
-                        <th>№ замовлення</th>
-                        <th>Дата замовлення</th>
-                        <th>Готель</th>
-                        <th>Дата заїзду</th>
-                        <th>Дата від'їзду</th>
-                        <th>Тип кімнати</th>
-                        <th>Кількість місць</th>
-                        <th>Ціна</th>
-                        <th>Кількість ночей</th>
-                        <th>Сума</th>
+                        <th><f:message key="order" bundle="${bunCont}"/></th>
+                        <th><f:message key="orderDate" bundle="${bunCont}"/></th>
+                        <th><f:message key="hotel" bundle="${bunCont}"/></th>
+                        <th><f:message key="checkIn" bundle="${bunCont}"/>Дата заїзду</th>
+                        <th><f:message key="checkOut" bundle="${bunCont}"/></th>
+                        <th><f:message key="roomType" bundle="${bunCont}"/></th>
+                        <th><f:message key="numberOfPersons" bundle="${bunCont}"/></th>
+                        <th><f:message key="price" bundle="${bunCont}"/></th>
+                        <th><f:message key="nights" bundle="${bunCont}"/></th>
+                        <th><f:message key="toPay" bundle="${bunCont}"/></th>
                         <th>
-
                         </th>
                     </tr>
                     <c:set var="sum" value="0"/>
@@ -77,17 +78,9 @@
                             <td hidden>
                                 <input type="checkbox" name="bookingId"
                                        value="${booking.id}" checked hidden>
-
-                                    <%--                                <a class="btn btn-primary" ${booking.bookingStatusId==1?'':'hidden'}--%>
-                                    <%--                                   style="font-size: 10pt;height: 35px"--%>
-                                    <%--                                   href="home?command=payment&roomId=${booking.room.id}&checkIn=${booking.checkIn}&checkOut=${booking.checkOut}">--%>
-                                    <%--                                    To pay it--%>
-                                    <%--                                </a>--%>
                                 <div hidden>${sum=sum+(booking.room.price*booking.nights)}</div>
                             </td>
-                            <td></td>
                         </tr>
-
                     </c:forEach>
                     <tr>
                         <td colspan="9" style="text-align: right"><f:message key="toPay" bundle="${bunCont}"/></td>
@@ -97,10 +90,10 @@
                 </table>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2">
+        </div>
     </div>
 </div>
-${bookingDtoList}
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

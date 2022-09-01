@@ -68,8 +68,7 @@ public class HotelDaoImpl extends AbstractCrudDaoImpl<Hotel> implements HotelDao
             resultSet.next();
             return resultSet.getInt("count_hotels");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new DataBaseRuntimeException(ex);
         }
-        return 0;
     }
 }

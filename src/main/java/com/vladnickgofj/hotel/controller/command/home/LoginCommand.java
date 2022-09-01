@@ -22,9 +22,7 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
-        LOGGER.info("email: " + email);
         String password = request.getParameter("password");
-        LOGGER.info("password: " + password);
         String command = request.getParameter("command");
         request.setAttribute("command", command);
         try {
@@ -32,15 +30,11 @@ public class LoginCommand implements Command {
             session.setAttribute("user", user);
         } catch (IllegalArgumentException exception) {
             String message = exception.getMessage();
-            LOGGER.info(message);
             request.setAttribute("loginPageEmail", email);
             request.setAttribute("errorMessage", message);
-            LOGGER.info("loginPageEmail: " + email);
-            LOGGER.info("errorMessage: " + message);
             return String.format("home?command=loginPage&loginPageEmail=%S&errorMessage=%S", email, message);
         }
         request.setAttribute("url", "home?command=showHotels");
-//        return PagesConstant.SHOW_HOTELS;
         return "home?command=showHotels";
     }
 

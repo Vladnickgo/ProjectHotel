@@ -19,7 +19,6 @@ import java.util.List;
 public class ShowUserProfileCommand implements Command {
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final BookingService bookingService = contextInjector.getBookingService();
-    private static final Logger LOGGER = Logger.getLogger(ShowUserProfileCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -55,7 +55,8 @@ public class ConfirmGroupPaymentCommand implements Command {
         }
         request.setAttribute("bookingDtoList", bookingDtoList);
         String url = stringBuilderUrl.toString();
-        LOGGER.info("url" + url);
+        request.setAttribute("url",url);
+        LOGGER.info("url " + url);
 //        return PagesConstant.SUCCESS_PAYMENT_PAGE;
         return url;
     }

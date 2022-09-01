@@ -16,14 +16,11 @@ public class LoginPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String loginPageEmail = request.getParameter("loginPageEmail");
         String errorMessage = request.getParameter("errorMessage");
-        String method = request.getMethod();
         String command = request.getParameter("command");
         request.setAttribute("command", command);
         request.setAttribute("loginPageEmail", loginPageEmail);
         request.setAttribute("errorMessage", errorMessage);
-        LOGGER.info("method: " + method);
-        LOGGER.info("loginPageEmail: " + loginPageEmail);
-        LOGGER.info("errorMessage: " + errorMessage);
+
         return PagesConstant.LOGIN_PAGE;
     }
 }

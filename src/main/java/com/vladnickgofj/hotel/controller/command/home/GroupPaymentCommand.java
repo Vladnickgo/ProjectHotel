@@ -38,8 +38,6 @@ public class GroupPaymentCommand implements Command {
         String cardErrorMessage = request.getParameter("cardErrorMessage");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
         HashSet<BookingDto> bookingDtoHashSet = new HashSet<>();
         StringBuilder stringBuilderUrl = new StringBuilder("home?command=groupPayment");
         try {
@@ -53,9 +51,8 @@ public class GroupPaymentCommand implements Command {
             request.setAttribute("bookingDtoList", bookingDtoList);
             request.setAttribute("cardErrorMessage", cardErrorMessage);
             LOGGER.info("Found " + bookingDtoList.size() + " items BookingDto");
-            String url = stringBuilderUrl.toString();
-            String page = PagesConstant.CONFIRM_GROUP_PAYMENT_PAGE;
-            return "post".equals(method) ? url : page;
+            request.setAttribute("url", stringBuilderUrl.toString());
+            return PagesConstant.CONFIRM_GROUP_PAYMENT_PAGE;
         } catch (RuntimeException e) {
             LOGGER.info("No found any items BookingDto");
 

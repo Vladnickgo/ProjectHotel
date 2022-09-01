@@ -31,8 +31,6 @@ public class UsersOrderCommand implements Command {
     private UsersOrderDto getUsersOrderDto(HttpServletRequest request) {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
         String hotelId = request.getParameter("hotelId");
         UserDto user = (UserDto) request.getSession().getAttribute("user");
         String dateStart = request.getParameter("dateStart");
@@ -40,7 +38,7 @@ public class UsersOrderCommand implements Command {
         String numberOfPersons = request.getParameter("numberOfPersons");
         String roomTypeId = request.getParameter("roomTypeId");
         LocalDate now = LocalDate.now();
-        UsersOrderDto build = UsersOrderDto.newBuilder()
+        return UsersOrderDto.newBuilder()
                 .userDto(UserDto.newBuilder()
                         .id(user.getId())
                         .firstName(user.getFirstName())
@@ -62,6 +60,5 @@ public class UsersOrderCommand implements Command {
                         .build())
                 .orderStatus(OrderStatus.PROCESSED)
                 .build();
-        return build;
     }
 }

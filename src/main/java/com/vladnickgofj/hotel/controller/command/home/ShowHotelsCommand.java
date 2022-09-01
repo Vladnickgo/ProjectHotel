@@ -15,7 +15,6 @@ import java.util.List;
 
 public class ShowHotelsCommand implements Command {
 
-    private final static Logger LOGGER = Logger.getLogger(ShowHotelsCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final HotelService hotelService = contextInjector.getHotelService();
 
@@ -29,12 +28,8 @@ public class ShowHotelsCommand implements Command {
         Integer pageNumber = hotelService.initNumberOfPage(numberOfPage);
         Integer itemsOnPage = hotelService.initItemsOnPage(recordsOnPage);
 
-        LOGGER.info("Items on page: " + itemsOnPage);
-        LOGGER.info("Page: " + pageNumber);
-
         List<HotelDto> allHotels = hotelService.findAll(itemsOnPage, pageNumber);
         Integer pages = hotelService.getNumberOfPages(itemsOnPage);
-        LOGGER.info("Pages: " + pages);
         request.setAttribute("listOfHotels", allHotels);
         request.setAttribute("totalPages", pages);
         request.setAttribute("recordsOnPage", itemsOnPage);

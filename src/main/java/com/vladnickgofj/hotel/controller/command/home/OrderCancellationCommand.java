@@ -20,8 +20,6 @@ public class OrderCancellationCommand implements Command {
         String userOrderId = request.getParameter("userOrderId");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
         usersOrderService.updateUsersOrderById(Integer.valueOf(userOrderId));
         return PagesConstant.ADMIN_PROFILE;
     }

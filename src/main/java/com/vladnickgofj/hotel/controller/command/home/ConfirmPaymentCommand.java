@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ConfirmPaymentCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(ConfirmPaymentCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final BookingService bookingService = contextInjector.getBookingService();
     private final PaymentService paymentService = contextInjector.getPaymentService();
@@ -31,18 +30,13 @@ public class ConfirmPaymentCommand implements Command {
         try {
             paymentService.checkCardData(cardNumber, cvvCode);
         } catch (IllegalArgumentException e) {
-            LOGGER.info("bookingByParameters: "+bookingServiceById);
             return "home?command=payment&cardErrorMessage=error";
         }
         request.getSession().removeAttribute("checkIn");
         request.getSession().removeAttribute("checkOut");
         request.getSession().removeAttribute("roomId");
-
-        LOGGER.info("bookingServiceById: " + bookingServiceById);
         bookingService.addBookingPayment(bookingServiceById);
         request.getSession().setAttribute("bookingServiceById", bookingServiceById);
-
-//        return PagesConstant.SUCCESS_PAGE;
         return "home?command=successPaymentPage";
     }
 }

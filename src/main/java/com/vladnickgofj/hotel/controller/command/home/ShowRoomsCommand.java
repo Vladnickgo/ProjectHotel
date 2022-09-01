@@ -51,21 +51,6 @@ public class ShowRoomsCommand implements Command {
         Integer totalPages = roomStatusService.getNumberOfPages(roomStatusDtoRequest);
         List<RoomStatusDto> roomStatusList = roomStatusService.findAll(roomStatusDtoRequest);
 
-        LOGGER.info("sorting: " + roomStatusDtoRequest.getSorting());
-        LOGGER.info("ordering: " + roomStatusDtoRequest.getOrdering());
-        LOGGER.info("recordsOnPage: " + roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage());
-        LOGGER.info("totalPages: " + totalPages);
-        LOGGER.info("listOfRooms: " + roomStatusList);
-        LOGGER.info("numberOfPage: " + roomStatusDtoRequest.getNumberOfPage());
-        LOGGER.info("checkIn: " + roomStatusDtoRequest.getSignIn());
-        LOGGER.info("checkOut: " + roomStatusDtoRequest.getSignOut());
-        LOGGER.info("statusFree: " + roomStatusDtoRequest.getStatusFree());
-        LOGGER.info("statusBooked: " + roomStatusDtoRequest.getStatusBooked());
-        LOGGER.info("minCheckIn: " + roomStatusDtoRequest.getMinSignIn());
-        LOGGER.info("maxCheckIn: " + roomStatusDtoRequest.getMaxSignIn());
-        LOGGER.info("minCheckOut: " + roomStatusDtoRequest.getMinSignOut());
-        LOGGER.info("maxCheckOut: " + roomStatusDtoRequest.getMaxSignOut());
-
         sorting = roomStatusDtoRequest.getSorting();
         ordering = roomStatusDtoRequest.getOrdering();
         recordsOnPage = roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage().toString();

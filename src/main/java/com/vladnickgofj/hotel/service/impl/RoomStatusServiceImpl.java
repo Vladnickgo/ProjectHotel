@@ -73,7 +73,6 @@ public class RoomStatusServiceImpl implements RoomStatusService {
 
     @Override
     public LocalDate findDateEndForFreeStatusByRoomIdAndDateStart(BookingDto byId) {
-        LOGGER.info("findDateEndForFreeStatusByRoomIdAndDateStart: " + roomStatusRepository.findFreeByRoomIdAndDateStart(byId));
         return roomStatusRepository.findFreeByRoomIdAndDateStart(byId);
     }
 

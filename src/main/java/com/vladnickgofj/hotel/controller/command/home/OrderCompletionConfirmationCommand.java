@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderCompletionConfirmationCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(OrderCompletionConfirmationCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final UsersOrderService usersOrderService = contextInjector.getUsersOrderService();
     private final List<UsersOrderDto> usersOrderDtoList = new ArrayList<>();

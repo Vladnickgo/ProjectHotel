@@ -11,9 +11,9 @@
 <c:set var="Title" scope="request" value="Homepage"/>
 
 <c:import url="views/head.jsp"/>
-
+<html>
 <body>
-<div class="">
+<div>
     <div class="row text-center" style="background-color:#F8F9FA">
         <div class="col-11">
             <c:import url="views/header.jsp"/>
@@ -30,9 +30,6 @@
         </div>
     </div>
 </div>
-
-
-<%--<c:import url="views/header.jsp"/>--%>
 
 <div class="container mt-5 mb-5 pb-5">
     <div class="row text-center">

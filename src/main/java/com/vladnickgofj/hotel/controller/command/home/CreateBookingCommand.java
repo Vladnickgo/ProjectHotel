@@ -38,9 +38,6 @@ public class CreateBookingCommand implements Command {
         String recordsOnPage = request.getParameter("recordsOnPage");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
-        LOGGER.info("hotelId" + hotelId);
 
         long numberOfNights = ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut));
         RoomStatusDto roomStatusById = roomStatusService.getRoomStatusById(valueOf(roomStatusId));
@@ -66,21 +63,6 @@ public class CreateBookingCommand implements Command {
         request.getSession().setAttribute("statusFree", statusFree);
         request.getSession().setAttribute("statusBooked", statusBooked);
         request.getSession().setAttribute("numberOfNights", numberOfNights);
-        String parameters = "&roomId=" + roomId +
-                "&roomStatusId=" + roomStatusId +
-                "&dateStart=" + dateStart +
-                "&dateEnd=" + dateEnd +
-                "&checkIn=" + checkIn +
-                "&checkOut=" + checkOut +
-                "&sorting=" + sorting +
-                "&ordering=" + ordering +
-                "&hotelId=" + hotelId +
-                "&hotelName=" + hotelName +
-                "&statusFree=" + statusFree +
-                "&statusBooked=" + statusBooked +
-                "&recordsOnPage=" + recordsOnPage +
-                "&numberOfNights=" + numberOfNights;
-        request.setAttribute("parameters", parameters);
         return PagesConstant.CREATE_BOOKING_PAGE;
     }
 }

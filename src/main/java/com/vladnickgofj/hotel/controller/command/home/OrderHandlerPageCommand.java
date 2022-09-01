@@ -35,15 +35,8 @@ public class OrderHandlerPageCommand implements Command {
         String userOrderId = request.getParameter("userOrderId");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
 
-        LOGGER.info("userId" + userId);
-        LOGGER.info("firstName" + firstName);
-        LOGGER.info("lastName" + lastName);
-        LOGGER.info("email" + email);
-        LOGGER.info("method" + method);
-        LOGGER.info("method" + method);
-        UsersOrderDto usersOrderDto = UsersOrderDto.newBuilder()
+          UsersOrderDto usersOrderDto = UsersOrderDto.newBuilder()
                 .userDto(UserDto.newBuilder()
                         .id(Integer.valueOf(userId))
                         .firstName(firstName)

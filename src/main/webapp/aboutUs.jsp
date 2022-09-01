@@ -261,8 +261,6 @@
                     <img src="https://setupmyhotel.com/images/Room-Type-presidential-suite-bedroom.jpg?ezimgfmt=rs:300x250/rscb337/ng:webp/ngcb337"
                          alt=""></p>
             </div>
-
-
         </div>
         <div class="col-2"></div>
     </div>

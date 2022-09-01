@@ -9,7 +9,6 @@ import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.service.BookingService;
-import com.vladnickgofj.hotel.service.RoomStatusService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -23,7 +22,6 @@ import static java.lang.Integer.valueOf;
 public class ConfirmBookingCommand implements Command {
 
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
-    private final RoomStatusService roomStatusService = contextInjector.getRoomStatusService();
     private final BookingService bookingService = contextInjector.getBookingService();
     private static final Logger LOGGER = Logger.getLogger(ConfirmBookingCommand.class);
 
@@ -42,9 +40,6 @@ public class ConfirmBookingCommand implements Command {
         LOGGER.info("numberOfNights: " + numberOfNights);
         Integer userId = user.getId();
         RoomStatusDto roomStatusDto = (RoomStatusDto) request.getSession().getAttribute("roomStatus");
-        LOGGER.info(roomStatusDto);
-        LOGGER.info("roomStatusDto: " + roomStatusDto);
-
         LocalDate bookTime = LocalDate.now();
 
         BookingDto bookingDto = BookingDto.newBuilder()

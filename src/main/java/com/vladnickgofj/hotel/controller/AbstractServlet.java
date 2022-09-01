@@ -47,25 +47,19 @@ public abstract class AbstractServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = forward(req, resp);
-        LOGGER.info("doGet: " + page);
         req.getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = forward(req, resp);
-        LOGGER.info("doPost: " + url);
         resp.sendRedirect(url);
     }
 
     private String forward(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String commandName = req.getParameter("command");
-        String method = req.getMethod();
-        LOGGER.info("Command name: " + commandName);
-        LOGGER.info("method: " + method);
         Command command = commandNameToCommand.getOrDefault(commandName, defaultCommand);
-        final String page = command.execute(req, resp);
-        LOGGER.info("page: " + page);
-        return page;
+        command.execute(req, resp);
+        return command.execute(req, resp);
     }
 }

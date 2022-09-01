@@ -44,7 +44,6 @@
                     <table>
                         <tr>
                             <td>email</td>
-                            <%--                            <td><input type="text" value="${loginPageEmail}" name="email"></td>--%>
                             <td><input type="text" name="email"></td>
                         </tr>
                         <tr>
@@ -55,14 +54,12 @@
                         </tr>
                         <tr>
                             <td>
-
                             </td>
                             <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
                         </tr>
                     </table>
                     <div class="alert alert-warning" style="${errorMessage==null?'display: none':'margin-top:10px'};">
                         <p><f:message key="authFailed" bundle="${bunCont}"/></p>
-                        <%--                        <p>${errroMessage}</p>--%>
                     </div>
                 </form>
             </div>

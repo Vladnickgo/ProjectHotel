@@ -33,8 +33,6 @@ public class ShowAdminProfileCommand implements Command {
 
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
         UsersOrderRequestDto usersOrderRequestDto = UsersOrderRequestDto.newBuilder()
                 .sorting(sorting)
                 .ordering(ordering)

@@ -11,12 +11,11 @@ import java.util.Optional;
 
 public class UserDaoImpl extends AbstractCrudDaoImpl<User> implements com.vladnickgofj.hotel.dao.UserDao {
 
-    private static final String INSERT_QUERY = "INSERT INTO users(first_name, last_name, email, password,salt, role_id) "+
+    private static final String INSERT_QUERY = "INSERT INTO users(first_name, last_name, email, password,salt, role_id) " +
             "VALUES(?,?,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM users WHERE user_id=?";
-    private static final String UPDATE_USER = "UPDATE users "+
+    private static final String UPDATE_USER = "UPDATE users " +
             "SET first_name=?, last_name=?, email=?, password=?, role_id=? WHERE user_id=?";
-    //    private static final String DELETE_USER = "DELETE FROM users WHERE user_id=?";
     private static final String FIND_ALL = "SELECT * FROM users";
     private static final String FIND_BY_EMAIL = "SELECT * FROM users WHERE email=?";
     private static final int DEFAULT_USER_ROLE_ID = 2;

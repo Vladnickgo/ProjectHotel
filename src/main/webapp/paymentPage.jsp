@@ -11,6 +11,7 @@
 <c:set var="Title" scope="request" value="Payment Page"/>
 
 <c:import url="views/head.jsp"/>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -104,7 +105,7 @@
                 <form action="home" method="post">
                     <table>
                         <tr>
-                            <th>№ карти</th>
+                            <th><f:message key="cardNumber" bundle="${bunCont}"/></th>
                             <td><input type="text" name="cardNumber"/></td>
                         </tr>
                         <tr>

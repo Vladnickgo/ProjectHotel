@@ -67,8 +67,7 @@ public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implement
             "    OR (date_start >= ? AND date_start < ?) " +
             "    OR (date_end > ? AND date_end <= ?)) " +
             "AND rss.status_statement_id=1 " +
-            "ORDER BY price ASC ";
-//            "LIMIT ? OFFSET ?";
+            "ORDER BY price ";
 
     private static final String FIND_FREE_BY_ROOM_ID_AND_DATE_START = "SELECT date_end FROM room_status WHERE room_id=? AND status_statement_id=1 AND date_start=? ";
 

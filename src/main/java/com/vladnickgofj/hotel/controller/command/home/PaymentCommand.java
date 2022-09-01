@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Enumeration;
 
 public class PaymentCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(PaymentCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final BookingService bookingService = contextInjector.getBookingService();
 
@@ -33,24 +33,12 @@ public class PaymentCommand implements Command {
         request.getSession().removeAttribute("days");
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
 
         String roomId = (String) request.getSession().getAttribute("roomId");
         String checkIn = (String) request.getSession().getAttribute("checkIn");
         String checkOut = (String) request.getSession().getAttribute("checkOut");
 
-        String roomId1 = request.getParameter("roomId");
-        String checkIn1 = request.getParameter("checkIn");
-        String checkOut1 = request.getParameter("checkOut");
         String cardErrorMessage = request.getParameter("cardErrorMessage");
-
-        System.out.println("roomId1: " + roomId1);
-        System.out.println("checkIn1: " + checkIn1);
-        System.out.println("checkOut1: " + checkOut1);
-        System.out.println("roomId: " + roomId);
-        System.out.println("checkIn: " + checkIn);
-        System.out.println("checkOut: " + checkOut);
 
         BookingDto bookingDto = BookingDto.newBuilder()
                 .room(Room.newBuilder()
@@ -62,9 +50,6 @@ public class PaymentCommand implements Command {
         BookingDto bookingByParameters = bookingService.getBookingByParameters(bookingDto);
         request.setAttribute("bookingByParameters", bookingByParameters);
         request.setAttribute("cardErrorMessage", cardErrorMessage);
-        LOGGER.info("bookingByParameters" + bookingByParameters);
-        String page = PagesConstant.PAYMENT_PAGE;
-        String url = "home?command=payment";
-        return "post".equals(method) ? url : page;
+        return PagesConstant.PAYMENT_PAGE;
     }
 }

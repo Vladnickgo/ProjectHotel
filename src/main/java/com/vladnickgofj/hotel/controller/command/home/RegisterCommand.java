@@ -24,10 +24,8 @@ public class RegisterCommand implements Command {
 
         UserDto userDto = mapRequestToUserDto(request);
         LOGGER.info("userDto" + userDto);
-        String method = request.getMethod();
         String command = request.getParameter("command");
         LOGGER.info("command: " + command);
-//        request.setAttribute("command", command);
         try {
             request.getSession().invalidate();
             userService.save(userDto);
@@ -43,7 +41,6 @@ public class RegisterCommand implements Command {
             request.getSession().setAttribute("errorMessage", errorMessage);
             return "home?command=unsuccessfulRegister";
         }
-//        return PagesConstant.REGISTRATION_PAGE;
     }
 
     private UserDto mapRequestToUserDto(HttpServletRequest request) {
