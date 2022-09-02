@@ -68,45 +68,45 @@
                     <th style="margin-top: 15px; margin-bottom: 20px" colspan="2">
                         <f:message key="hotel" bundle="${bunCont}"/>
                         <h2>
-                            ${sessionScope.hotelName}
+                            ${hotelName}
                         </h2>
                     </th>
                 </tr>
                 <tr>
                     <th><f:message key="roomType" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.typeName}</td>
+                    <td>${typeName}</td>
                 </tr>
                 <tr>
                     <th><f:message key="numberOfBeds" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.numberOfBeds}</td>
+                    <td>${numberOfBeds}</td>
                 </tr>
                 <tr>
                     <th><f:message key="checkIn" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.checkIn}</td>
+                    <td>${checkIn}</td>
                 </tr>
                 <tr>
                     <th><f:message key="checkOut" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.checkOut }</td>
+                    <td>${checkOut }</td>
                 </tr>
                 <tr>
                     <th><f:message key="nights" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.numberOfNights}</td>
+                    <td>${numberOfNights}</td>
                 </tr>
                 <tr>
                     <th><f:message key="price" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.price} <f:message key="uah" bundle="${bunCont}"/></td>
+                    <td>${price} <f:message key="uah" bundle="${bunCont}"/></td>
                 </tr>
                 <tr style="background-color: lightgray">
                     <th><f:message key="toPay" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.price*sessionScope.numberOfNights} <f:message key="uah"
-                                                                                     bundle="${bunCont}"/></td>
+                    <td>${price*numberOfNights} <f:message key="uah"
+                                                           bundle="${bunCont}"/></td>
                 </tr>
             </table>
             <div style="text-align: center">
                 <form action="home" method="post">
                     <a class="btn btn-outline-primary"
                        style="margin: 2px;width: 100px" ${user==null||user.role!='USER'?'hidden':''}
-                       href="home?command=showRooms&dateStart=${sessionScope.dateStart}&dateEnd=${sessionScope.dateEnd}&checkIn=${checkIn}&checkOut=${checkOut}&sorting=${sorting}&ordering=${ordering}&hotelId=${hotelId}&hotelName=${hotelName}&statusFree=${statusFree}&statusBooked=${statusBooked}&recordsOnPage=${recordsOnPage}"
+                       href="home?command=showRooms&dateStart=${dateStart}&dateEnd=${dateEnd}&checkIn=${checkIn}&checkOut=${checkOut}&sorting=${sorting}&ordering=${ordering}&hotelId=${hotelId}&hotelName=${hotelName}&statusFree=${statusFree}&statusBooked=${statusBooked}&recordsOnPage=${recordsOnPage}"
                     >Cancel
                     </a>
 

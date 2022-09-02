@@ -29,6 +29,10 @@
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
                 <input name="command" value="${command}" hidden>
+                <input name="command" value="${command}" hidden>
+                <c:forEach items="${bookingDtoList}" var="booking">
+                    <input type="checkbox" value="${booking.id}" name="bookingId" checked hidden>
+                </c:forEach>
             </form>
         </div>
     </div>

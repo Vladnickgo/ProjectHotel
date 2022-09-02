@@ -167,8 +167,8 @@
                             <td style="text-align: center">
                                 <input type="checkbox" ${booking.bookingStatusId==1?'':'hidden'} name="bookingId"
                                        value="${booking.id}">
-                                <a href="" ${booking.bookingStatusId==2?'':'hidden'}>Сплачено</a>
-                                <a href="" ${booking.bookingStatusId==3?'':'hidden'}>Відмінено</a>
+                                <a style="text-decoration: none" href="" ${booking.bookingStatusId==2?'':'hidden'}>Сплачено</a>
+                                <a style="text-decoration: none" href="" ${booking.bookingStatusId==3?'':'hidden'}>Відмінено</a>
                             </td>
                         </tr>
                     </c:forEach>

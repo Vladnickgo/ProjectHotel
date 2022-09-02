@@ -167,8 +167,7 @@
                    href="home?command=showAdminProfile&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&itemsOnPage=${itemsOnPage}&statusNotDone=${statusNotDone}&statusCompleted=${statusCompleted}&sorting=${sorting}&ordering=${ordering}"
                 ${numberOfPage>=totalPages?'hidden':''}>></a>
             </div>
-            ${usersOrderDtoList}<br>
-            ${roomStatusList}
+
         </div>
         <div class="col-2"></div>
     </div>
