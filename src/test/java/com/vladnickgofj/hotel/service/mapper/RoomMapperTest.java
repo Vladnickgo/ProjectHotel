@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.service.mapper;
 
-import com.vladnickgofj.hotel.controller.dto.RoomDto;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
@@ -13,17 +12,17 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoomMapperTest {
-    private final Mapper<RoomDto, Room> mapper = new RoomMapper();
+    private final Mapper<com.vladnickgofj.hotel.controller.dto.RoomDto, Room> mapper = new RoomMapper();
 
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideRoomAndRoomDtoForCheckMapping")
-    void checkMapEntityToDto(Room room, RoomDto roomDto, String message) {
+    void checkMapEntityToDto(Room room, com.vladnickgofj.hotel.controller.dto.RoomDto roomDto, String message) {
         assertEquals(roomDto, mapper.mapEntityToDto(room));
     }
 
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideRoomDtoAndRoomForCheckMapping")
-    void checkMapDtoToEntity(RoomDto roomDto, Room room, String message) {
+    void checkMapDtoToEntity(com.vladnickgofj.hotel.controller.dto.RoomDto roomDto, Room room, String message) {
         assertEquals(room, mapper.mapDtoToEntity(roomDto));
     }
 
@@ -43,7 +42,7 @@ class RoomMapperTest {
                                         .build())
                                 .build(),
 
-                        RoomDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
                                 .id(1)
                                 .roomTypeId(2)
                                 .numberOfBeds(2)
@@ -65,7 +64,7 @@ class RoomMapperTest {
                                         .build())
                                 .build(),
 
-                        RoomDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
                                 .id(2)
                                 .roomTypeId(2)
                                 .numberOfBeds(3)
@@ -79,7 +78,7 @@ class RoomMapperTest {
     private static Stream<Arguments> provideRoomDtoAndRoomForCheckMapping() {
         return Stream.of(
                 Arguments.of(
-                        RoomDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
                                 .id(1)
                                 .roomTypeId(2)
                                 .numberOfBeds(2)
@@ -99,7 +98,7 @@ class RoomMapperTest {
                                 .build(),
                         "Mapping from RoomDto to Room is correct"),
                 Arguments.of(
-                        RoomDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
                                 .id(2)
                                 .roomTypeId(2)
                                 .numberOfBeds(3)

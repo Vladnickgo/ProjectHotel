@@ -2,6 +2,8 @@ package com.vladnickgofj.hotel.service.mapper;
 
 import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.entity.*;
+import com.vladnickgofj.hotel.dao.entity.Room;
+import com.vladnickgofj.hotel.dao.entity.RoomType;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,9 +25,7 @@ class UsersOrderMapperTest {
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideUsersOrderDtoAndUsersOrderForCheckMapping")
     void checkMapEntityToDto(UsersOrderDto usersOrderDto, UsersOrder usersOrder, String message) {
-        UsersOrderDto usersOrderDto1 = mapper.mapEntityToDto(usersOrder);
-        boolean equals = usersOrder.equals(usersOrderDto1);
-        assertEquals(usersOrderDto, mapper.mapEntityToDto(usersOrder),message);
+        assertEquals(usersOrderDto, mapper.mapEntityToDto(usersOrder), message);
     }
 
     private static Stream<Arguments> provideUsersOrdersAndUsersOrderDtoForCheckMapping() {
@@ -69,7 +69,7 @@ class UsersOrderMapperTest {
                         .numberOfPersons(5)
                         .roomDtoResponse(RoomDtoResponse.newBuilder()
                                 .id(5)
-                                .roomType(RoomTypeDto.newBuilder()
+                                .roomType(com.vladnickgofj.hotel.controller.dto.RoomTypeDto.newBuilder()
                                         .typeId(3)
                                         .build())
                                 .build())
@@ -99,7 +99,7 @@ class UsersOrderMapperTest {
                         .numberOfPersons(5)
                         .roomDtoResponse(RoomDtoResponse.newBuilder()
 //                                .id(4)
-                                .roomType(RoomTypeDto.newBuilder()
+                                .roomType(com.vladnickgofj.hotel.controller.dto.RoomTypeDto.newBuilder()
                                         .typeId(3)
                                         .typeName("Double")
                                         .build())

@@ -1,0 +1,26 @@
+package com.vladnickgofj.hotel.validator;
+
+public class ValidatorErrorMessage {
+    public static final String EMAIL_ERROR_MESSAGE = "Email is not valid";
+    public static final String PASSWORD_ERROR_MESSAGE = "Password is not valid";
+    public static final String CONFIRMATION_PASSWORD_ERROR_MESSAGE = "ConfirmationPassword is not valid";
+    public static final String USER_IS_NULL_MESSAGE = "User is null";
+    public static final String FIRST_NAME_ERROR_MESSAGE = "First name is not valid";
+    public static final String LAST_NAME_ERROR_MESSAGE = "Last name is not valid";
+    public static final String USER_ALREADY_EXIST_ERROR_MESSAGE = "User with email <strong>%s</strong> is already registered";
+    public static final String NOT_AVAILABLE_PAGE = "The page is not available";
+    public static final String USER_WITH_EMAIL_NOT_FOUND = "User with email <strong>%s</strong> not found";
+    public static final String ROOM_STATUS_NOT_FOUND = "Room status with id <strong>%s</strong> not defined";
+    public static final String ROOM_TYPE_NOT_DEFINED = "Room type with id<strong>%s</strong> not defined";
+    public static final String BOOKING_IS_NULL_MESSAGE = "Booking is null";
+    public static final String NOT_CORRECT_CHECK_IN_DATE = "Not correct check in date";
+    public static final String NOT_CORRECT_CHECK_OUT_DATE = "Not correct check out date";
+    public static final String NOT_CORRECT_DATE_OF_BOOKING = "Not correct date of booking";
+    public static final String DATE_CHECK_IN_MORE_OR_EQUAL_THAN_DATE_CHECK_OUT = "Date checkIn more or equal than date checkOut";
+    public static final String BOOKING_DATE_MORE_THAN_DATE_CHECK_IN = "Booking date more than date checkIn";
+    public static final String DATA_ABOUT_ROOM_IS_ABSENT = "Data about room is absent";
+    public static final String USER_DATA_IS_ABSENT = "Data about user is absent";
+    public static final String NOT_CORRECT_NUMBER_OF_NIGHTS = "Not correct number of nights";
+    public static final String NOT_CORRECT_BOOKING_STATUS = "Not correct booking status";
+
+}

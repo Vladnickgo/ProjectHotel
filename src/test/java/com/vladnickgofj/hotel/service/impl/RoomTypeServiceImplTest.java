@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.service.impl;
 
-import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.RoomTypeDao;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
@@ -26,7 +25,7 @@ class RoomTypeServiceImplTest {
     private RoomTypeDao roomTypeDao;
 
     @Mock
-    private Mapper<RoomTypeDto, RoomType> mapper;
+    private Mapper<com.vladnickgofj.hotel.controller.dto.RoomTypeDto, RoomType> mapper;
 
     @InjectMocks
     private RoomTypeServiceImpl roomTypeService;
@@ -43,10 +42,10 @@ class RoomTypeServiceImplTest {
 
     @ParameterizedTest(name = "[{index}]{3}")
     @MethodSource("provideRoomTypeAndRoomTypeDto")
-    void checkGetRoomTypeById_ForExistRoomType(Integer id, RoomType roomType, RoomTypeDto roomTypeDto, String message) {
+    void checkGetRoomTypeById_ForExistRoomType(Integer id, RoomType roomType, com.vladnickgofj.hotel.controller.dto.RoomTypeDto roomTypeDto, String message) {
         Mockito.when(roomTypeDao.findById(id)).thenReturn(Optional.ofNullable(roomType));
         Mockito.when(mapper.mapEntityToDto(roomType)).thenReturn(roomTypeDto);
-        RoomTypeDto actualRoomTypeById = roomTypeService.getRoomTypeById(id);
+        com.vladnickgofj.hotel.controller.dto.RoomTypeDto actualRoomTypeById = roomTypeService.getRoomTypeById(id);
         assertEquals(actualRoomTypeById, roomTypeDto);
     }
 
@@ -64,7 +63,7 @@ class RoomTypeServiceImplTest {
                                 .id(5)
                                 .typeName("Queen")
                                 .build(),
-                        RoomTypeDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomTypeDto.newBuilder()
                                 .typeId(5)
                                 .typeName("Queen")
                                 .build(),
@@ -74,7 +73,7 @@ class RoomTypeServiceImplTest {
                                 .id(6)
                                 .typeName("King")
                                 .build(),
-                        RoomTypeDto.newBuilder()
+                        com.vladnickgofj.hotel.controller.dto.RoomTypeDto.newBuilder()
                                 .typeId(6)
                                 .typeName("King")
                                 .build(),
