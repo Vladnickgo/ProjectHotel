@@ -32,7 +32,6 @@ public class UsersOrderDto {
         return new Builder();
     }
 
-
     public static final class Builder {
         private Integer id;
         private UserDto userDto;

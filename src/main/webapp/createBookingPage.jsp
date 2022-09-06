@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -82,11 +86,13 @@
                 </tr>
                 <tr>
                     <th><f:message key="checkIn" bundle="${bunCont}"/></th>
-                    <td>${checkIn}</td>
+                    <td>
+                        <tags:fulldate date="${checkIn}"/>
+                    </td>
                 </tr>
                 <tr>
                     <th><f:message key="checkOut" bundle="${bunCont}"/></th>
-                    <td>${checkOut }</td>
+                    <td><tags:fulldate date="${checkOut}"/></td>
                 </tr>
                 <tr>
                     <th><f:message key="nights" bundle="${bunCont}"/></th>
@@ -105,23 +111,20 @@
             <div style="text-align: center">
                 <form action="home" method="post">
                     <a class="btn btn-outline-primary"
-                       style="margin: 2px;width: 100px" ${user==null||user.role!='USER'?'hidden':''}
+                       style="margin: 2px;width: 120px" ${user==null||user.role!='USER'?'hidden':''}
                        href="home?command=showRooms&dateStart=${dateStart}&dateEnd=${dateEnd}&checkIn=${checkIn}&checkOut=${checkOut}&sorting=${sorting}&ordering=${ordering}&hotelId=${hotelId}&hotelName=${hotelName}&statusFree=${statusFree}&statusBooked=${statusBooked}&recordsOnPage=${recordsOnPage}"
-                    >Cancel
+                    ><f:message key="cancel" bundle="${bunCont}"/>
                     </a>
 
                     <button class="btn btn-outline-primary"
                             name="command" value="confirmBookingCommand"
                             type="submit"
-                            style="margin: 2px;width: 100px"
+                            style="margin: 2px;width: 120px"
                     ${user==null||user.role!='USER'?'hidden':''}>
-                        Confirm
+                        <f:message key="confirm" bundle="${bunCont}"/>
                     </button>
-
                 </form>
             </div>
-
-
         </div>
         <div class="col-3">
         </div>

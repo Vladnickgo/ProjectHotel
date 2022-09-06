@@ -13,13 +13,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
-    <title>InternalServerError</title>
+    <title>Error page</title>
 </head>
 <f:setLocale value="${sessionScope.language}"/>
 <f:setBundle var="bunCont" basename="resources"/>
 <body>
 <c:import url="../views/header.jsp"/>
-<div style="text-align: center; margin:30px;background-color: crimson;color: #F8F9FA;padding: 10px;">
+<div style="text-align: center; margin-top:230px;background-color: #c1b9b9;color: #F8F9FA;padding: 100px;">
     <h1>Ouch!</h1>
     <h2>Something went wrong</h2>
 </div>

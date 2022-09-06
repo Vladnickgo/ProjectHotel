@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -63,15 +67,15 @@
                         <td>${booking.id}
                             <input type="checkbox" value="${booking.id}" name="bookingId" checked hidden>
                         </td>
-                        <td>${booking.bookTime}</td>
+                        <td><tags:fulldate date="${booking.bookTime}"/></td>
                         <td>${booking.room.hotel.name}</td>
-                        <td>${booking.checkIn}</td>
-                        <td>${booking.checkOut}</td>
+                        <td><tags:fulldate date="${booking.checkIn}"/></td>
+                        <td><tags:fulldate date="${booking.checkOut}"/></td>
                         <td>${booking.room.roomType.typeName}</td>
                         <td>${booking.room.numberOfBeds}</td>
-                        <td>${booking.room.price} UAH</td>
+                        <td>${booking.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                         <td>${booking.nights}</td>
-                        <td>${booking.room.price*booking.nights} UAH</td>
+                        <td>${booking.room.price*booking.nights} <f:message key="uah" bundle="${bunCont}"/></td>
 
                     </tr>
                 </c:forEach>

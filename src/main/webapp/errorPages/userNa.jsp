@@ -1,4 +1,4 @@
-н<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -8,13 +8,28 @@
 
 <f:setBundle var="bunCont" basename="resources"/>
 
-<c:set var="Title" scope="request" value="Homepage"/>
+<c:set var="Title" scope="request" value="Home errorpage"/>
 
 <c:import url="../views/head.jsp"/>
 
 <body>
+<div class="row text-center" style="background-color:#F8F9FA">
+    <div class="col-11">
+        <c:import url="/views/header.jsp"/>
+    </div>
+    <div class="col-1 pt-2">
+        <form class="d-flex" method="get" onchange="submit()">
+            <select class=" form-control select-size" id="language" name="language"
+                    style="width: 120px;">
+                <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
+                <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+            </select>
+            <input name="command" value="${command}" hidden>
+        </form>
+    </div>
+</div>
 
-<c:import url="../views/header.jsp"/>
+
 <div class="row container-fluid mt-4">
     <div class="col-3">
     </div>
@@ -30,7 +45,7 @@
             </div>
             <div class="col-9 align-middle">
                 <h1 class="pt-5 text-white">
-                    <f:message key="unauthorized" bundle="${bunCont}" ></f:message>
+                    <f:message key="unauthorized" bundle="${bunCont}"></f:message>
                 </h1>
             </div>
         </div>
@@ -42,9 +57,9 @@
     <div class="col-3">
     </div>
     <div class="col-6">
-       <div class="display-3">
-           <f:message key="warning" bundle="${bunCont}"></f:message>
-       </div>
+        <div class="display-3">
+            <f:message key="warning" bundle="${bunCont}"></f:message>
+        </div>
     </div>
     <div class="col-3">
     </div>

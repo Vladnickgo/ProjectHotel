@@ -28,7 +28,7 @@ public class HomeSecurityFilter implements Filter {
         UserDto user = (UserDto) req.getSession().getAttribute("user");
         LOGGER.info("user: " + user);
         String command = req.getParameter("command");
-        if ((user == null /*|| !Role.USER.equals(user.getRole())*/) && ("showUserProfile".equals(command)||"showAdminProfile".equals(command)||"usersOrderPage".equals(command)||"orderHandlerPage".equals(command))) {
+        if ((user == null /*|| !Role.USER.equals(user.getRole())*/) && ("showUserProfile".equals(command)||"showAdminProfile".equals(command)||"usersOrderPage".equals(command)||"successPaymentPage".equals(command)||"payment".equals(command)||"orderHandlerPage".equals(command))) {
             LOGGER.info("AuthorisationFailException("+NOT_AVAILABLE_PAGE+")");
             throw new AuthorisationFailException(NOT_AVAILABLE_PAGE);
         }

@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Locale;
 
 @WebFilter("/*")
 public class LocalFilter implements Filter {
@@ -23,7 +24,9 @@ public class LocalFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+
         servletRequest.setCharacterEncoding(UTF_8);
         servletResponse.setCharacterEncoding(UTF_8);
         servletResponse.setContentType("text/html; charset=UTF-8");

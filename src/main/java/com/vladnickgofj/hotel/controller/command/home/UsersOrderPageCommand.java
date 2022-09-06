@@ -26,8 +26,6 @@ public class UsersOrderPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
-        String method = request.getMethod();
-        LOGGER.info("method" + method);
         String signIn = request.getParameter("signIn");
         String signOut = request.getParameter("signOut");
         String roomTypeId = request.getParameter("roomTypeId");

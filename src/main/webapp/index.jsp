@@ -1,14 +1,23 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
 
 <c:set var="Title" scope="request" value="Homepage"/>
+
+<jsp:useBean id="now" class="java.util.Date" scope="page"/>
 
 <c:import url="views/head.jsp"/>
 <html>
@@ -49,7 +58,8 @@
             <h1 class="display-1"><f:message key="welcome" bundle="${bunCont}"></f:message></h1>
             <h2 class="mt-5">☆ ☆ ☆ ☆ ☆</h2>
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+        </div>
     </div>
 </div>
 <c:import url="views/footer.jsp"/>

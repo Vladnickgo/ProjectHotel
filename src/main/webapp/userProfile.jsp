@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -155,15 +159,15 @@
                     <c:forEach var="booking" items="${bookingsByUserIdAndParameters}">
                         <tr>
                             <td>${booking.id}</td>
-                            <td>${booking.bookTime}</td>
+                            <td><tags:fulldate date="${booking.bookTime}"/></td>
                             <td>${booking.room.hotel.name}</td>
-                            <td>${booking.checkIn}</td>
-                            <td>${booking.checkOut}</td>
+                            <td><tags:fulldate date="${booking.checkIn}"/></td>
+                            <td><tags:fulldate date="${booking.checkOut}"/></td>
                             <td>${booking.room.roomType.typeName}</td>
                             <td>${booking.room.numberOfBeds}</td>
-                            <td>${booking.room.price} UAH</td>
+                            <td>${booking.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                             <td>${booking.nights}</td>
-                            <td>${booking.room.price*booking.nights} UAH</td>
+                            <td>${booking.room.price*booking.nights} <f:message key="uah" bundle="${bunCont}"/></td>
                             <td style="text-align: center">
                                 <input type="checkbox" ${booking.bookingStatusId==1?'':'hidden'} name="bookingId"
                                        value="${booking.id}">
@@ -198,7 +202,7 @@
             <div ${error=='true'?'':'hidden'}>
                 <div style="background-color: #F8F9FA; box-shadow: lightgray">
                     <h3 style="color: darkslateblue;padding: 30px">
-                        <div style="font-weight: bold">Виберіть замовлення, які бажаєте сплатити
+                        <div style="font-weight: bold"><f:message key="notChooseElements" bundle="${bunCont}"/>
                         </div>
                     </h3>
                 </div>
@@ -206,10 +210,10 @@
 
 
         </div>
-        <div class="col-2"></div>
+        <div class="col-2">
+        </div>
     </div>
 </div>
-
 <c:import url="views/footer.jsp"/>
 </body>
 </html>

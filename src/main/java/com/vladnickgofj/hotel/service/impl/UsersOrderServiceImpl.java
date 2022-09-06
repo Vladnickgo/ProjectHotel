@@ -8,6 +8,7 @@ import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.UsersOrder;
 import com.vladnickgofj.hotel.service.UsersOrderService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.validator.UsersOrderValidator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,16 +18,19 @@ public class UsersOrderServiceImpl implements UsersOrderService {
     private final UsersOrderDao usersOrderDao;
     private final Mapper<UsersOrderDto, UsersOrder> userOrderMapper;
     private final Mapper<RoomStatusDto, RoomStatus> roomStatusMapper;
+    private final UsersOrderValidator usersOrderValidator;
 
 
-    public UsersOrderServiceImpl(UsersOrderDao usersOrderDao, Mapper<UsersOrderDto, UsersOrder> mapper, Mapper<RoomStatusDto, RoomStatus> roomStatusMapper) {
+    public UsersOrderServiceImpl(UsersOrderDao usersOrderDao, Mapper<UsersOrderDto, UsersOrder> mapper, Mapper<RoomStatusDto, RoomStatus> roomStatusMapper, UsersOrderValidator usersOrderValidator) {
         this.usersOrderDao = usersOrderDao;
         this.userOrderMapper = mapper;
         this.roomStatusMapper = roomStatusMapper;
+        this.usersOrderValidator = usersOrderValidator;
     }
 
     @Override
     public void save(UsersOrderDto usersOrderDto) {
+        usersOrderValidator.validate(usersOrderDto);
         UsersOrder usersOrder = userOrderMapper.mapDtoToEntity(usersOrderDto);
         usersOrderDao.save(usersOrder);
     }
@@ -63,6 +67,5 @@ public class UsersOrderServiceImpl implements UsersOrderService {
     public void updateUsersOrderById(Integer orderId) {
         usersOrderDao.updateUsersOrderById(orderId);
     }
-
 
 }

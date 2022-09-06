@@ -4,6 +4,7 @@ import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.entity.*;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,7 +20,7 @@ class UsersOrderMapperTest {
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideUsersOrdersAndUsersOrderDtoForCheckMapping")
     void checkMapDtoToEntity(UsersOrder usersOrder, UsersOrderDto usersOrderDto, String message) {
-        assertEquals(usersOrder, mapper.mapDtoToEntity(usersOrderDto));
+        assertEquals(usersOrder, mapper.mapDtoToEntity(usersOrderDto),message);
     }
 
     @ParameterizedTest(name = "[{index}]{2}")

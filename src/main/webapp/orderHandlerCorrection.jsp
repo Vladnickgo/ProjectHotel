@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -162,13 +166,13 @@
                 <th>
                     <f:message key="signIn" bundle="${bunCont}"/>
                 </th>
-                <td>${dateStart}</td>
+                <td><tags:fulldate date="${dateStart}"/></td>
             </tr>
             <tr>
                 <th>
                     <f:message key="signOut" bundle="${bunCont}"/>
                 </th>
-                <td>${dateEnd}</td>
+                <td><tags:fulldate date="${dateEnd}"/></td>
             </tr>
             <tr>
                 <th>

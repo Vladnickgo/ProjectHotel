@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ShowRoomsCommand implements Command {
@@ -57,8 +59,8 @@ public class ShowRoomsCommand implements Command {
         LOGGER.info("totalPages: " + totalPages);
         LOGGER.info("listOfRooms: " + roomStatusList);
         LOGGER.info("numberOfPage: " + roomStatusDtoRequest.getNumberOfPage());
-        LOGGER.info("checkIn: " + roomStatusDtoRequest.getSignIn());
-        LOGGER.info("checkOut: " + roomStatusDtoRequest.getSignOut());
+        LOGGER.info("checkIn: " + roomStatusDtoRequest.getSignIn().toString());
+        LOGGER.info("checkOut: " + roomStatusDtoRequest.getSignOut().toString());
         LOGGER.info("statusFree: " + roomStatusDtoRequest.getStatusFree());
         LOGGER.info("statusBooked: " + roomStatusDtoRequest.getStatusBooked());
         LOGGER.info("minCheckIn: " + roomStatusDtoRequest.getMinSignIn());
@@ -87,8 +89,8 @@ public class ShowRoomsCommand implements Command {
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("listOfRooms", roomStatusList);
         request.setAttribute("numberOfPage", roomStatusDtoRequest.getNumberOfPage());
-        request.setAttribute("checkIn", roomStatusDtoRequest.getSignIn());
-        request.setAttribute("checkOut", roomStatusDtoRequest.getSignOut());
+        request.setAttribute("checkIn", roomStatusDtoRequest.getSignIn().toString());
+        request.setAttribute("checkOut", roomStatusDtoRequest.getSignOut().toString());
         request.setAttribute("statusFree", roomStatusDtoRequest.getStatusFree());
         request.setAttribute("statusBooked", roomStatusDtoRequest.getStatusBooked());
         request.setAttribute("minCheckIn", roomStatusDtoRequest.getMinSignIn());

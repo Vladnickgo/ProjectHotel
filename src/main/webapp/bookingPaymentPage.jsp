@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -67,16 +71,15 @@
                 </tr>
                 <tr>
                     <th><f:message key="numberOfBeds" bundle="${bunCont}"/></th>
-                    <%--                    <td>${roomStatusById.roomDtoResponse.numberOfBeds}</td>--%>
                     <td>${sessionScope.numberOfBeds}</td>
                 </tr>
                 <tr>
                     <th><f:message key="checkIn" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.checkIn}</td>
+                    <td><tags:fulldate date="${sessionScope.checkIn}"/></td>
                 </tr>
                 <tr>
                     <th><f:message key="checkOut" bundle="${bunCont}"/></th>
-                    <td>${sessionScope.checkOut}</td>
+                    <td><tags:fulldate date="${sessionScope.checkOut}"/></td>
                 </tr>
                 <tr>
                     <th><f:message key="nights" bundle="${bunCont}"/></th>
@@ -117,7 +120,7 @@
                         <input class="btn btn-outline-primary" type="submit" value="Pay now">
                         <a class="btn btn-outline-primary"
                            href="home?command=showUserProfile"
-                        >Pay later
+                        ><f:message key="payLater" bundle="${bunCont}"/>
                         </a>
                     </form>
 

@@ -4,6 +4,8 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -29,6 +31,11 @@
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
                 <input name="command" value="${command}" hidden>
+                <input name="statusNotDone" value="${statusNotDone}" hidden>
+                <input name="statusCompleted" value="${statusCompleted}" hidden>
+                <input name="sorting" value="${sorting}" hidden>
+                <input name="ordering" value="${ordering}" hidden>
+                <input name="itemsOnPage" value="${itemsOnPage}" hidden>
             </form>
         </div>
     </div>
@@ -39,7 +46,7 @@
 
         </div>
         <div class="col-8">
-            <h1 class="text-center"><f:message key="adminProfile" bundle="${bunCont}"/> </h1>
+            <h1 class="text-center"><f:message key="adminProfile" bundle="${bunCont}"/></h1>
             <hr>
             <h3 style="text-align: left; margin-bottom: 20px; color: darkslateblue">
                 <f:message key="usersOrders" bundle="${bunCont}"/>
@@ -107,7 +114,7 @@
         <div class="col-8 text-center">
             <table class="table table-striped" style="width: 100%;padding-bottom: 30px">
                 <tr class="table-primary">
-                    <th><f:message key="orderDate" bundle="${bunCont}"/> </th>
+                    <th><f:message key="orderDate" bundle="${bunCont}"/></th>
                     <th><f:message key="hotel" bundle="${bunCont}"/></th>
                     <th><f:message key="checkIn" bundle="${bunCont}"/></th>
                     <th><f:message key="checkOut" bundle="${bunCont}"/></th>
@@ -118,10 +125,10 @@
                 </tr>
                 <c:forEach var="usersOrder" items="${listOfOrders}">
                     <tr>
-                        <td>${usersOrder.orderDate}</td>
+                        <td><tags:fulldate date="${usersOrder.orderDate}"/></td>
                         <td>${usersOrder.hotelDto.name}</td>
-                        <td>${usersOrder.dateStart}</td>
-                        <td>${usersOrder.dateEnd}</td>
+                        <td><tags:fulldate date="${usersOrder.dateStart}"/></td>
+                        <td><tags:fulldate date="${usersOrder.dateEnd}"/></td>
                         <td>${usersOrder.roomDtoResponse.roomType.typeName}</td>
                         <td>${usersOrder.numberOfPersons}</td>
                         <td>${usersOrder.userDto.email}</td>

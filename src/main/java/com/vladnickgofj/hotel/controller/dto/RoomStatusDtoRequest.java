@@ -3,7 +3,7 @@ package com.vladnickgofj.hotel.controller.dto;
 import java.time.LocalDate;
 import java.util.*;
 
-import static com.vladnickgofj.hotel.ApplicationConstant.NUMBER_OF_MONTHS_AVAILABLE_FOR_ORDER;
+import static com.vladnickgofj.hotel.ApplicationConstant.NUMBER_OF_DAYS_AVAILABLE_FOR_ORDER;
 
 public class RoomStatusDtoRequest {
 
@@ -154,7 +154,7 @@ public class RoomStatusDtoRequest {
     }
 
     public LocalDate getMaxSignIn() {
-        return LocalDate.now().plusMonths(NUMBER_OF_MONTHS_AVAILABLE_FOR_ORDER);
+        return LocalDate.now().plusDays(NUMBER_OF_DAYS_AVAILABLE_FOR_ORDER);
     }
 
     public LocalDate getSignOut() {
@@ -190,12 +190,6 @@ public class RoomStatusDtoRequest {
     }
 
     public String getQuerySubstitute() {
-//        Map<String, String> querySubstituteMap = new HashMap<>();
-//        querySubstituteMap.put("free booked","AND (rss.status_statement_id = 1 OR rss.status_statement_id = 2)");
-//        querySubstituteMap.put("free","AND rss.status_statement_id = 1");
-//        querySubstituteMap.put("booked","AND rss.status_statement_id = 2");
-//        querySubstituteMap.put("","AND rss.status_statement_id = 0");
-//        return Collections.unmodifiableMap(querySubstituteMap);
         return Objects.equals(getStatusFree(), "free") ?
                 ("booked".equals(getStatusBooked()) ?
                         "AND (rss.status_statement_id = 1 OR rss.status_statement_id = 2)" : "AND rss.status_statement_id = 1") :

@@ -16,6 +16,7 @@ import com.vladnickgofj.hotel.service.mapper.*;
 import com.vladnickgofj.hotel.service.util.PasswordEncryptionService;
 import com.vladnickgofj.hotel.validator.BookingValidator;
 import com.vladnickgofj.hotel.validator.UserValidator;
+import com.vladnickgofj.hotel.validator.UsersOrderValidator;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -61,6 +62,8 @@ public final class ApplicationContextInjector {
 
     private static final BookingValidator BOOKING_VALIDATOR = new BookingValidator();
 
+    private static final UsersOrderValidator USER_ORDER_VALIDATOR = new UsersOrderValidator();
+
     private static final PasswordEncryptionService PASSWORD_ENCRYPTION_SERVICE = new PasswordEncryptionService();
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_DAO, USER_MAPPER, USER_VALIDATOR, PASSWORD_ENCRYPTION_SERVICE);
@@ -77,7 +80,7 @@ public final class ApplicationContextInjector {
 
     private static final BookingService BOOKING_SERVICE = new BookingServiceImpl(BOOKING_DAO, BOOKING_MAPPER, ROOM_STATUS_MAPPER, BOOKING_VALIDATOR);
 
-    private static final UsersOrderService USERS_ORDER_SERVICE = new UsersOrderServiceImpl(USER_ORDER_DAO, USER_ORDER_MAPPER, ROOM_STATUS_MAPPER);
+    private static final UsersOrderService USERS_ORDER_SERVICE = new UsersOrderServiceImpl(USER_ORDER_DAO, USER_ORDER_MAPPER, ROOM_STATUS_MAPPER, USER_ORDER_VALIDATOR);
 
     private static final Command REGISTER_COMMAND = new RegisterCommand(USER_SERVICE);
 

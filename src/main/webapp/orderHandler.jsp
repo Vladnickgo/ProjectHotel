@@ -4,6 +4,8 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -82,12 +84,12 @@
                             <td style="text-align: center">${item.roomDtoResponse.numberOfBeds}</td>
                             <td style="text-align: center; ${item.dateStart>dateStart?'background-color:pink':''}">
                                 <div>
-                                        ${item.dateStart>dateStart?item.dateStart:dateStart}
+                                        <tags:fulldate date="${item.dateStart>dateStart?item.dateStart:dateStart}"/>
                                 </div>
                             </td>
                             <td style="${item.dateEnd<dateEnd?'background-color:pink':''};text-align: center">
                                 <div>
-                                        ${item.dateEnd<dateEnd?item.dateEnd:dateEnd}
+                                        <tags:fulldate date="${item.dateEnd<dateEnd?item.dateEnd:dateEnd}"/>
                                 </div>
                             </td>
                             <td>
@@ -141,7 +143,7 @@
                                 0.3em 0.3em 1em rgba(0,0,0,0.3);">
                             <div style="text-align: center; color: darkslateblue">
                                 <h4>
-                                    На вказаний період вільних місць в отелі немає. Заявку буде скасовано.
+                                    <f:message key="noFreeRooms" bundle="${bunCont}"/>
                                 </h4>
                             </div>
                             <div style="text-align: center">
@@ -175,13 +177,13 @@
                 <th>
                     <f:message key="checkIn" bundle="${bunCont}"/>
                 </th>
-                <td>${dateStart}</td>
+                <td><tags:fulldate date="${dateStart}"/></td>
             </tr>
             <tr>
                 <th>
                     <f:message key="checkOut" bundle="${bunCont}"/>
                 </th>
-                <td>${dateEnd}</td>
+                <td><tags:fulldate date="${dateEnd}"/></td>
             </tr>
             <tr>
                 <th>

@@ -4,9 +4,13 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
 
 <c:set var="Title" scope="request" value="Confirm group payment"/>
 
@@ -47,7 +51,7 @@
                         <th><f:message key="order" bundle="${bunCont}"/></th>
                         <th><f:message key="orderDate" bundle="${bunCont}"/></th>
                         <th><f:message key="hotel" bundle="${bunCont}"/></th>
-                        <th><f:message key="checkIn" bundle="${bunCont}"/>Дата заїзду</th>
+                        <th><f:message key="checkIn" bundle="${bunCont}"/></th>
                         <th><f:message key="checkOut" bundle="${bunCont}"/></th>
                         <th><f:message key="roomType" bundle="${bunCont}"/></th>
                         <th><f:message key="numberOfPersons" bundle="${bunCont}"/></th>
@@ -59,7 +63,7 @@
                                     name="command" value="groupPayment"
                                     type="submit"
                                     style="">
-                                Сплатити
+                                <f:message key="toPay" bundle="${bunCont}"/>
                             </button>
                         </th>
                     </tr>
@@ -67,13 +71,13 @@
                     <c:forEach var="booking" items="${bookingDtoList}">
                         <tr>
                             <td>${booking.id}</td>
-                            <td>${booking.bookTime}</td>
+                            <td><tags:fulldate date="${booking.bookTime}"/></td>
                             <td>${booking.room.hotel.name}</td>
-                            <td>${booking.checkIn}</td>
-                            <td>${booking.checkOut}</td>
+                            <td><tags:fulldate date="${booking.checkIn}"/></td>
+                            <td><tags:fulldate date="${booking.checkOut}"/></td>
                             <td>${booking.room.roomType.typeName}</td>
                             <td>${booking.room.numberOfBeds}</td>
-                            <td>${booking.room.price} UAH</td>
+                            <td>${booking.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                             <td>${booking.nights}</td>
                             <td>${booking.room.price*booking.nights} UAH</td>
                             <td hidden>
@@ -87,7 +91,7 @@
                     </c:forEach>
                     <tr>
                         <td colspan="9" style="text-align: right"><f:message key="toPay" bundle="${bunCont}"/></td>
-                        <td>${sum} UAH</td>
+                        <td>${sum} <f:message key="uah" bundle="${bunCont}"/></td>
                         <td></td>
                     </tr>
                 </table>
@@ -98,7 +102,7 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <th>№ карти</th>
+                                        <th><f:message key="cardNumber" bundle="${bunCont}"/></th>
                                         <td><input type="text" name="cardNumber" placeholder="0000000000000000"/></td>
                                     </tr>
                                     <tr>
@@ -129,7 +133,6 @@
                                     <f:message key="paymentConfirmation" bundle="${bunCont}"/>
                                 </button>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-4"></div>

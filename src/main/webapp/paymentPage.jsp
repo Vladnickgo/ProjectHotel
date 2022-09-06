@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -42,7 +46,7 @@
     <div class="row">
         <div class="col-3">
         </div>
-        <div class="col-6">
+        <div class="col-6" style="text-align: center">
             <h1 class="mb-5">
                 <f:message key="paymentConfirmation" bundle="${bunCont}"/>
             </h1>
@@ -54,7 +58,7 @@
                 </tr>
                 <tr>
                     <th><f:message key="bookingDate" bundle="${bunCont}"/></th>
-                    <td><i>${bookingByParameters.bookTime}</i></td>
+                    <td><i><tags:fulldate date="${bookingByParameters.bookTime}"/></i></td>
                 </tr>
                 <tr style="background-color: lightsteelblue">
                     <th style="margin-top: 15px; margin-bottom: 20px" colspan="2">
@@ -74,11 +78,11 @@
                 </tr>
                 <tr>
                     <th><f:message key="checkIn" bundle="${bunCont}"/></th>
-                    <td>${bookingByParameters.checkIn}</td>
+                    <td><tags:fulldate date="${bookingByParameters.checkIn}"/></td>
                 </tr>
                 <tr>
                     <th><f:message key="checkOut" bundle="${bunCont}"/></th>
-                    <td>${bookingByParameters.checkOut}</td>
+                    <td><tags:fulldate date="${bookingByParameters.checkOut}"/></td>
                 </tr>
                 <tr>
                     <th><f:message key="nights" bundle="${bunCont}"/></th>
@@ -86,7 +90,6 @@
                 </tr>
                 <tr>
                     <th><f:message key="price" bundle="${bunCont}"/></th>
-                    <%--                    <td>${roomStatusById.roomDtoResponse.price} uah</td>--%>
                     <td>${bookingByParameters.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                 </tr>
                 <tr style="background-color: lightgray">
@@ -120,7 +123,12 @@
                     <input name="bookingByParameters.id" value="${bookingByParameters.id}" hidden>
                     <input name="bookingByParameters.userId" value="${bookingByParameters.userId}" hidden>
                     <input name="toPay" value="${bookingByParameters.room.price*bookingByParameters.nights}" hidden>
-                    <input style="margin-top: 20px" type="submit" value="Confirm payment">
+                    <button class="btn btn-outline-primary"
+                            name="command" value="confirmPayment"
+                            type="submit"
+                            style="width: 120px; margin-top: 20px">
+                        <f:message key="confirm" bundle="${bunCont}"/>
+                    </button>
                 </form>
             </div>
         </div>

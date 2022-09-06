@@ -83,9 +83,21 @@ END;
 //
 CREATE PROCEDURE change_date_end_for_room_status()
 BEGIN
+    DECLARE number_of_rooms INT;
     DECLARE max_date_end DATE;
-    SELECT max(date_end) INTO max_date_end FROM room_status WHERE status_statement_id = 1;
-    UPDATE room_status SET date_end=DATE_ADD(now(), INTERVAL 6 MONTH) WHERE date_end = max_date_end;
+    DECLARE done INT default 0;
+    DECLARE date_end_cursor CURSOR FOR SELECT max(date_end) FROM room_status GROUP BY room_id;
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
+    OPEN date_end_cursor;
+    WHILE done = 0
+        DO
+            FETCH date_end_cursor INTO max_date_end;
+            UPDATE room_status
+            SET date_end=DATE_ADD(now(), INTERVAL 6 MONTH)
+            WHERE date_end = max_date_end
+              AND status_statement_id = 1;
+        END WHILE;
+    CLOSE date_end_cursor;
 END;
 //
 CALL change_date_end_for_room_status;
@@ -108,3 +120,5 @@ CREATE EVENT exec_change_date_end
     DO
     CALL change_date_end_for_room_status;
 //
+CALL change_the_status_of_an_overdue_orders;
+CALL change_date_end_for_room_status;

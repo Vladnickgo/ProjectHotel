@@ -4,6 +4,8 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -30,6 +32,12 @@
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
                 <input name="command" value="${command}" hidden>
+                <input name="hotelId" value="${hotelId}" hidden>
+                <input name="dateStart" value="${dateStart}" hidden>
+                <input name="dateEnd" value="${dateEnd}" hidden>
+                <input name="numberOfPersons" value="${numberOfPersons}" hidden>
+                <input name="roomTypeId" value="${roomTypeId}" hidden>
+                <input name="roomTypeId" value="${roomTypeId}" hidden>
             </form>
         </div>
     </div>
@@ -102,8 +110,9 @@
                             </div>
                         </div>
                     </div>
-                    <input name="hotelId" value="${hotelDto}" hidden>
                     <input name="roomTypeId" value="${roomTypeId}" hidden>
+                    <input name="allHotels" value="${hotels}" hidden>
+
                     <button class="btn btn-outline-primary"
                             name="command" value="usersOrder"
                             type="submit"
@@ -112,14 +121,62 @@
                     </button>
                 </form>
                 <div class="col-12">
+
                 </div>
 
             </div>
             <div class="col-3"></div>
         </div>
-        <div class="col-2"></div>
-
+        <div class="col-2">
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-3"></div>
+            <div class="col-6" ${error=='Not valid number of persons'?'':'hidden'}>
+                <h5>
+                    <f:message key="error.numberOfPersons" bundle="${bunCont}"/>${maxPersons}
+                </h5>
+            </div>
+            <div class="col-6" ${error=='Users order is null'?'':'hidden'}>
+                <h5>
+                    <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+                </h5>
+            </div>
+            <div class="col-6" ${error=='User is null'?'':'hidden'}>
+                <h5>
+                    <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+                </h5>
+            </div>
+            <div class="col-6" ${error=='Number of persons is null'?'':'hidden'}>
+                <h5>
+                    <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+                </h5>
+            </div>
+        </div>
+        <div class="col-6" ${error=='Hotel is null'?'':'hidden'}>
+            <h5>
+                <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+            </h5>
+        </div>
+        <div class="col-6" ${error=='Hotel is null'?'':'hidden'}>
+            <h5>
+                <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+            </h5>
+        </div>
+        <div class="col-6" ${error=='RoomDtoResponse is null'?'':'hidden'}>
+            <h5>
+                <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+            </h5>
+        </div>
+        <div class="col-6" ${error=='Order status is null'?'':'hidden'}>
+            <h5>
+                <f:message key="error.notValidOderData" bundle="${bunCont}"/>${maxPersons}
+            </h5>
+        </div>
     </div>
+    <div class="col-3"></div>
+
+</div>
+</div>
 </div>
 <script>
     function getMinDateEnd() {

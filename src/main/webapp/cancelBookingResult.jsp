@@ -6,6 +6,10 @@
 
 <%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
+
 <f:setLocale value="${sessionScope.language}"/>
 
 <f:setBundle var="bunCont" basename="resources"/>
@@ -59,15 +63,15 @@
                 <c:forEach var="booking" items="${bookingDtoList}">
                     <tr>
                         <td>${booking.id}</td>
-                        <td>${booking.bookTime}</td>
+                        <td><tags:fulldate date="${booking.bookTime}"/></td>
                         <td>${booking.room.hotel.name}</td>
-                        <td>${booking.checkIn}</td>
-                        <td>${booking.checkOut}</td>
+                        <td><tags:fulldate date="${booking.checkIn}"/></td>
+                        <td><tags:fulldate date="${booking.checkOut}"/></td>
                         <td>${booking.room.roomType.typeName}</td>
                         <td>${booking.room.numberOfBeds}</td>
-                        <td>${booking.room.price} UAH</td>
+                        <td>${booking.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                         <td>${booking.nights}</td>
-                        <td>${booking.room.price*booking.nights} UAH</td>
+                        <td>${booking.room.price*booking.nights} <f:message key="uah" bundle="${bunCont}"/> </td>
                         <td hidden>
                             <input type="checkbox" name="bookingId"
                                    value="${booking.id}" checked hidden>
@@ -79,7 +83,7 @@
                 </c:forEach>
                 <tr>
                     <td colspan="9" style="text-align: right"><f:message key="toPay" bundle="${bunCont}"/></td>
-                    <td>${sum} UAH</td>
+                    <td>${sum} <f:message key="uah" bundle="${bunCont}"/></td>
                     <td></td>
                 </tr>
             </table>

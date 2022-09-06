@@ -4,7 +4,11 @@
 
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <f:setLocale value="${sessionScope.language}"/>
+
+<%@ taglib prefix="simple" uri="https://tomcat.apache.org/example-taglib" %>
 
 <f:setBundle var="bunCont" basename="resources"/>
 
@@ -140,8 +144,8 @@
                     <th><f:message key="roomType" bundle="${bunCont}"/></th>
                     <th><f:message key="numberOfBeds" bundle="${bunCont}"/></th>
                     <th><f:message key="roomStatus" bundle="${bunCont}"/></th>
-                    <th><f:message key="From" bundle="${bunCont}"/></th>
-                    <th><f:message key="To" bundle="${bunCont}"/></th>
+                    <th><f:message key="from" bundle="${bunCont}"/></th>
+                    <th><f:message key="to" bundle="${bunCont}"/></th>
                     <th><f:message key="price" bundle="${bunCont}"/></th>
                     <th></th>
                 </tr>
@@ -151,10 +155,10 @@
                         <td>${i=i+1}: ${item.roomDtoResponse.id}</td>
                         <td>${item.roomDtoResponse.roomType.typeName}</td>
                         <td>${item.roomDtoResponse.numberOfBeds}</td>
-                        <td>${item.statusStatement.statusStatementName} : ${item.statusId} </td>
-                        <td>${item.dateStart}</td>
-                        <td>${item.dateEnd}</td>
-                        <td>${item.roomDtoResponse.price} грн</td>
+                        <td>${item.statusStatement.statusStatementName}</td>
+                        <td><tags:fulldate date="${item.dateStart}"/></td>
+                        <td><tags:fulldate date="${item.dateEnd}"/></td>
+                        <td>${item.roomDtoResponse.price} <f:message key="uah" bundle="${bunCont}"/> </td>
                         <td>
                             <form action="home" method="get">
 
