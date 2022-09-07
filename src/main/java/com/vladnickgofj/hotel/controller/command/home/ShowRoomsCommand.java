@@ -6,19 +6,16 @@ import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
 import com.vladnickgofj.hotel.controller.dto.RoomStatusDtoRequest;
 import com.vladnickgofj.hotel.service.RoomStatusService;
-import org.apache.log4j.Logger;
+import com.vladnickgofj.hotel.service.util.RoomStatusDtoRequestUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ShowRoomsCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowRoomsCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final RoomStatusService roomStatusService = contextInjector.getRoomStatusService();
 
@@ -50,54 +47,35 @@ public class ShowRoomsCommand implements Command {
                 .signOutStr(checkOutStr)
                 .build();
 
-        Integer totalPages = roomStatusService.getNumberOfPages(roomStatusDtoRequest);
-        List<RoomStatusDto> roomStatusList = roomStatusService.findAll(roomStatusDtoRequest);
-
-        LOGGER.info("sorting: " + roomStatusDtoRequest.getSorting());
-        LOGGER.info("ordering: " + roomStatusDtoRequest.getOrdering());
-        LOGGER.info("recordsOnPage: " + roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage());
-        LOGGER.info("totalPages: " + totalPages);
-        LOGGER.info("listOfRooms: " + roomStatusList);
-        LOGGER.info("numberOfPage: " + roomStatusDtoRequest.getNumberOfPage());
-        LOGGER.info("checkIn: " + roomStatusDtoRequest.getSignIn().toString());
-        LOGGER.info("checkOut: " + roomStatusDtoRequest.getSignOut().toString());
-        LOGGER.info("statusFree: " + roomStatusDtoRequest.getStatusFree());
-        LOGGER.info("statusBooked: " + roomStatusDtoRequest.getStatusBooked());
-        LOGGER.info("minCheckIn: " + roomStatusDtoRequest.getMinSignIn());
-        LOGGER.info("maxCheckIn: " + roomStatusDtoRequest.getMaxSignIn());
-        LOGGER.info("minCheckOut: " + roomStatusDtoRequest.getMinSignOut());
-        LOGGER.info("maxCheckOut: " + roomStatusDtoRequest.getMaxSignOut());
-
-        sorting = roomStatusDtoRequest.getSorting();
-        ordering = roomStatusDtoRequest.getOrdering();
-        recordsOnPage = roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage().toString();
-        numberOfPage = roomStatusDtoRequest.getNumberOfPage().toString();
-        checkInStr = roomStatusDtoRequest.getSignIn().toString();
-        checkOutStr = roomStatusDtoRequest.getSignOut().toString();
-        statusFree = roomStatusDtoRequest.getStatusFree();
-        statusBooked = roomStatusDtoRequest.getStatusBooked();
-        String parameters = "&checkIn=" + checkInStr + "&checkOut=" + checkOutStr + "&statusFree=" + statusFree + "&statusBooked=" + statusBooked + "&sorting=" + sorting + "&ordering=" + ordering + "&recordsOnPage="
-                + recordsOnPage + "&hotelId=" + hotelId + "&hotelName=" + hotelName + "&numberOfPage=" + numberOfPage;
+        RoomStatusDtoRequestUtil roomStatusDtoRequestUtil = new RoomStatusDtoRequestUtil(roomStatusDtoRequest);
+        Integer totalPages = roomStatusService.getNumberOfPages(roomStatusDtoRequestUtil);
+        List<RoomStatusDto> roomStatusList = roomStatusService.findAll(roomStatusDtoRequestUtil);
+        sorting = roomStatusDtoRequestUtil.getSorting();
+        ordering = roomStatusDtoRequestUtil.getOrdering();
+        recordsOnPage = roomStatusDtoRequestUtil.getPagenableElementsDto().getItemsOnPage().toString();
+        numberOfPage = roomStatusDtoRequestUtil.getNumberOfPage().toString();
+        checkInStr = roomStatusDtoRequestUtil.getSignIn().toString();
+        checkOutStr = roomStatusDtoRequestUtil.getSignOut().toString();
+        statusFree = roomStatusDtoRequestUtil.getStatusFree();
+        statusBooked = roomStatusDtoRequestUtil.getStatusBooked();
 
         request.setAttribute("command", command);
-        request.setAttribute("parameters", parameters);
         request.setAttribute("hotelId", hotelId);
         request.setAttribute("hotelName", hotelName);
-        request.setAttribute("sorting", roomStatusDtoRequest.getSorting());
-        request.setAttribute("ordering", roomStatusDtoRequest.getOrdering());
-        request.setAttribute("recordsOnPage", roomStatusDtoRequest.getPagenableElementsDto().getItemsOnPage());
+        request.setAttribute("sorting", sorting);
+        request.setAttribute("ordering", ordering);
+        request.setAttribute("recordsOnPage", recordsOnPage);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("listOfRooms", roomStatusList);
-        request.setAttribute("numberOfPage", roomStatusDtoRequest.getNumberOfPage());
-        request.setAttribute("checkIn", roomStatusDtoRequest.getSignIn().toString());
-        request.setAttribute("checkOut", roomStatusDtoRequest.getSignOut().toString());
-        request.setAttribute("statusFree", roomStatusDtoRequest.getStatusFree());
-        request.setAttribute("statusBooked", roomStatusDtoRequest.getStatusBooked());
-        request.setAttribute("minCheckIn", roomStatusDtoRequest.getMinSignIn());
-        request.setAttribute("maxCheckIn", roomStatusDtoRequest.getMaxSignIn());
-        request.setAttribute("minCheckOut", roomStatusDtoRequest.getMinSignOut());
-        request.setAttribute("maxCheckOut", roomStatusDtoRequest.getMaxSignOut());
-        String url = "home?command=showRooms&hotelId=" + hotelId + "&hotelName=" + hotelName;
+        request.setAttribute("numberOfPage", numberOfPage);
+        request.setAttribute("checkIn", checkInStr);
+        request.setAttribute("checkOut", checkOutStr);
+        request.setAttribute("statusFree", statusFree);
+        request.setAttribute("statusBooked", statusBooked);
+        request.setAttribute("minCheckIn", roomStatusDtoRequestUtil.getMinSignIn());
+        request.setAttribute("maxCheckIn", roomStatusDtoRequestUtil.getMaxSignIn());
+        request.setAttribute("minCheckOut", roomStatusDtoRequestUtil.getMinSignOut());
+        request.setAttribute("maxCheckOut", roomStatusDtoRequestUtil.getMaxSignOut());
         return PagesConstant.SHOW_ROOMS;
     }
 

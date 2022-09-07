@@ -52,8 +52,6 @@ public class ConfirmGroupPaymentCommand implements Command {
             stringBuilderUrl.append("&bookingIds=").append(bookingId);
         }
         request.setAttribute("bookingDtoList", bookingDtoList);
-        String url = stringBuilderUrl.toString();
-        LOGGER.info("url" + url);
-        return url;
+        return stringBuilderUrl.toString();
     }
 }

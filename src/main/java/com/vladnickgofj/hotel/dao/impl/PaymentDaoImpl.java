@@ -4,13 +4,14 @@ import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.dao.PaymentDao;
 import com.vladnickgofj.hotel.dao.entity.Payment;
 import com.vladnickgofj.hotel.dao.mapper.ResultSetMapper;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements PaymentDao {
-
+    private static final Logger LOGGER = Logger.getLogger(PaymentDaoImpl.class);
     private final static String INSERT_INTO = "INSERT INTO payments(booking_id, user_id, amount) VALUES (?,?,?) ";
     private static final String FIND_BY_ID = "SELECT * " +
             "FROM payments " +
@@ -34,7 +35,7 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
             "         LEFT JOIN hotel h ON h.hotel_id = r.hotel_id " +
             "         LEFT JOIN bookings_status bs ON bs.booking_status_id = b.booking_status_id";
 
-    private static final String UPDATE_PAYMENT = "UPDATE payments "+
+    private static final String UPDATE_PAYMENT = "UPDATE payments " +
             "SET booking_id=?, user_id=?, amount=? WHERE payment_id=?";
 
     public PaymentDaoImpl(HikariConnectionPool connector) {
@@ -58,4 +59,5 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
         mapForInsertStatement(preparedStatement, entity);
         preparedStatement.setInt(4, entity.getAmount());
     }
+
 }

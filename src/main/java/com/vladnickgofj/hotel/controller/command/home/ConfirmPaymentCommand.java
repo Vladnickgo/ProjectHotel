@@ -5,7 +5,6 @@ import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
 import com.vladnickgofj.hotel.service.BookingService;
 import com.vladnickgofj.hotel.service.PaymentService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

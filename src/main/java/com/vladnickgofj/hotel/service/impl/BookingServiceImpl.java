@@ -98,8 +98,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void createNewBooking(BookingDto bookingDto, RoomStatusDto roomStatusDto) {
-        System.out.println("---------------createNewBooking---------------------");
-        System.out.println("bookingDto: "+bookingDto);
         validator.validate(bookingDto);
         Booking booking = bookingMapper.mapDtoToEntity(bookingDto);
         RoomStatus roomStatus = roomStatusMapper.mapDtoToEntity(roomStatusDto);

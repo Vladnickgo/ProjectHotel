@@ -5,8 +5,10 @@ import com.vladnickgofj.hotel.dao.RoomStatusDao;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.service.RoomStatusService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.service.util.RoomStatusDtoRequestUtil;
 import com.vladnickgofj.hotel.validator.BookingValidator;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -35,7 +37,7 @@ public class RoomStatusServiceImpl implements RoomStatusService {
     }
 
     @Override
-    public List<RoomStatusDto> findAll(RoomStatusDtoRequest roomStatusDtoRequest) {
+    public List<RoomStatusDto> findAll(RoomStatusDtoRequestUtil roomStatusDtoRequest) {
         Integer firstRecordOnPage = getFirstRecordOnPage(roomStatusDtoRequest);
         Comparator<RoomStatusDto> comparator = roomStatusDtoRequest.extractedComparator();
         return roomStatusRepository.findAll(roomStatusDtoRequest, firstRecordOnPage)
@@ -45,11 +47,11 @@ public class RoomStatusServiceImpl implements RoomStatusService {
                 .collect(Collectors.toList());
     }
 
-    public Integer countAll(RoomStatusDtoRequest roomStatusDtoRequest) {
+    public Integer countAll(RoomStatusDtoRequestUtil roomStatusDtoRequest) {
         return roomStatusRepository.countAll(roomStatusDtoRequest);
     }
 
-    private Integer getFirstRecordOnPage(RoomStatusDtoRequest roomStatusDtoRequest) {
+    private @NotNull Integer getFirstRecordOnPage(RoomStatusDtoRequestUtil roomStatusDtoRequest) {
         PagenableElementsDto pagenableElementsDto = roomStatusDtoRequest.getPagenableElementsDto();
         Integer pages = getNumberOfPages(roomStatusDtoRequest);
         pages = pages == 0 ? 1 : pages;
@@ -57,7 +59,7 @@ public class RoomStatusServiceImpl implements RoomStatusService {
     }
 
     @Override
-    public Integer getNumberOfPages(RoomStatusDtoRequest roomStatusDtoRequest) {
+    public Integer getNumberOfPages(RoomStatusDtoRequestUtil roomStatusDtoRequest) {
         PagenableElementsDto pagenableElementsDto = roomStatusDtoRequest.getPagenableElementsDto();
         Integer size = countAll(roomStatusDtoRequest);
         LOGGER.info("size: " + size);

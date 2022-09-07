@@ -7,13 +7,6 @@ import static com.vladnickgofj.hotel.ApplicationConstant.NUMBER_OF_DAYS_AVAILABL
 
 public class RoomStatusDtoRequest {
 
-    private static final Integer DEFAULT_PAGE_NUMBER = 1;
-    private static final Integer DEFAULT_ROOMS_ON_PAGE = 5;
-    private static final String DEFAULT_SORTING_PARAMETER = "price";
-    private static final String DEFAULT_ORDERING_PARAMETER = "ASC";
-    private static final String DEFAULT_SIGN_IN_VALUE = String.valueOf(LocalDate.now());
-    private static final String DEFAULT_SIGN_OUT_VALUE = String.valueOf(LocalDate.now().plusDays(1));
-
     private final String hotelId;
     private final String hotelName;
     private final String sorting;
@@ -113,8 +106,8 @@ public class RoomStatusDtoRequest {
         }
     }
 
-    public Integer getHotelId() {
-        return Integer.valueOf(hotelId);
+    public String getHotelId() {
+        return hotelId;
     }
 
     public String getHotelName() {
@@ -122,100 +115,35 @@ public class RoomStatusDtoRequest {
     }
 
     public String getSorting() {
-        return initParameterValue(sorting, DEFAULT_SORTING_PARAMETER);
+        return sorting;
     }
 
     public String getOrdering() {
-        return initParameterValue(ordering, DEFAULT_ORDERING_PARAMETER);
+        return ordering;
     }
 
-    public Integer getNumberOfPage() {
-        return initParameterValue(numberOfPage, DEFAULT_PAGE_NUMBER);
+    public String getNumberOfPage() {
+        return numberOfPage;
     }
 
-    public Integer getItemsOnPage() {
-        return initParameterValue(itemsOnPage, DEFAULT_ROOMS_ON_PAGE);
+    public String getItemsOnPage() {
+        return itemsOnPage;
     }
 
     public String getStatusFree() {
-        return Objects.equals(signInStr, null) ? "free" : statusFree;
+        return statusFree;
     }
 
     public String getStatusBooked() {
         return statusBooked;
     }
 
-    public LocalDate getSignIn() {
-        return LocalDate.parse(initParameterValue(signInStr, DEFAULT_SIGN_IN_VALUE));
+    public String getSignInStr() {
+        return signInStr;
     }
 
-    public LocalDate getMinSignIn() {
-        return LocalDate.now();
-    }
-
-    public LocalDate getMaxSignIn() {
-        return LocalDate.now().plusDays(NUMBER_OF_DAYS_AVAILABLE_FOR_ORDER);
-    }
-
-    public LocalDate getSignOut() {
-        return LocalDate.parse(initParameterValue(signOutStr, DEFAULT_SIGN_OUT_VALUE));
-    }
-
-    public LocalDate getMinSignOut() {
-        return getSignIn().plusDays(1);
-    }
-
-    public LocalDate getMaxSignOut() {
-        return getMaxSignIn().plusDays(1);
-    }
-
-    public PagenableElementsDto getPagenableElementsDto() {
-        return PagenableElementsDto.newBuilder()
-                .numberOfPage(getNumberOfPage())
-                .itemsOnPage(getItemsOnPage())
-                .build();
-    }
-
-    private String initParameterValue(String parameter, String defaultValue) {
-        return Objects.equals(null, parameter) ? defaultValue : parameter;
-    }
-
-
-    private Integer initParameterValue(String parameter, Integer defaultValue) {
-        try {
-            return Objects.equals(null, parameter) ? defaultValue : Integer.valueOf(parameter);
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
-    public String getQuerySubstitute() {
-        return Objects.equals(getStatusFree(), "free") ?
-                ("booked".equals(getStatusBooked()) ?
-                        "AND (rss.status_statement_id = 1 OR rss.status_statement_id = 2)" : "AND rss.status_statement_id = 1") :
-                "booked".equals(getStatusBooked()) ?
-                        "AND rss.status_statement_id = 2" : "AND rss.status_statement_id = 0";
-    }
-
-    public Comparator<RoomStatusDto> extractedComparator() {
-        String sort = getSorting();
-        return getOrdering().equals("ASC") ? initNaturalComparatorMap().get(sort) : initReverseComparatorMap().get(sort);
-    }
-
-    private Map<String, Comparator<RoomStatusDto>> initReverseComparatorMap() {
-        Map<String, Comparator<RoomStatusDto>> reverseComparatorMap = new HashMap<>();
-        reverseComparatorMap.put("price", Comparator.comparing(t -> t.getRoomDtoResponse().getPrice(), Comparator.reverseOrder()));
-        reverseComparatorMap.put("number_of_beds", Comparator.comparing(t -> t.getRoomDtoResponse().getNumberOfBeds(), Comparator.reverseOrder()));
-        reverseComparatorMap.put("type_name", Comparator.comparing(t -> t.getRoomDtoResponse().getRoomType().getTypeName(), Comparator.reverseOrder()));
-        return reverseComparatorMap;
-    }
-
-    private Map<String, Comparator<RoomStatusDto>> initNaturalComparatorMap() {
-        Map<String, Comparator<RoomStatusDto>> naturalComparatorMap = new HashMap<>();
-        naturalComparatorMap.put("price", Comparator.comparing(t -> t.getRoomDtoResponse().getPrice(), Comparator.naturalOrder()));
-        naturalComparatorMap.put("number_of_beds", Comparator.comparing(t -> t.getRoomDtoResponse().getNumberOfBeds(), Comparator.naturalOrder()));
-        naturalComparatorMap.put("type_name", Comparator.comparing(t -> t.getRoomDtoResponse().getRoomType().getTypeName(), Comparator.naturalOrder()));
-        return naturalComparatorMap;
+    public String getSignOutStr() {
+        return signOutStr;
     }
 
     @Override

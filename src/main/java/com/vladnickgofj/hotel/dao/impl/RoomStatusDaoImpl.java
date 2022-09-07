@@ -1,21 +1,21 @@
 package com.vladnickgofj.hotel.dao.impl;
 
+import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
 import com.vladnickgofj.hotel.controller.dto.UsersOrderDto;
-import org.apache.log4j.Logger;
-
-import com.vladnickgofj.hotel.connection.HikariConnectionPool;
-import com.vladnickgofj.hotel.controller.dto.RoomStatusDtoRequest;
 import com.vladnickgofj.hotel.dao.RoomStatusDao;
-import com.vladnickgofj.hotel.dao.entity.Booking;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
 import com.vladnickgofj.hotel.dao.mapper.ResultSetMapper;
+import com.vladnickgofj.hotel.service.util.RoomStatusDtoRequestUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implements RoomStatusDao {
 
@@ -40,10 +40,10 @@ public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implement
             "LEFT JOIN room_type rt on rt.type_id = r.type_id " +
             "LEFT JOIN hotel h on h.hotel_id = r.hotel_id " +
             "WHERE r.hotel_id=? " +
-            "%S " +
+            "AND (rss.status_statement_id = ? OR rss.status_statement_id = ?) " +
             "AND date_start <= ? " +
             "AND date_end >= ? " +
-            "ORDER BY %S %S " +
+            "ORDER BY ? " +
             "LIMIT ? OFFSET ?";
 
     private static final String COUNT_ALL_BY_HOTEL_ID_AND_STATUS_ROOM = "SELECT COUNT(r.room_id) AS count_rooms FROM room_status " +
@@ -52,7 +52,7 @@ public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implement
             "LEFT JOIN room_type rt on rt.type_id = r.type_id " +
             "LEFT JOIN hotel h on h.hotel_id = r.hotel_id " +
             "WHERE r.hotel_id=? " +
-            "%S " +
+            "AND (rss.status_statement_id = ? OR rss.status_statement_id = ?) " +
             "AND date_start <= ? " +
             "AND date_end >= ? ";
 
@@ -101,22 +101,25 @@ public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implement
     }
 
     @Override
-    public List<RoomStatus> findAll(RoomStatusDtoRequest roomStatusDtoRequest, Integer firstRoomOnPage) {
+    public List<RoomStatus> findAll(RoomStatusDtoRequestUtil roomStatusDtoRequest, Integer firstRoomOnPage) {
         Integer hotelId = roomStatusDtoRequest.getHotelId();
         LocalDate signIn = roomStatusDtoRequest.getSignIn();
         LocalDate signOut = roomStatusDtoRequest.getSignOut();
         Integer numberOnPage = roomStatusDtoRequest.getItemsOnPage();
         String sorting = roomStatusDtoRequest.getSorting();
         String ordering = roomStatusDtoRequest.getOrdering();
-        String roomStatusQuerySubstitute = roomStatusDtoRequest.getQuerySubstitute();
-        LOGGER.info("roomStatusQuerySubstitute" + roomStatusQuerySubstitute);
+        Integer[] querySubstitute = roomStatusDtoRequest.getRoomStatusStatementIds();
+        String sortingAndOrdering = String.format("%s %s", sorting, ordering);
         try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(String.format(FIND_ALL_BY_PARAMETERS, roomStatusQuerySubstitute, sorting, ordering))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_PARAMETERS)) {
             preparedStatement.setInt(1, hotelId);
-            preparedStatement.setDate(2, Date.valueOf(signIn));
-            preparedStatement.setObject(3, Date.valueOf(signOut));
-            preparedStatement.setInt(4, numberOnPage);
-            preparedStatement.setInt(5, firstRoomOnPage);
+            preparedStatement.setInt(2, querySubstitute[0]);
+            preparedStatement.setInt(3, querySubstitute[1]);
+            preparedStatement.setDate(4, Date.valueOf(signIn));
+            preparedStatement.setObject(5, Date.valueOf(signOut));
+            preparedStatement.setString(6,sortingAndOrdering);
+            preparedStatement.setInt(7, numberOnPage);
+            preparedStatement.setInt(8, firstRoomOnPage);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Set<RoomStatus> entities = new HashSet<>();
                 while (resultSet.next()) {
@@ -130,16 +133,18 @@ public class RoomStatusDaoImpl extends AbstractCrudDaoImpl<RoomStatus> implement
     }
 
     @Override
-    public Integer countAll(RoomStatusDtoRequest roomStatusDtoRequest) {
-        String roomStatusQuerySubstitute = roomStatusDtoRequest.getQuerySubstitute();
+    public Integer countAll(RoomStatusDtoRequestUtil roomStatusDtoRequest) {
+        Integer[] roomStatusStatementIds = roomStatusDtoRequest.getRoomStatusStatementIds();
         Integer hotelId = roomStatusDtoRequest.getHotelId();
         LocalDate signIn = roomStatusDtoRequest.getSignIn();
         LocalDate signOut = roomStatusDtoRequest.getSignOut();
         try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(String.format(COUNT_ALL_BY_HOTEL_ID_AND_STATUS_ROOM, roomStatusQuerySubstitute))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_BY_HOTEL_ID_AND_STATUS_ROOM)) {
             preparedStatement.setInt(1, hotelId);
-            preparedStatement.setDate(2, Date.valueOf(signIn));
-            preparedStatement.setDate(3, Date.valueOf(signOut));
+            preparedStatement.setInt(2, roomStatusStatementIds[0]);
+            preparedStatement.setInt(3, roomStatusStatementIds[1]);
+            preparedStatement.setDate(4, Date.valueOf(signIn));
+            preparedStatement.setDate(5, Date.valueOf(signOut));
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt("count_rooms");

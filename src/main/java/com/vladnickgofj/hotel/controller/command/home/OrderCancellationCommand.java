@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class OrderCancellationCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(OrderCancellationCommand.class);
     private final ApplicationContextInjector contextInjector = ApplicationContextInjector.getInstance();
     private final UsersOrderService usersOrderService = contextInjector.getUsersOrderService();
 

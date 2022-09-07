@@ -84,10 +84,12 @@ public class BookingRequestDtoUtil {
         return naturalComparatorMap;
     }
 
-    public String getQuerySubstitute() {
-        return (Objects.equals(getStatusNotPaid(), "notPaid") ? "AND (bookings.booking_status_id = 1 " : "AND (bookings.booking_status_id = 0 ") +
-                (Objects.equals(getStatusPaid(), "paid") ? "OR bookings.booking_status_id = 2 " : "OR bookings.booking_status_id = 0 ") +
-                (Objects.equals(getStatusCanceled(), "canceled") ? "OR bookings.booking_status_id = 3) " : "OR bookings.booking_status_id = 0) ");
+    public Integer[] getBookingStatusIds() {
+        Integer[] bookingStatusArray = new Integer[3];
+        bookingStatusArray[0] = Objects.equals(getStatusNotPaid(), "notPaid") ? 1 : 0;
+        bookingStatusArray[1] = Objects.equals(getStatusPaid(), "paid") ? 2 : 0;
+        bookingStatusArray[2] = Objects.equals(getStatusCanceled(), "canceled") ? 3 : 0;
+        return bookingStatusArray;
     }
 
 }

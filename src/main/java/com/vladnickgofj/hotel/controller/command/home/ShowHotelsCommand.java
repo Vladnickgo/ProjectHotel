@@ -28,10 +28,8 @@ public class ShowHotelsCommand implements Command {
         String parameters = "&numberOfPage="+numberOfPage+"&recordsOnPage="+recordsOnPage;
         Integer pageNumber = hotelService.initNumberOfPage(numberOfPage);
         Integer itemsOnPage = hotelService.initItemsOnPage(recordsOnPage);
-
         LOGGER.info("Items on page: " + itemsOnPage);
         LOGGER.info("Page: " + pageNumber);
-
         List<HotelDto> allHotels = hotelService.findAll(itemsOnPage, pageNumber);
         Integer pages = hotelService.getNumberOfPages(itemsOnPage);
         LOGGER.info("Pages: " + pages);
