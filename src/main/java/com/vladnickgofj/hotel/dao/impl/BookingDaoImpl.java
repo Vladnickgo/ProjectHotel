@@ -123,49 +123,49 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
         }
     }
 
-    @Override
-    public void addBookingPayment(BookingDto bookingServiceById) {
-        Integer bookingId = bookingServiceById.getId();
-        Integer price = bookingServiceById.getRoom().getPrice();
-        Integer nights = bookingServiceById.getNights();
-        Integer amount = price * nights;
-
-        try (Connection connection = connector.getConnection();
-             PreparedStatement updateBookingStatus = connection.prepareStatement(UPDATE_BOOKING_STATUS_BY_ID);
-             PreparedStatement updateRoomStatusByBookingId = connection.prepareStatement("UPDATE room_status SET status_statement_id=3 " +
-                     "WHERE room_id = (SELECT b.room_id FROM bookings b WHERE b.booking_id = ?) " +
-                     "AND date_start = (SELECT b.check_in FROM bookings b WHERE b.booking_id = ?) " +
-                     "AND date_end = (SELECT b.check_out FROM bookings b WHERE b.booking_id = ?) " +
-                     "AND status_statement_id = 2;");
-             PreparedStatement insertPaymentByParameters = connection.prepareStatement("INSERT INTO payments(booking_id, user_id, amount) VALUES (?,?,?)")) {
-            try {
-                connection.setAutoCommit(false);
-
-                updateBookingStatus.setInt(1, 2);
-                updateBookingStatus.setInt(2, bookingId);
-                updateBookingStatus.executeUpdate();
-
-                updateRoomStatusByBookingId.setInt(1, bookingId);
-                updateRoomStatusByBookingId.setInt(2, bookingId);
-                updateRoomStatusByBookingId.setInt(3, bookingId);
-                updateRoomStatusByBookingId.executeUpdate();
-
-                insertPaymentByParameters.setInt(1, bookingId);
-                insertPaymentByParameters.setInt(2, bookingServiceById.getUserId());
-                insertPaymentByParameters.setInt(3, amount);
-                insertPaymentByParameters.execute();
-                connection.commit();
-                LOGGER.info("Transaction by update Bookings, RoomStatus and adding Payment has been committed");
-            } catch (SQLException e) {
-                connection.rollback();
-                LOGGER.info("Rollback transaction by update Bookings, RoomStatus and adding Payment");
-                throw new DataBaseRuntimeException(e);
-            }
-
-        } catch (SQLException e) {
-            throw new DataBaseRuntimeException(e);
-        }
-    }
+//    @Override
+//    public void addBookingPayment(BookingDto bookingServiceById) {
+//        Integer bookingId = bookingServiceById.getId();
+//        Integer price = bookingServiceById.getRoom().getPrice();
+//        Integer nights = bookingServiceById.getNights();
+//        Integer amount = price * nights;
+//
+//        try (Connection connection = connector.getConnection();
+//             PreparedStatement updateBookingStatus = connection.prepareStatement(UPDATE_BOOKING_STATUS_BY_ID);
+//             PreparedStatement updateRoomStatusByBookingId = connection.prepareStatement("UPDATE room_status SET status_statement_id=3 " +
+//                     "WHERE room_id = (SELECT b.room_id FROM bookings b WHERE b.booking_id = ?) " +
+//                     "AND date_start = (SELECT b.check_in FROM bookings b WHERE b.booking_id = ?) " +
+//                     "AND date_end = (SELECT b.check_out FROM bookings b WHERE b.booking_id = ?) " +
+//                     "AND status_statement_id = 2;");
+//             PreparedStatement insertPaymentByParameters = connection.prepareStatement("INSERT INTO payments(booking_id, user_id, amount) VALUES (?,?,?)")) {
+//            try {
+//                connection.setAutoCommit(false);
+//
+//                updateBookingStatus.setInt(1, 2);
+//                updateBookingStatus.setInt(2, bookingId);
+//                updateBookingStatus.executeUpdate();
+//
+//                updateRoomStatusByBookingId.setInt(1, bookingId);
+//                updateRoomStatusByBookingId.setInt(2, bookingId);
+//                updateRoomStatusByBookingId.setInt(3, bookingId);
+//                updateRoomStatusByBookingId.executeUpdate();
+//
+//                insertPaymentByParameters.setInt(1, bookingId);
+//                insertPaymentByParameters.setInt(2, bookingServiceById.getUserId());
+//                insertPaymentByParameters.setInt(3, amount);
+//                insertPaymentByParameters.execute();
+//                connection.commit();
+//                LOGGER.info("Transaction by update Bookings, RoomStatus and adding Payment has been committed");
+//            } catch (SQLException e) {
+//                connection.rollback();
+//                LOGGER.info("Rollback transaction by update Bookings, RoomStatus and adding Payment");
+//                throw new DataBaseRuntimeException(e);
+//            }
+//
+//        } catch (SQLException e) {
+//            throw new DataBaseRuntimeException(e);
+//        }
+//    }
 
     @Override
     public Integer countAll(BookingRequestDto bookingRequestDto) {

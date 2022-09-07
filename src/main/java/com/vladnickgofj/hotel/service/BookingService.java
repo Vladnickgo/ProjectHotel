@@ -12,7 +12,7 @@ public interface BookingService {
 
     BookingDto findById(Integer bookingId);
 
-    void addBookingPayment(BookingDto bookingServiceById);
+//    void addBookingPayment(BookingDto bookingServiceById);
 
     List<BookingDto> findBookingsByUserIdAndParameters(BookingRequestDto bookingRequestDto);
 

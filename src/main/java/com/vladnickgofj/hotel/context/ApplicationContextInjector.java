@@ -76,7 +76,7 @@ public final class ApplicationContextInjector {
 
     private static final RoomTypeService ROOM_TYPE_SERVICE = new RoomTypeServiceImpl(ROOM_TYPE_DAO, ROOM_TYPE_MAPPER);
 
-    private static final PaymentService PAYMENT_SERVICE = new PaymentServiceImpl(PAYMENT_DAO, BOOKING_DAO, PAYMENT_MAPPER);
+    private static final PaymentService PAYMENT_SERVICE = new PaymentServiceImpl(PAYMENT_DAO, BOOKING_DAO, PAYMENT_MAPPER, BOOKING_VALIDATOR);
 
     private static final BookingService BOOKING_SERVICE = new BookingServiceImpl(BOOKING_DAO, BOOKING_MAPPER, ROOM_STATUS_MAPPER, BOOKING_VALIDATOR);
 

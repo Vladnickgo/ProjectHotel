@@ -112,13 +112,9 @@ public class RoomStatusDtoRequestUtil {
     }
 
     public Integer[] getRoomStatusStatementIds() {
-        Integer[] roomStatusStatementsArray=new Integer[2];
-        roomStatusStatementsArray[0]= Objects.equals(getStatusFree(), "free") ? 1:0;
-roomStatusStatementsArray[1]=        Objects.equals(getStatusBooked(),"booked")?2:0;
-//                ("booked".equals(getStatusBooked()) ?
-//                        "AND (rss.status_statement_id = 1 OR rss.status_statement_id = 2)" : "AND rss.status_statement_id = 1") :
-//                "booked".equals(getStatusBooked()) ?
-//                        "AND rss.status_statement_id = 2" : "AND rss.status_statement_id = 0";
+        Integer[] roomStatusStatementsArray = new Integer[2];
+        roomStatusStatementsArray[0] = Objects.equals(getStatusFree(), "free") ? 1 : 0;
+        roomStatusStatementsArray[1] = Objects.equals(getStatusBooked(), "booked") ? 2 : 0;
         return roomStatusStatementsArray;
     }
 

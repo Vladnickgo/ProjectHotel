@@ -1,12 +1,12 @@
 package com.vladnickgofj.hotel.dao.impl;
 
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
-import com.vladnickgofj.hotel.controller.dto.UsersOrderRequestDto;
 import com.vladnickgofj.hotel.dao.UsersOrderDao;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.UsersOrder;
 import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
 import com.vladnickgofj.hotel.dao.mapper.ResultSetMapper;
+import com.vladnickgofj.hotel.service.util.UsersOrderRequestDtoUtil;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -16,19 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.vladnickgofj.hotel.ApplicationConstant.*;
+
 public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implements UsersOrderDao {
     private static final Logger LOGGER = Logger.getLogger(UsersOrderDaoImpl.class);
-    private static final int PROCESSED_STATUS = 1;
-    private static final int COMPLETED_STATUS = 2;
-    private static final int CANCELED_STATUS = 3;
-    private static final int ROOM_STATUS_STATEMENT_FREE = 1;
-    private static final int ROOM_STATUS_STATEMENT_BOOKED = 2;
-    private static final int ROOM_STATUS_STATEMENT_BUSY = 3;
-    private static final int ROOM_STATUS_STATEMENT_NOT_AVAILABLE = 4;
-    private static final int BOOKING_STATUS_NOT_PAID = 1;
-    private static final int BOOKING_STATUS_PAID = 2;
-    private static final int BOOKING_STATUS_CANCELED = 3;
-
 
     private static final String INSERT_INTO = "INSERT INTO " +
             "users_order(user_id, hotel_id, date_start, date_end, order_date, number_of_persons, room_type_id, order_status_id) " +
@@ -39,19 +30,19 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
             "SET order_status_id=? WHERE order_id=? ";
     public static final String COUNT_ALL_BY_PARAMETERS = "SELECT COUNT(order_id) AS number_of_orders " +
             "FROM users_order " +
-            "         LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
-            "         LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
-            "         LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
-            "         LEFT JOIN users u on u.user_id = users_order.user_id " +
-            "%S ";
+            "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
+            "LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
+            "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
+            "LEFT JOIN users u on u.user_id = users_order.user_id " +
+            "WHERE uos.order_status_id=? OR uos.order_status_id=? ";
     public static final String FIND_ALL_BY_PARAMETERS = "SELECT * " +
             "FROM users_order " +
             "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
             "LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
             "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
             "LEFT JOIN users u on u.user_id = users_order.user_id " +
-            "%S " +
-            "ORDER BY %S %S " +
+            "WHERE uos.order_status_id=? OR uos.order_status_id=? " +
+            "ORDER BY ? " +
             "LIMIT ? OFFSET ?;";
 
 
@@ -99,18 +90,22 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
     }
 
     @Override
-    public List<UsersOrder> findAllByParameters(UsersOrderRequestDto usersOrderRequestDto) {
-        String querySubstitute = usersOrderRequestDto.getQuerySubstitute();
+    public List<UsersOrder> findAllByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto) {
+        Integer[] orderStatusIdArr = usersOrderRequestDto.getQuerySubstitute();
         String sorting = usersOrderRequestDto.getSorting();
         String ordering = usersOrderRequestDto.getOrdering();
         Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
         Integer numberOfPage = usersOrderRequestDto.getNumberOfPage();
+        String sortingAndOrdering = String.format("%s %s", sorting, ordering);
 
         int firstNumberOfPage = itemsOnPage * (numberOfPage - 1);
         try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(String.format(FIND_ALL_BY_PARAMETERS, querySubstitute, sorting, ordering))) {
-            preparedStatement.setInt(1, itemsOnPage);
-            preparedStatement.setInt(2, firstNumberOfPage);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_PARAMETERS)) {
+            preparedStatement.setInt(1, orderStatusIdArr[0]);
+            preparedStatement.setInt(2, orderStatusIdArr[1]);
+            preparedStatement.setString(3, sortingAndOrdering);
+            preparedStatement.setInt(4, itemsOnPage);
+            preparedStatement.setInt(5, firstNumberOfPage);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Set<UsersOrder> entities = new HashSet<>();
                 while (resultSet.next()) {
@@ -119,22 +114,23 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
                 return new ArrayList<>(entities);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info("SQLException" + e);
             throw new DataBaseRuntimeException(e);
         }
     }
 
     @Override
-    public Integer countAll(UsersOrderRequestDto usersOrderRequestDto) {
-        String querySubstitute = usersOrderRequestDto.getQuerySubstitute();
-        System.out.println("querySubstitute: " + querySubstitute);
-
+    public Integer countAll(UsersOrderRequestDtoUtil usersOrderRequestDto) {
+        Integer[] querySubstitute = usersOrderRequestDto.getQuerySubstitute();
         try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(String.format(COUNT_ALL_BY_PARAMETERS, querySubstitute))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_BY_PARAMETERS)) {
+            preparedStatement.setInt(1, querySubstitute[0]);
+            preparedStatement.setInt(2, querySubstitute[1]);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt("number_of_orders");
         } catch (SQLException e) {
+            LOGGER.info("SQLException" + e);
             throw new DataBaseRuntimeException(e);
         }
     }

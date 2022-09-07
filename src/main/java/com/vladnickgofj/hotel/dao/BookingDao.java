@@ -12,7 +12,7 @@ public interface BookingDao extends CrudDao<Booking,Integer>{
 
     Booking findBookingByParameters(BookingDto bookingDto);
 
-    void addBookingPayment(BookingDto bookingServiceById);
+//    void addBookingPayment(BookingDto bookingServiceById);
 
     Integer countAll(BookingRequestDto bookingRequestDto);
 

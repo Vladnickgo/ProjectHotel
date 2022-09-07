@@ -31,7 +31,7 @@ public class ConfirmPaymentCommand implements Command {
         request.getSession().removeAttribute("checkIn");
         request.getSession().removeAttribute("checkOut");
         request.getSession().removeAttribute("roomId");
-        bookingService.addBookingPayment(bookingServiceById);
+        paymentService.addPayment(bookingServiceById);
         request.getSession().setAttribute("bookingServiceById", bookingServiceById);
 
         return "home?command=successPaymentPage";

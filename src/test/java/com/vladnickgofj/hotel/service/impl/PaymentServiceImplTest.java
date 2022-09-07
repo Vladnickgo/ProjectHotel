@@ -6,18 +6,17 @@ import com.vladnickgofj.hotel.dao.PaymentDao;
 import com.vladnickgofj.hotel.dao.entity.Payment;
 import com.vladnickgofj.hotel.service.PaymentService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.validator.BookingValidator;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -32,6 +31,9 @@ public class PaymentServiceImplTest {
     @Mock
     private Mapper<PaymentDto, Payment> mapper;
 
+    @Mock
+    private BookingValidator validator;
+
     @Test
     public void addPayment() {
     }
@@ -39,11 +41,11 @@ public class PaymentServiceImplTest {
     @ParameterizedTest(name = "[{index}]{3}")
     @MethodSource("provideCreditCardData")
     public void checkNotValidCardData(String cardNumber, String cvvCode, String expectedMessage, String message) {
-        PaymentService paymentService = new PaymentServiceImpl(paymentDao, bookingDao, mapper);
+        PaymentService paymentService = new PaymentServiceImpl(paymentDao, bookingDao, mapper, validator);
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> paymentService.checkCardData(cardNumber, cvvCode));
         String actualMessage = illegalArgumentException.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage, actualMessage, message);
     }
 
     private static Stream<Arguments> provideCreditCardData() {

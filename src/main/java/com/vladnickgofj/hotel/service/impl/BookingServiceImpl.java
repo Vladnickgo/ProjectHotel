@@ -1,6 +1,8 @@
 package com.vladnickgofj.hotel.service.impl;
 
-import com.vladnickgofj.hotel.controller.dto.*;
+import com.vladnickgofj.hotel.controller.dto.BookingDto;
+import com.vladnickgofj.hotel.controller.dto.BookingRequestDto;
+import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
 import com.vladnickgofj.hotel.dao.BookingDao;
 import com.vladnickgofj.hotel.dao.entity.Booking;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
@@ -8,7 +10,6 @@ import com.vladnickgofj.hotel.service.BookingService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
 import com.vladnickgofj.hotel.service.util.BookingRequestDtoUtil;
 import com.vladnickgofj.hotel.validator.BookingValidator;
-import com.vladnickgofj.hotel.validator.Validator;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
@@ -18,7 +19,6 @@ import java.util.stream.Collectors;
 
 public class BookingServiceImpl implements BookingService {
 
-    private static final Integer STATUS_BOOKED = 2;
     private final BookingDao bookingRepository;
     private final Mapper<BookingDto, Booking> bookingMapper;
     private final Mapper<RoomStatusDto, RoomStatus> roomStatusMapper;
@@ -46,14 +46,14 @@ public class BookingServiceImpl implements BookingService {
         return bookingMapper.mapEntityToDto(bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("No items selected")));
     }
 
-    @Override
-    public void addBookingPayment(BookingDto bookingServiceById) {
-        validator.validate(bookingServiceById);
-        if (bookingServiceById.getBookingStatusId().equals(STATUS_BOOKED)) {
-            throw new IllegalArgumentException("Payment already exist");
-        }
-        bookingRepository.addBookingPayment(bookingServiceById);
-    }
+//    @Override
+//    public void addBookingPayment(BookingDto bookingServiceById) {
+//        validator.validate(bookingServiceById);
+//        if (bookingServiceById.getBookingStatusId().equals(STATUS_BOOKED)) {
+//            throw new IllegalArgumentException("Payment already exist");
+//        }
+//        bookingRepository.addBookingPayment(bookingServiceById);
+//    }
 
     @Override
     public List<BookingDto> findBookingsByUserIdAndParameters(BookingRequestDto bookingRequestDto) {

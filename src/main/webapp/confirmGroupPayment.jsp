@@ -79,7 +79,7 @@
                             <td>${booking.room.numberOfBeds}</td>
                             <td>${booking.room.price} <f:message key="uah" bundle="${bunCont}"/></td>
                             <td>${booking.nights}</td>
-                            <td>${booking.room.price*booking.nights} UAH</td>
+                            <td>${booking.room.price*booking.nights} <f:message key="uah" bundle="${bunCont}"/></td>
                             <td hidden>
                                 <input type="checkbox" name="bookingId"
                                        value="${booking.id}" checked hidden>

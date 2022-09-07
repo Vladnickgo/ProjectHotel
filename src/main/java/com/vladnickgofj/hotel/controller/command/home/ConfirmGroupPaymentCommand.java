@@ -28,6 +28,7 @@ public class ConfirmGroupPaymentCommand implements Command {
         String cvvCode = request.getParameter("cvvCode");
         try {
             paymentService.checkCardData(cardNumber, cvvCode);
+            LOGGER.info("Checking card is successful");
         } catch (IllegalArgumentException e) {
             StringBuilder stringBuilderUrl = new StringBuilder("home?command=groupPayment&cardErrorMessage=error");
             for (String bookingId : bookingIds) {
@@ -43,7 +44,7 @@ public class ConfirmGroupPaymentCommand implements Command {
         for (String bookingId : bookingIds) {
             BookingDto byId = bookingService.findById(Integer.valueOf(bookingId));
             try {
-                bookingService.addBookingPayment(byId);
+                paymentService.addPayment(byId);
             } catch (IllegalArgumentException e) {
                 stringBuilderUrl.append("&paymentErrorMessage=error");
                 return stringBuilderUrl.toString();

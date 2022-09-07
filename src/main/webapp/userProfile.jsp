@@ -201,10 +201,8 @@
             </div>
             <div ${error=='true'?'':'hidden'}>
                 <div style="background-color: #F8F9FA; box-shadow: lightgray">
-                    <h3 style="color: darkslateblue;padding: 20px">
-                        <div style="font-weight: bold">
-                            <f:message key="notChooseElements" bundle="${bunCont}"/>
-                        </div>
+                    <h3 style="color: darkslateblue;padding: 20px;font-weight: bold">
+                        <f:message key="notChooseElements" bundle="${bunCont}"/>
                     </h3>
                 </div>
             </div>

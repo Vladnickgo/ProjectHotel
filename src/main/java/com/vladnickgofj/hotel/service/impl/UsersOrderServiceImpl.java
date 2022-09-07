@@ -2,12 +2,12 @@ package com.vladnickgofj.hotel.service.impl;
 
 import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
 import com.vladnickgofj.hotel.controller.dto.UsersOrderDto;
-import com.vladnickgofj.hotel.controller.dto.UsersOrderRequestDto;
 import com.vladnickgofj.hotel.dao.UsersOrderDao;
 import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.entity.UsersOrder;
 import com.vladnickgofj.hotel.service.UsersOrderService;
 import com.vladnickgofj.hotel.service.mapper.Mapper;
+import com.vladnickgofj.hotel.service.util.UsersOrderRequestDtoUtil;
 import com.vladnickgofj.hotel.validator.UsersOrderValidator;
 
 import java.util.Comparator;
@@ -36,7 +36,7 @@ public class UsersOrderServiceImpl implements UsersOrderService {
     }
 
     @Override
-    public List<UsersOrderDto> findAllByParameters(UsersOrderRequestDto usersOrderRequestDto) {
+    public List<UsersOrderDto> findAllByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto) {
         Comparator<UsersOrderDto> usersOrderDtoComparator = usersOrderRequestDto.extractedComparator();
         return usersOrderDao.findAllByParameters(usersOrderRequestDto)
                 .stream()
@@ -46,7 +46,7 @@ public class UsersOrderServiceImpl implements UsersOrderService {
     }
 
     @Override
-    public Integer totalPages(UsersOrderRequestDto usersOrderRequestDto) {
+    public Integer totalPages(UsersOrderRequestDtoUtil usersOrderRequestDto) {
         Integer countAll = usersOrderDao.countAll(usersOrderRequestDto);
         Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
         return (countAll - 1) / itemsOnPage + 1;
