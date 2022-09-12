@@ -46,15 +46,6 @@ public class BookingServiceImpl implements BookingService {
         return bookingMapper.mapEntityToDto(bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("No items selected")));
     }
 
-//    @Override
-//    public void addBookingPayment(BookingDto bookingServiceById) {
-//        validator.validate(bookingServiceById);
-//        if (bookingServiceById.getBookingStatusId().equals(STATUS_BOOKED)) {
-//            throw new IllegalArgumentException("Payment already exist");
-//        }
-//        bookingRepository.addBookingPayment(bookingServiceById);
-//    }
-
     @Override
     public List<BookingDto> findBookingsByUserIdAndParameters(BookingRequestDto bookingRequestDto) {
         bookingRequestDtoUtil = new BookingRequestDtoUtil(bookingRequestDto);

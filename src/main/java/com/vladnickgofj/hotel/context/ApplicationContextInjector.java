@@ -3,6 +3,7 @@ package com.vladnickgofj.hotel.context;
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.command.home.*;
+import com.vladnickgofj.hotel.controller.command.home.receipt.PaymentReceipt;
 import com.vladnickgofj.hotel.controller.command.user.*;
 import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.*;
@@ -22,9 +23,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.vladnickgofj.hotel.PagesConstant.PAYMENT_RECEIPT;
+
 public final class ApplicationContextInjector {
 
     private static final HikariConnectionPool HIKARI_CONNECTION_POOL = new HikariConnectionPool("bd-config");
+//    private static final HikariConnectionPool HIKARI_CONNECTION_POOL = new HikariConnectionPool("db-config-test");
 
     private static final UserDao USER_DAO = new UserDaoImpl(HIKARI_CONNECTION_POOL);
 
@@ -93,6 +97,8 @@ public final class ApplicationContextInjector {
     private static final Command SHOW_ADMIN_PROFILE_COMMAND = new ShowAdminProfileCommand();
 
     private static final Command DEFAULT_COMMAND = new DefaultCommand();
+
+    private static final Command PAYMENT_RECEIPT = new PaymentReceipt();
 
     private static final Command HOME_COMMAND = new HomePageCommand();
 
@@ -203,6 +209,8 @@ public final class ApplicationContextInjector {
         homeCommandNameToCommand.put("successGroupPaymentPage", SUCCESS_GROUP_PAYMENT_PAGE_COMMAND);
         homeCommandNameToCommand.put("groupCancelGetCommand", GROUP_CANCEL_GET_COMMAND);
         homeCommandNameToCommand.put("defaultCommand", DEFAULT_COMMAND);
+        homeCommandNameToCommand.put("paymentReceipt", PAYMENT_RECEIPT);
+
 
         return Collections.unmodifiableMap(homeCommandNameToCommand);
     }

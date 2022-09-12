@@ -83,7 +83,6 @@ END;
 //
 CREATE PROCEDURE change_date_end_for_room_status()
 BEGIN
-    DECLARE number_of_rooms INT;
     DECLARE max_date_end DATE;
     DECLARE done INT default 0;
     DECLARE date_end_cursor CURSOR FOR SELECT max(date_end) FROM room_status GROUP BY room_id;

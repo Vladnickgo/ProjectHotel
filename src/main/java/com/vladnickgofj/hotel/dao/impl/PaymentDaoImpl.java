@@ -4,6 +4,7 @@ import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
 import com.vladnickgofj.hotel.dao.PaymentDao;
 import com.vladnickgofj.hotel.dao.entity.Payment;
+import com.vladnickgofj.hotel.dao.entity.RoomStatus;
 import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
 import com.vladnickgofj.hotel.dao.mapper.ResultSetMapper;
 import org.apache.log4j.Logger;
@@ -12,6 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements PaymentDao {
     private static final Logger LOGGER = Logger.getLogger(PaymentDaoImpl.class);
@@ -22,9 +27,9 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
             "         LEFT JOIN users u ON u.user_id = b.user_id " +
             "         LEFT JOIN room r ON r.room_id = b.room_id " +
             "         LEFT JOIN room_type rt ON rt.type_id = r.type_id " +
-            "         LEFT JOIN room_status rs ON rs.status_id = r.status_id " +
+//            "         LEFT JOIN room_status rs ON rs.status_id = r.status_id " +
             "         LEFT JOIN hotel h ON h.hotel_id = r.hotel_id " +
-            "         LEFT JOIN bookings_status bs ON bs.booking_status_id = b.booking_status_id " +
+//            "         LEFT JOIN bookings_status bs ON bs.booking_status_id = b.booking_status_id " +
             "WHERE payment_id=?";
 
 
@@ -37,6 +42,16 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
             "         LEFT JOIN room_status rs ON rs.status_id = r.status_id " +
             "         LEFT JOIN hotel h ON h.hotel_id = r.hotel_id " +
             "         LEFT JOIN bookings_status bs ON bs.booking_status_id = b.booking_status_id";
+
+    private static final String FIND_PAYMENT_BY_BOOKING_ID = "SELECT * " +
+            "FROM payments " +
+            "LEFT JOIN bookings b ON b.booking_id = payments.booking_id " +
+            "LEFT JOIN users u ON u.user_id = b.user_id " +
+            "LEFT JOIN room r ON r.room_id = b.room_id " +
+            "LEFT JOIN room_type rt ON rt.type_id = r.type_id " +
+            "LEFT JOIN hotel h ON h.hotel_id = r.hotel_id " +
+            "LEFT JOIN booking_status bs on b.booking_status_id = bs.booking_status_id " +
+            "WHERE b.booking_id=? ; ";
 
     private static final String UPDATE_PAYMENT = "UPDATE payments " +
             "SET booking_id=?, user_id=?, amount=? WHERE payment_id=?";
@@ -65,7 +80,7 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
 
 
     @Override
-    public void ddBookingPayment(BookingDto bookingServiceById) {
+    public void addBookingPayment(BookingDto bookingServiceById) {
         Integer bookingId = bookingServiceById.getId();
         Integer price = bookingServiceById.getRoom().getPrice();
         Integer nights = bookingServiceById.getNights();
@@ -107,4 +122,20 @@ public class PaymentDaoImpl extends AbstractCrudDaoImpl<Payment> implements Paym
             throw new DataBaseRuntimeException(e);
         }
     }
+
+    @Override
+    public Payment findPaymentByBookingId(Integer bookingId) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_PAYMENT_BY_BOOKING_ID)) {
+            preparedStatement.setInt(1, bookingId);
+            System.out.println(bookingId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return mapResultSetToEntity(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DataBaseRuntimeException(e);
+        }
+    }
+
 }

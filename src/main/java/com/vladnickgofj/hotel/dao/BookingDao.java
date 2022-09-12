@@ -12,8 +12,6 @@ public interface BookingDao extends CrudDao<Booking,Integer>{
 
     Booking findBookingByParameters(BookingDto bookingDto);
 
-//    void addBookingPayment(BookingDto bookingServiceById);
-
     Integer countAll(BookingRequestDto bookingRequestDto);
 
     List<Booking> findBookingsByUserIdAndParameters(BookingRequestDto bookingRequestDto, Integer firstRecordOnPage);

@@ -11,7 +11,7 @@ public class UsersOrder {
     private final LocalDate dateEnd;
     private final LocalDate orderDate;
     private final Integer numberOfPersons;
-    private final Room room;
+    private final RoomType roomType;
     private final OrderStatus orderStatus;
 
     private UsersOrder(Builder builder) {
@@ -22,7 +22,7 @@ public class UsersOrder {
         dateEnd = builder.dateEnd;
         orderDate = builder.orderDate;
         numberOfPersons = builder.numberOfPersons;
-        room = builder.room;
+        roomType = builder.roomType;
         orderStatus = builder.orderStatus;
     }
 
@@ -39,7 +39,7 @@ public class UsersOrder {
         private LocalDate dateEnd;
         private LocalDate orderDate;
         private Integer numberOfPersons;
-        private Room room;
+        private RoomType roomType;
         private OrderStatus orderStatus;
 
         private Builder() {
@@ -80,8 +80,8 @@ public class UsersOrder {
             return this;
         }
 
-        public Builder room(Room val) {
-            room = val;
+        public Builder roomType(RoomType val) {
+            roomType = val;
             return this;
         }
 
@@ -123,8 +123,8 @@ public class UsersOrder {
         return numberOfPersons;
     }
 
-    public Room getRoom() {
-        return room;
+    public RoomType getRoomType() {
+        return roomType;
     }
 
     public OrderStatus getOrderStatus() {
@@ -136,12 +136,12 @@ public class UsersOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersOrder that = (UsersOrder) o;
-        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(hotel, that.hotel) && Objects.equals(dateStart, that.dateStart) && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(orderDate, that.orderDate) && Objects.equals(numberOfPersons, that.numberOfPersons) && Objects.equals(room, that.room) && orderStatus == that.orderStatus;
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(hotel, that.hotel) && Objects.equals(dateStart, that.dateStart) && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(orderDate, that.orderDate) && Objects.equals(numberOfPersons, that.numberOfPersons) && Objects.equals(roomType, that.roomType) && orderStatus == that.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, hotel, dateStart, dateEnd, orderDate, numberOfPersons, room, orderStatus);
+        return Objects.hash(id, user, hotel, dateStart, dateEnd, orderDate, numberOfPersons, roomType, orderStatus);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class UsersOrder {
                 ", dateEnd=" + dateEnd +
                 ", orderDate=" + orderDate +
                 ", numberOfPersons=" + numberOfPersons +
-                ", room=" + room +
+                ", roomType=" + roomType +
                 ", orderStatus=" + orderStatus +
                 '}';
     }

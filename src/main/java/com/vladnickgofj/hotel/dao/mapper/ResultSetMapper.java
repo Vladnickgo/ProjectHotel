@@ -41,23 +41,11 @@ public class ResultSetMapper {
                 .build();
     }
 
-//    public static Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
-//        return Room.newBuilder()
-//                .id(resultSet.getInt("room_id"))
-//                .roomType(mapResultSetToRoomType(resultSet))
-//                .numberOfBeds(resultSet.getInt("number_of_beds"))
-////                .roomStatus(mapResultSetToRoomStatus(resultSet))
-//                .price(resultSet.getInt("price"))
-//                .hotel(mapResultSetToHotel(resultSet))
-//                .build();
-//    }
-
     public static Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
         return Room.newBuilder()
                 .id(resultSet.getInt("room_id"))
                 .roomType(mapResultSetToRoomType(resultSet))
                 .numberOfBeds(resultSet.getInt("number_of_beds"))
-//                .roomStatus(mapResultSetToRoomStatus(resultSet))
                 .price(resultSet.getInt("price"))
                 .hotel(mapResultSetToHotel(resultSet))
                 .build();
@@ -87,7 +75,7 @@ public class ResultSetMapper {
                 .build();
     }
 
-    private static StatusStatement mapResultSetToStatusStatement(ResultSet resultSet) throws SQLException{
+    private static StatusStatement mapResultSetToStatusStatement(ResultSet resultSet) throws SQLException {
         return StatusStatement.newBuilder()
                 .statusStatementId(resultSet.getInt("status_statement_id"))
                 .statusStatementName(resultSet.getString("status_statement_name"))
@@ -101,7 +89,7 @@ public class ResultSetMapper {
                 .build();
     }
 
-    public static UsersOrder mapResultSetToUsersOrder(ResultSet resultSet) throws SQLException{
+    public static UsersOrder mapResultSetToUsersOrder(ResultSet resultSet) throws SQLException {
         return UsersOrder.newBuilder()
                 .id(resultSet.getInt("order_id"))
                 .user(User.newBuilder()
@@ -109,6 +97,9 @@ public class ResultSetMapper {
                         .firstName(resultSet.getString("first_name"))
                         .lastName(resultSet.getString("last_name"))
                         .email(resultSet.getString("email"))
+                        .password(resultSet.getString("password"))
+                        .salt(resultSet.getString("salt"))
+                        .role(Role.getRole(resultSet.getInt("role_id")))
                         .build())
                 .hotel(Hotel.newBuilder()
                         .id(resultSet.getInt("hotel_id"))
@@ -118,12 +109,21 @@ public class ResultSetMapper {
                 .dateEnd(resultSet.getDate("date_end").toLocalDate())
                 .orderDate(resultSet.getDate("order_date").toLocalDate())
                 .numberOfPersons(resultSet.getInt("number_of_persons"))
-                .room(Room.newBuilder()
-                        .roomType(RoomType.newBuilder()
-                                .id(resultSet.getInt("room_type_id"))
-                                .typeName(resultSet.getString("type_name"))
-                                .build())
+//                .room(Room.newBuilder()
+//                        .id(resultSet.getInt("room_id"))
+//                        .roomType(
+                .roomType(RoomType.newBuilder()
+                        .id(resultSet.getInt("room_type_id"))
+                        .typeName(resultSet.getString("type_name"))
                         .build())
+//                        .numberOfBeds(resultSet.getInt("number_of_beds"))
+//                        .price(resultSet.getInt("price"))
+
+//                        .hotel(Hotel.newBuilder()
+//                                .id(resultSet.getInt("hotel_id"))
+//                                .name(resultSet.getString("hotel_name"))
+//                                .build())
+//                        .build())
                 .orderStatus(OrderStatus.getOrderStatus(resultSet.getInt("order_status_id")))
                 .build();
     }

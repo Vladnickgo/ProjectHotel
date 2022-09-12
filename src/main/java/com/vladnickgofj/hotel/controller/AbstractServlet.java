@@ -17,8 +17,6 @@ public abstract class AbstractServlet extends HttpServlet {
 
     private static final String NOT_VALID_PATH = "Not valid path";
 
-    private static final String DEFAULT_URL = "home?command=homePage";
-
     private final Map<String, Command> commandNameToCommand;
 
     private final Command defaultCommand;

@@ -42,13 +42,12 @@ public class ShowAdminProfileCommand implements Command {
         UsersOrderRequestDtoUtil usersOrderRequestDtoUtil = new UsersOrderRequestDtoUtil(usersOrderRequestDto);
         List<UsersOrderDto> listOfOrders = usersOrderService.findAllByParameters(usersOrderRequestDtoUtil);
         Integer totalPages = usersOrderService.totalPages(usersOrderRequestDtoUtil);
-
         request.setAttribute("listOfOrders", listOfOrders);
-        request.setAttribute("sorting", usersOrderRequestDto.getSorting());
-        request.setAttribute("ordering", usersOrderRequestDto.getOrdering());
-        request.setAttribute("itemsOnPage", usersOrderRequestDto.getItemsOnPage());
-        request.setAttribute("numberOfPage", usersOrderRequestDto.getNumberOfPage());
-        request.setAttribute("statusNotDone", usersOrderRequestDto.getStatusNotDone());
+        request.setAttribute("sorting", usersOrderRequestDtoUtil.getSorting());
+        request.setAttribute("ordering", usersOrderRequestDtoUtil.getOrdering());
+        request.setAttribute("itemsOnPage", usersOrderRequestDtoUtil.getItemsOnPage());
+        request.setAttribute("numberOfPage", usersOrderRequestDtoUtil.getNumberOfPage());
+        request.setAttribute("statusNotDone", usersOrderRequestDtoUtil.getStatusNotDone());
         request.setAttribute("statusCompleted", statusCompleted);
         request.setAttribute("totalPages", totalPages);
         return PagesConstant.ADMIN_PROFILE;

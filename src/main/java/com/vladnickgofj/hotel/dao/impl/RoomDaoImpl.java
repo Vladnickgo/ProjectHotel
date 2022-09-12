@@ -26,9 +26,7 @@ public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
             "WHERE room_id=?;";
     private static final String FIND_ALL = "SELECT * FROM room " +
             "LEFT OUTER JOIN room_type rt on rt.type_id = room.type_id " +
-//            "LEFT JOIN room_status rs on rs.status_id = room.status_id " +
             "LEFT JOIN hotel h on h.hotel_id = room.hotel_id;";
-//    private static final String FIND_ALL = "SELECT * FROM room ";
 
 
     private static final String UPDATE_ROOM = "UPDATE room " +
@@ -89,9 +87,10 @@ public class RoomDaoImpl extends AbstractCrudDaoImpl<Room> implements RoomDao {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_BY_HOTEL_ID)) {
             preparedStatement.setInt(1, hotelId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("count_rooms");
+          try(ResultSet resultSet = preparedStatement.executeQuery()) {
+              resultSet.next();
+              return resultSet.getInt("count_rooms");
+          }
         } catch (SQLException e) {
             throw new DataBaseRuntimeException(e);
         }

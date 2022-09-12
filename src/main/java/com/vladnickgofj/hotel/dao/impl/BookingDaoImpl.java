@@ -31,11 +31,11 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             "LEFT JOIN hotel h ON h.hotel_id = r.hotel_id ";
 
     private static final String FIND_BY_ID = "SELECT * FROM bookings " +
-            "         LEFT JOIN room r on r.room_id = bookings.room_id " +
-            "         LEFT JOIN room_type rt on rt.type_id = r.type_id " +
-            "         LEFT JOIN hotel h on h.hotel_id = r.hotel_id " +
-            "         LEFT JOIN users u on u.user_id = bookings.user_id " +
-            "         LEFT JOIN booking_status bs on bs.booking_status_id = bookings.booking_status_id " +
+            "LEFT JOIN room r on r.room_id = bookings.room_id " +
+            "LEFT JOIN room_type rt on rt.type_id = r.type_id " +
+            "LEFT JOIN hotel h on h.hotel_id = r.hotel_id " +
+            "LEFT JOIN users u on u.user_id = bookings.user_id " +
+            "LEFT JOIN booking_status bs on bs.booking_status_id = bookings.booking_status_id " +
             "WHERE booking_id = ?";
 
     private static final String FIND_BOOKING_BY_ROOM_ID_AND_DATES = "SELECT * FROM bookings " +
@@ -52,6 +52,7 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
     private static final String UPDATE_BOOKING = "UPDATE bookings SET " +
             "check_in=?, check_out=?, room_id=?,night=?,book_time=?,booking_status_id=? " +
             "WHERE booking_id=?";
+
     private static final String INSERT_BOOKING = "INSERT INTO " +
             "bookings(check_in, check_out, room_id,night, book_time, booking_status_id) VALUES (?,?,?,?,?)";
 
@@ -123,50 +124,6 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
         }
     }
 
-//    @Override
-//    public void addBookingPayment(BookingDto bookingServiceById) {
-//        Integer bookingId = bookingServiceById.getId();
-//        Integer price = bookingServiceById.getRoom().getPrice();
-//        Integer nights = bookingServiceById.getNights();
-//        Integer amount = price * nights;
-//
-//        try (Connection connection = connector.getConnection();
-//             PreparedStatement updateBookingStatus = connection.prepareStatement(UPDATE_BOOKING_STATUS_BY_ID);
-//             PreparedStatement updateRoomStatusByBookingId = connection.prepareStatement("UPDATE room_status SET status_statement_id=3 " +
-//                     "WHERE room_id = (SELECT b.room_id FROM bookings b WHERE b.booking_id = ?) " +
-//                     "AND date_start = (SELECT b.check_in FROM bookings b WHERE b.booking_id = ?) " +
-//                     "AND date_end = (SELECT b.check_out FROM bookings b WHERE b.booking_id = ?) " +
-//                     "AND status_statement_id = 2;");
-//             PreparedStatement insertPaymentByParameters = connection.prepareStatement("INSERT INTO payments(booking_id, user_id, amount) VALUES (?,?,?)")) {
-//            try {
-//                connection.setAutoCommit(false);
-//
-//                updateBookingStatus.setInt(1, 2);
-//                updateBookingStatus.setInt(2, bookingId);
-//                updateBookingStatus.executeUpdate();
-//
-//                updateRoomStatusByBookingId.setInt(1, bookingId);
-//                updateRoomStatusByBookingId.setInt(2, bookingId);
-//                updateRoomStatusByBookingId.setInt(3, bookingId);
-//                updateRoomStatusByBookingId.executeUpdate();
-//
-//                insertPaymentByParameters.setInt(1, bookingId);
-//                insertPaymentByParameters.setInt(2, bookingServiceById.getUserId());
-//                insertPaymentByParameters.setInt(3, amount);
-//                insertPaymentByParameters.execute();
-//                connection.commit();
-//                LOGGER.info("Transaction by update Bookings, RoomStatus and adding Payment has been committed");
-//            } catch (SQLException e) {
-//                connection.rollback();
-//                LOGGER.info("Rollback transaction by update Bookings, RoomStatus and adding Payment");
-//                throw new DataBaseRuntimeException(e);
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new DataBaseRuntimeException(e);
-//        }
-//    }
-
     @Override
     public Integer countAll(BookingRequestDto bookingRequestDto) {
         BookingRequestDtoUtil bookingRequestDtoUtil = new BookingRequestDtoUtil(bookingRequestDto);
@@ -179,7 +136,6 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             preparedStatement.setInt(4, bookingStatusIds[2]);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            LOGGER.info("Request completed. Result: count_bookings =" + resultSet.getInt("count_bookings"));
             return resultSet.getInt("count_bookings");
         } catch (SQLException e) {
             LOGGER.info("Request not completed");
@@ -201,7 +157,6 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             preparedStatement.setString(5, sortingAndOrdering);
             preparedStatement.setInt(6, bookingRequestDtoUtil.getItemsOnPage());
             preparedStatement.setInt(7, firstRecordOnPage);
-
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Set<Booking> entities = new HashSet<>();
                 while (resultSet.next()) {
@@ -310,4 +265,5 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
         updateRoomStatus.setInt(2, roomStatus.getId());
         updateRoomStatus.executeUpdate();
     }
+
 }

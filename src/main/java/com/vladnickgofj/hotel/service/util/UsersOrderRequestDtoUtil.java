@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.service.util;
 
-import com.vladnickgofj.hotel.controller.dto.PagenableElementsDto;
 import com.vladnickgofj.hotel.controller.dto.UsersOrderDto;
 import com.vladnickgofj.hotel.controller.dto.UsersOrderRequestDto;
 
@@ -21,8 +20,7 @@ public class UsersOrderRequestDtoUtil {
     }
 
     public String getStatusNotDone() {
-
-        return Objects.equals(usersOrderRequestDto.getSorting(), null) ? "notDone" : usersOrderRequestDto.getStatusNotDone();
+        return Objects.equals(usersOrderRequestDto.getSorting(), null) && Objects.equals(getStatusCompleted(), null) ? "notDone" : usersOrderRequestDto.getStatusNotDone();
     }
 
     public String getStatusCompleted() {
@@ -30,11 +28,13 @@ public class UsersOrderRequestDtoUtil {
     }
 
     public String getSorting() {
-        return initParameterValue(usersOrderRequestDto.getSorting(), DEFAULT_SORTING_PARAMETER);
+        String sorting = usersOrderRequestDto.getSorting();
+        return initSorting().getOrDefault(sorting, DEFAULT_SORTING_PARAMETER);
     }
 
     public String getOrdering() {
-        return initParameterValue(usersOrderRequestDto.getOrdering(), DEFAULT_ORDERING_PARAMETER);
+        String ordering = usersOrderRequestDto.getOrdering();
+        return initOrdering().getOrDefault(ordering, DEFAULT_ORDERING_PARAMETER);
     }
 
     public Integer getNumberOfPage() {
@@ -45,21 +45,11 @@ public class UsersOrderRequestDtoUtil {
         return initParameterValue(usersOrderRequestDto.getItemsOnPage(), DEFAULT_ITEMS_ON_PAGE);
     }
 
-
-    public PagenableElementsDto getPagenableElementsDto() {
-        return PagenableElementsDto.newBuilder()
-                .numberOfPage(getNumberOfPage())
-                .itemsOnPage(getItemsOnPage())
-                .build();
-    }
-
-    public Integer[] getQuerySubstitute() {
+    public Integer[] getStatusStatement() {
         Integer[] roomStatusStatementsArray = new Integer[2];
         roomStatusStatementsArray[0] = Objects.equals(getStatusNotDone(), "notDone") ? 1 : 0;
-        roomStatusStatementsArray[1] = Objects.equals(getStatusNotDone(), "notDone") ? 2 : 0;
+        roomStatusStatementsArray[1] = Objects.equals(getStatusCompleted(), "completed") ? 2 : 0;
         return roomStatusStatementsArray;
-
-
     }
 
     public Comparator<UsersOrderDto> extractedComparator() {
@@ -85,16 +75,27 @@ public class UsersOrderRequestDtoUtil {
         return naturalComparatorMap;
     }
 
-    private String initParameterValue(String parameter, String defaultValue) {
-        return Objects.equals(null, parameter) ? defaultValue : parameter;
-    }
-
     private Integer initParameterValue(String parameter, Integer defaultValue) {
         try {
             return Objects.equals(null, parameter) ? defaultValue : Integer.valueOf(parameter);
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    }
+
+    private static Map<String, String> initSorting() {
+        Map<String, String> sortingMap = new HashMap<>();
+        sortingMap.put("order_date", "order_date");
+        sortingMap.put("number_of_persons", "number_of_persons");
+        sortingMap.put("date_start", "date_start");
+        return sortingMap;
+    }
+
+    private static Map<String, String> initOrdering() {
+        Map<String, String> orderingMap = new HashMap<>();
+        orderingMap.put("ASC", "ASC");
+        orderingMap.put("DESC", "DESC");
+        return orderingMap;
     }
 
 }

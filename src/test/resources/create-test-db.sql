@@ -161,3 +161,9 @@ VALUES ('2022-08-01', '2022-11-01', 1, 1),
        ('2022-08-01', '2022-11-01', 5, 1),
        ('2022-08-01', '2022-11-01', 6, 1),
        ('2022-08-01', '2022-11-01', 7, 1);
+
+INSERT INTO users (first_name, last_name, email, password, salt, role_id)
+VALUES ('Ivan', 'Bunin', 'admin@mail.com', 'fd06dd38d1fd964b21fbfa73c207cda337c45c3a', '7f1195dbf9222e9a', 1),
+       ('Andrey', 'Mastykov', 'andrey@mail.com', '0a233ec67ca2b482e6d3e3c62941135d1b660199', 'e8afd5d44e2be783', 2),
+       ('Sergey', 'Galushtenko', 'sergey@mail.com', '922e22af7f9762d93d314d2b9deea821f8666581', '420f28d49532f09a', 2),
+       ('Gennadiy', 'Stolyarov', 'gena@mail.com', 'cd700eac16298b74fce0cab8de4051648e21578b', 'f69b200de4bbb082', 2);

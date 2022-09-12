@@ -1,9 +1,6 @@
 package com.vladnickgofj.hotel.controller.dto;
 
-import java.time.LocalDate;
-import java.util.*;
-
-import static com.vladnickgofj.hotel.ApplicationConstant.NUMBER_OF_DAYS_AVAILABLE_FOR_ORDER;
+import java.util.Objects;
 
 public class RoomStatusDtoRequest {
 

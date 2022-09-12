@@ -36,13 +36,13 @@ public class RoomStatusDtoRequestUtil {
     }
 
     public String getSorting() {
-
-        return initParameterValue(roomStatusDtoRequest.getSorting(), DEFAULT_SORTING_PARAMETER);
+        String sorting = roomStatusDtoRequest.getSorting();
+        return initSorting().getOrDefault(sorting, DEFAULT_SORTING_PARAMETER);
     }
 
     public String getOrdering() {
         String ordering = roomStatusDtoRequest.getOrdering();
-        return initParameterValue(ordering, DEFAULT_ORDERING_PARAMETER);
+        return initOrdering().getOrDefault(ordering, DEFAULT_ORDERING_PARAMETER);
     }
 
     public Integer getNumberOfPage() {
@@ -139,5 +139,20 @@ public class RoomStatusDtoRequestUtil {
         return naturalComparatorMap;
     }
 
+    private static Map<String, String> initSorting() {
+        Map<String, String> sortingMap = new HashMap<>();
+        sortingMap.put("price", "price");
+        sortingMap.put("number_of_beds", "number_of_beds");
+        sortingMap.put("type_name", "type_name");
+        sortingMap.put("nights", "nights");
+        sortingMap.put("book_time", "book_time");
+        return sortingMap;
+    }
 
+    private static Map<String, String> initOrdering() {
+        Map<String, String> orderingMap = new HashMap<>();
+        orderingMap.put("ASC", "ASC");
+        orderingMap.put("DESC", "DESC");
+        return orderingMap;
+    }
 }

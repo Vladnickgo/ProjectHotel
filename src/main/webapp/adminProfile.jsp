@@ -156,6 +156,7 @@
                     </tr>
                 </c:forEach>
             </table>
+
             <div style="padding-bottom: 100px">
                 <a class="btn btn-light"
                    href="home?command=showAdminProfile&numberOfPage=${numberOfPage-1<1?1:numberOfPage-1}&itemsOnPage=${itemsOnPage}&statusNotDone=${statusNotDone}&statusCompleted=${statusCompleted}&sorting=${sorting}&ordering=${ordering}"
@@ -169,7 +170,6 @@
                     <a href="" ${Math.abs(numberOfPage-totalPages)>3&&i==totalPages-1?'':'hidden'}
                        style="text-decoration: none;">...</a>
                 </c:forEach>
-
                 <a class="btn btn-light"
                    href="home?command=showAdminProfile&numberOfPage=${numberOfPage+1>totalPages?totalPages:numberOfPage+1}&itemsOnPage=${itemsOnPage}&statusNotDone=${statusNotDone}&statusCompleted=${statusCompleted}&sorting=${sorting}&ordering=${ordering}"
                 ${numberOfPage>=totalPages?'hidden':''}>></a>

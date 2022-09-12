@@ -20,11 +20,13 @@ public class BookingRequestDtoUtil {
     }
 
     public String getSorting() {
-        return initParameterValue(bookingRequestDto.getSorting(), DEFAULT_SORTING_PARAMETER);
+        String sorting = bookingRequestDto.getSorting();
+        return initSorting().getOrDefault(sorting, DEFAULT_SORTING_PARAMETER);
     }
 
     public String getOrdering() {
-        return initParameterValue(bookingRequestDto.getOrdering(), DEFAULT_ORDERING_PARAMETER);
+        String ordering = bookingRequestDto.getOrdering();
+        return initOrdering().getOrDefault(ordering, DEFAULT_ORDERING_PARAMETER);
     }
 
     public Integer getNumberOfPage() {
@@ -40,7 +42,10 @@ public class BookingRequestDtoUtil {
     }
 
     public String getStatusNotPaid() {
-        return Objects.equals(bookingRequestDto.getSorting(), null) ? "notPaid" : bookingRequestDto.getStatusNotPaid();
+        return Objects.equals(bookingRequestDto.getSorting(), null) &&
+                Objects.equals(bookingRequestDto.getStatusPaid(), null) &&
+                Objects.equals(bookingRequestDto.getStatusCanceled(), null)
+                ? "notPaid" : bookingRequestDto.getStatusNotPaid();
     }
 
     public String getStatusPaid() {
@@ -49,10 +54,6 @@ public class BookingRequestDtoUtil {
 
     public String getStatusCanceled() {
         return bookingRequestDto.getStatusCanceled();
-    }
-
-    private String initParameterValue(String parameter, String defaultValue) {
-        return Objects.equals(null, parameter) ? defaultValue : parameter;
     }
 
     private Integer initParameterValue(String parameter, Integer defaultValue) {
@@ -90,6 +91,23 @@ public class BookingRequestDtoUtil {
         bookingStatusArray[1] = Objects.equals(getStatusPaid(), "paid") ? 2 : 0;
         bookingStatusArray[2] = Objects.equals(getStatusCanceled(), "canceled") ? 3 : 0;
         return bookingStatusArray;
+    }
+
+    private static Map<String, String> initSorting() {
+        Map<String, String> sortingMap = new HashMap<>();
+        sortingMap.put("price", "price");
+        sortingMap.put("number_of_beds", "number_of_beds");
+        sortingMap.put("type_name", "type_name");
+        sortingMap.put("nights", "nights");
+        sortingMap.put("book_time", "book_time");
+        return sortingMap;
+    }
+
+    private static Map<String, String> initOrdering() {
+        Map<String, String> orderingMap = new HashMap<>();
+        orderingMap.put("ASC", "ASC");
+        orderingMap.put("DESC", "DESC");
+        return orderingMap;
     }
 
 }

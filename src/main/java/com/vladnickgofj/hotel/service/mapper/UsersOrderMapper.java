@@ -23,11 +23,8 @@ public class UsersOrderMapper implements Mapper<UsersOrderDto, UsersOrder> {
                 .dateEnd(usersOrderDto.getDateEnd())
                 .orderDate(usersOrderDto.getOrderDate())
                 .numberOfPersons(usersOrderDto.getNumberOfPersons())
-                .room(Room.newBuilder()
-                        .id(usersOrderDto.getRoomDtoResponse().getId())
-                        .roomType(RoomType.newBuilder()
-                                .id(usersOrderDto.getRoomDtoResponse().getRoomType().getTypeId())
-                                .build())
+                .roomType(RoomType.newBuilder()
+                        .id(usersOrderDto.getRoomDtoResponse().getRoomType().getTypeId())
                         .build())
                 .orderStatus(usersOrderDto.getOrderStatus())
                 .build();
@@ -51,12 +48,15 @@ public class UsersOrderMapper implements Mapper<UsersOrderDto, UsersOrder> {
                 .dateEnd(usersOrder.getDateEnd())
                 .orderDate(usersOrder.getOrderDate())
                 .numberOfPersons(usersOrder.getNumberOfPersons())
-                .roomDtoResponse(RoomDtoResponse.newBuilder()
-                        .roomType(com.vladnickgofj.hotel.controller.dto.RoomTypeDto.newBuilder()
-                                .typeId(usersOrder.getRoom().getRoomType().getId())
-                                .typeName(usersOrder.getRoom().getRoomType().getTypeName())
+                .roomDtoResponse(
+                RoomDtoResponse.newBuilder()
+                        .roomType(RoomTypeDto.newBuilder()
+                                .typeId(usersOrder.getRoomType().getId())
+                                .typeName(usersOrder.getRoomType().getTypeName())
                                 .build())
-                        .build())
+                        .build()
+
+                )
                 .orderStatus(usersOrder.getOrderStatus())
                 .build();
     }

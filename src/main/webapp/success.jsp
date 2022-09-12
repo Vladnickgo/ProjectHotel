@@ -47,10 +47,6 @@
                 <f:message key="successfullyPayment" bundle="${bunCont}"/>
             </h1>
             <hr>
-
-            <%--            bookingServiceById: ${bookingServiceById}<br>--%>
-            <%--            amount: ${amount}<br>--%>
-            <%--            amount1:${bookingServiceById.nights*bookingServiceById.room.price}--%>
             <table class="table table-striped">
                 <tr class="primary">
                     <td colspan="2" class="primary">

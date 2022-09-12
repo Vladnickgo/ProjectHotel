@@ -8,6 +8,7 @@ public class PaymentDto {
     private final Integer roomId;
     private final LocalDate checkIn;
     private final LocalDate checkOut;
+//    private  final BookingDto bookingDto;
 
     private PaymentDto(Builder builder) {
         userId = builder.userId;

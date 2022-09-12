@@ -14,8 +14,6 @@ public final class PagesConstant {
 
     public static final String USER_PROFILE = "/userProfile.jsp";
 
-//    public static final String USER_PROFILE = "/home?command=showUserProfile";
-
     public static final String ABOUT_PAGE = "/aboutUs.jsp";
 
     public static final String CONTACTS_PAGE = "/contacts.jsp";
@@ -58,5 +56,5 @@ public final class PagesConstant {
 
     public static final String BOOKING_PAYMENT_PAGE = "/bookingPaymentPage.jsp";
 
-    public static final String TRANSITION_PAGE = "/transitionPage.jsp";
+    public static final String PAYMENT_RECEIPT = "/receipt/paymentReceipt.jsp";
 }

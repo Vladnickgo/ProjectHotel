@@ -17,7 +17,6 @@ public class PaymentServiceImpl implements PaymentService {
     private static final Integer STATUS_PAID = 2;
     private final PaymentDao paymentDao;
     private final BookingDao bookingDao;
-    private final Mapper<PaymentDto, Payment> paymentMapper;
     private final BookingValidator validator;
 
     private static final Logger LOGGER = Logger.getLogger(PaymentServiceImpl.class);
@@ -25,7 +24,6 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentServiceImpl(PaymentDao paymentDao, BookingDao bookingDao, Mapper<PaymentDto, Payment> paymentMapper, BookingValidator validator) {
         this.paymentDao = paymentDao;
         this.bookingDao = bookingDao;
-        this.paymentMapper = paymentMapper;
         this.validator = validator;
     }
 
@@ -37,7 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
         if (bookingServiceById.getBookingStatusId().equals(STATUS_PAID)) {
             throw new IllegalArgumentException("Payment already exist");
         }
-        paymentDao.ddBookingPayment(bookingServiceById);
+        paymentDao.addBookingPayment(bookingServiceById);
 
 
     }

@@ -24,10 +24,18 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
     private static final String INSERT_INTO = "INSERT INTO " +
             "users_order(user_id, hotel_id, date_start, date_end, order_date, number_of_persons, room_type_id, order_status_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
     private static final String FIND_BY_ID = "SELECT * FROM users_order WHERE order_id=?;";
-    private static final String FIND_ALL = "SELECT * FROM users_order; ";
+
+    private static final String FIND_ALL = "SELECT * FROM users_order " +
+            "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
+            "LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
+            "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
+            "LEFT JOIN users u on u.user_id = users_order.user_id ";
+
     private static final String UPDATE_USERS_ORDER = "UPDATE users_order " +
             "SET order_status_id=? WHERE order_id=? ";
+
     public static final String COUNT_ALL_BY_PARAMETERS = "SELECT COUNT(order_id) AS number_of_orders " +
             "FROM users_order " +
             "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
@@ -35,6 +43,7 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
             "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
             "LEFT JOIN users u on u.user_id = users_order.user_id " +
             "WHERE uos.order_status_id=? OR uos.order_status_id=? ";
+
     public static final String FIND_ALL_BY_PARAMETERS = "SELECT * " +
             "FROM users_order " +
             "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
@@ -44,7 +53,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
             "WHERE uos.order_status_id=? OR uos.order_status_id=? " +
             "ORDER BY ? " +
             "LIMIT ? OFFSET ?;";
-
 
     private static final String UPDATE_ROOM_STATUS_BY_PARAMETERS = "UPDATE room_status SET date_end=? WHERE status_id = ?";
 
@@ -74,7 +82,7 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
         preparedStatement.setDate(4, Date.valueOf(entity.getDateEnd()));
         preparedStatement.setDate(5, Date.valueOf(entity.getOrderDate()));
         preparedStatement.setInt(6, entity.getNumberOfPersons());
-        preparedStatement.setInt(7, entity.getRoom().getRoomType().getId());
+        preparedStatement.setInt(7, entity.getRoomType().getId());
         preparedStatement.setInt(8, PROCESSED_STATUS);
     }
 
@@ -86,12 +94,24 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
 
     @Override
     public List<UsersOrder> findAll() {
-        return null;
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                Set<UsersOrder> entities = new HashSet<>();
+                while (resultSet.next()) {
+                    entities.add(mapResultSetToEntity(resultSet));
+                }
+                return new ArrayList<>(entities);
+            }
+        } catch (SQLException e) {
+            LOGGER.info("SQLException" + e);
+            throw new DataBaseRuntimeException(e);
+        }
     }
 
     @Override
     public List<UsersOrder> findAllByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto) {
-        Integer[] orderStatusIdArr = usersOrderRequestDto.getQuerySubstitute();
+        Integer[] orderStatusIdArr = usersOrderRequestDto.getStatusStatement();
         String sorting = usersOrderRequestDto.getSorting();
         String ordering = usersOrderRequestDto.getOrdering();
         Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
@@ -121,7 +141,7 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
 
     @Override
     public Integer countAll(UsersOrderRequestDtoUtil usersOrderRequestDto) {
-        Integer[] querySubstitute = usersOrderRequestDto.getQuerySubstitute();
+        Integer[] querySubstitute = usersOrderRequestDto.getStatusStatement();
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_BY_PARAMETERS)) {
             preparedStatement.setInt(1, querySubstitute[0]);
@@ -156,17 +176,19 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
 
                     insertIntoRoomStatus.setDate(1, Date.valueOf(usersOrdersList.get(i).getDateStart()));
                     insertIntoRoomStatus.setDate(2, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
-                    insertIntoRoomStatus.setInt(3, usersOrdersList.get(i).getRoom().getId());
+//                    insertIntoRoomStatus.setInt(3, usersOrdersList.get(i).getRoom().getId());
+                    insertIntoRoomStatus.setInt(3, roomStatusList.get(i).getRoom().getId());
                     insertIntoRoomStatus.setInt(4, ROOM_STATUS_STATEMENT_BOOKED);
                     insertIntoRoomStatus.setDate(5, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
                     insertIntoRoomStatus.setDate(6, Date.valueOf(roomStatusList.get(i).getDateEnd()));
-                    insertIntoRoomStatus.setInt(7, usersOrdersList.get(i).getRoom().getId());
+                    insertIntoRoomStatus.setInt(7, roomStatusList.get(i).getRoom().getId());
                     insertIntoRoomStatus.setInt(8, ROOM_STATUS_STATEMENT_FREE);
                     insertIntoRoomStatus.execute();
 
                     insertIntoBookings.setDate(1, Date.valueOf(usersOrdersList.get(i).getDateStart()));
                     insertIntoBookings.setDate(2, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
-                    insertIntoBookings.setInt(3, usersOrdersList.get(i).getRoom().getId());
+//                    insertIntoBookings.setInt(3, usersOrdersList.get(i).getRoom().getId());
+                    insertIntoBookings.setInt(3, roomStatusList.get(i).getRoom().getId());
                     insertIntoBookings.setDate(4, Date.valueOf(LocalDate.now()));
                     insertIntoBookings.setInt(5, BOOKING_STATUS_NOT_PAID);
                     insertIntoBookings.setInt(6, usersOrdersList.get(i).getUser().getId());

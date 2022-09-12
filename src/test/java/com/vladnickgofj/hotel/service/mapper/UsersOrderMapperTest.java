@@ -1,10 +1,10 @@
 package com.vladnickgofj.hotel.service.mapper;
 
-import com.vladnickgofj.hotel.controller.dto.*;
+import com.vladnickgofj.hotel.controller.dto.HotelDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDtoResponse;
+import com.vladnickgofj.hotel.controller.dto.UserDto;
+import com.vladnickgofj.hotel.controller.dto.UsersOrderDto;
 import com.vladnickgofj.hotel.dao.entity.*;
-import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.RoomType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,7 +20,7 @@ class UsersOrderMapperTest {
     @ParameterizedTest(name = "[{index}]{2}")
     @MethodSource("provideUsersOrdersAndUsersOrderDtoForCheckMapping")
     void checkMapDtoToEntity(UsersOrder usersOrder, UsersOrderDto usersOrderDto, String message) {
-        assertEquals(usersOrder, mapper.mapDtoToEntity(usersOrderDto),message);
+        assertEquals(usersOrder, mapper.mapDtoToEntity(usersOrderDto), message);
     }
 
     @ParameterizedTest(name = "[{index}]{2}")
@@ -45,11 +45,8 @@ class UsersOrderMapperTest {
                         .dateEnd(LocalDate.parse("2022-10-15"))
                         .orderDate(LocalDate.parse("2022-10-01"))
                         .numberOfPersons(5)
-                        .room(Room.newBuilder()
-                                .id(5)
-                                .roomType(RoomType.newBuilder()
-                                        .id(3)
-                                        .build())
+                        .roomType(RoomType.newBuilder()
+                                .id(3)
                                 .build())
                         .orderStatus(OrderStatus.COMPLETED)
                         .build(),
@@ -123,12 +120,9 @@ class UsersOrderMapperTest {
                         .dateEnd(LocalDate.parse("2022-10-15"))
                         .orderDate(LocalDate.parse("2022-10-01"))
                         .numberOfPersons(5)
-                        .room(Room.newBuilder()
-//                                .id(4)
-                                .roomType(RoomType.newBuilder()
-                                        .id(3)
-                                        .typeName("Double")
-                                        .build())
+                        .roomType(RoomType.newBuilder()
+                                .id(3)
+                                .typeName("Double")
                                 .build())
                         .orderStatus(OrderStatus.COMPLETED)
                         .build(),
