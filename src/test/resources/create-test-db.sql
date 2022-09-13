@@ -62,10 +62,11 @@ CREATE TABLE IF NOT EXISTS bookings
 
 CREATE TABLE IF NOT EXISTS payments
 (
-    payment_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    booking_id INTEGER NOT NULL,
-    user_id    INTEGER NOT NULL,
-    amount     INTEGER NOT NULL,
+    payment_id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+    booking_id   INTEGER NOT NULL,
+    user_id      INTEGER NOT NULL,
+    amount       INTEGER NOT NULL,
+    payment_date DATE    NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES Bookings (booking_id)
 );
 
@@ -134,7 +135,8 @@ VALUES ('free'),
 INSERT INTO booking_status(booking_status_name)
 VALUES ('not paid'),
        ('paid'),
-       ('canceled');
+       ('user cancel'),
+       ('auto cancel');
 
 INSERT INTO users_order_status (order_status_name)
 VALUES ('not done'),

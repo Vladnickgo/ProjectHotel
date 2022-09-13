@@ -1,6 +1,9 @@
 package com.vladnickgofj.hotel.service.mapper;
 
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
+import com.vladnickgofj.hotel.controller.dto.HotelDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDto;
+import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.entity.*;
 
 public class BookingMapper implements Mapper<BookingDto, Booking> {
@@ -39,14 +42,14 @@ public class BookingMapper implements Mapper<BookingDto, Booking> {
                 .id(booking.getId())
                 .checkIn(booking.getCheckIn())
                 .checkOut(booking.getCheckOut())
-                .room(Room.newBuilder()
+                .room(RoomDto.newBuilder()
                         .id(booking.getRoom().getId())
                         .numberOfBeds(booking.getRoom().getNumberOfBeds())
-                        .hotel(Hotel.newBuilder()
+                        .hotel(HotelDto.newBuilder()
                                 .name(booking.getRoom().getHotel().getName())
                                 .build())
                         .price(booking.getRoom().getPrice())
-                        .roomType(RoomType.newBuilder()
+                        .roomType(RoomTypeDto.newBuilder()
                                 .typeName(booking.getRoom().getRoomType().getTypeName())
                                 .build())
                         .build())

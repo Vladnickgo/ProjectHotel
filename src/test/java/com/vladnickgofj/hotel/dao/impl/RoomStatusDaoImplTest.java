@@ -1,11 +1,7 @@
 package com.vladnickgofj.hotel.dao.impl;
 
-import com.mysql.cj.jdbc.ConnectionImpl;
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
-import com.vladnickgofj.hotel.controller.dto.BookingDto;
-import com.vladnickgofj.hotel.controller.dto.HotelDto;
-import com.vladnickgofj.hotel.controller.dto.RoomStatusDtoRequest;
-import com.vladnickgofj.hotel.controller.dto.UsersOrderDto;
+import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.RoomStatusDao;
 import com.vladnickgofj.hotel.dao.entity.*;
 import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
@@ -14,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -27,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoomStatusDaoImplTest {
     private static final Logger LOGGER = Logger.getLogger(RoomStatusDaoImplTest.class);
@@ -290,7 +285,7 @@ class RoomStatusDaoImplTest {
 
     private static Stream<Arguments> provideDataForFindFreeByRoomIdAndDateStartMethod() {
         return Stream.of(Arguments.of(BookingDto.newBuilder()
-                        .room(Room.newBuilder()
+                        .room(RoomDto.newBuilder()
                                 .id(5)
                                 .build())
                         .checkOut(LocalDate.parse("2022-09-10"))

@@ -1,5 +1,8 @@
 package com.vladnickgofj.hotel.service.mapper;
 
+import com.vladnickgofj.hotel.controller.dto.HotelDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDto;
+import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
@@ -42,12 +45,16 @@ class RoomMapperTest {
                                         .build())
                                 .build(),
 
-                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
+                        RoomDto.newBuilder()
                                 .id(1)
-                                .roomTypeId(2)
+                                .roomType(RoomTypeDto.newBuilder()
+                                        .typeId(2)
+                                        .build())
                                 .numberOfBeds(2)
                                 .price(350)
-                                .hotelId(1)
+                                .hotel(HotelDto.newBuilder()
+                                        .id(1)
+                                        .build())
                                 .build(),
                         "Mapping from Room to RoomDto is correct"),
                 Arguments.of(Room.newBuilder()
@@ -64,12 +71,16 @@ class RoomMapperTest {
                                         .build())
                                 .build(),
 
-                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
+                        RoomDto.newBuilder()
                                 .id(2)
-                                .roomTypeId(2)
+                                .roomType(RoomTypeDto.newBuilder()
+                                        .typeId(2)
+                                        .build())
                                 .numberOfBeds(3)
                                 .price(550)
-                                .hotelId(2)
+                                .hotel(HotelDto.newBuilder()
+                                        .id(2)
+                                        .build())
                                 .build(),
                         "Mapping from Room to RoomDto is correct")
         );
@@ -78,12 +89,16 @@ class RoomMapperTest {
     private static Stream<Arguments> provideRoomDtoAndRoomForCheckMapping() {
         return Stream.of(
                 Arguments.of(
-                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
+                        RoomDto.newBuilder()
                                 .id(1)
-                                .roomTypeId(2)
+                                .roomType(RoomTypeDto.newBuilder()
+                                        .typeId(2)
+                                        .build())
                                 .numberOfBeds(2)
                                 .price(350)
-                                .hotelId(1)
+                                .hotel(HotelDto.newBuilder()
+                                        .id(1)
+                                        .build())
                                 .build(),
                         Room.newBuilder()
                                 .id(1)
@@ -98,12 +113,16 @@ class RoomMapperTest {
                                 .build(),
                         "Mapping from RoomDto to Room is correct"),
                 Arguments.of(
-                        com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
+                        RoomDto.newBuilder()
                                 .id(2)
-                                .roomTypeId(2)
+                                .roomType(RoomTypeDto.newBuilder()
+                                        .typeId(2)
+                                        .build())
                                 .numberOfBeds(3)
                                 .price(550)
-                                .hotelId(2)
+                                .hotel(HotelDto.newBuilder()
+                                        .id(2)
+                                        .build())
                                 .build(),
                         Room.newBuilder()
                                 .id(2)

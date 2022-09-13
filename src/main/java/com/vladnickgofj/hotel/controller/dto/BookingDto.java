@@ -1,7 +1,5 @@
 package com.vladnickgofj.hotel.controller.dto;
 
-import com.vladnickgofj.hotel.dao.entity.Room;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -9,7 +7,7 @@ public class BookingDto {
     private final Integer id;
     private final LocalDate checkIn;
     private final LocalDate checkOut;
-    private final Room room;
+    private final RoomDto room;
     private final Integer nights;
     private final LocalDate bookTime;
     private final Integer bookingStatusId;
@@ -35,7 +33,7 @@ public class BookingDto {
         private Integer id;
         private LocalDate checkIn;
         private LocalDate checkOut;
-        private Room room;
+        private RoomDto room;
         private Integer nights;
         private LocalDate bookTime;
         private Integer bookingStatusId;
@@ -59,7 +57,7 @@ public class BookingDto {
             return this;
         }
 
-        public Builder room(Room val) {
+        public Builder room(RoomDto val) {
             room = val;
             return this;
         }
@@ -101,7 +99,7 @@ public class BookingDto {
         return checkOut;
     }
 
-    public Room getRoom() {
+    public RoomDto getRoom() {
         return room;
     }
 

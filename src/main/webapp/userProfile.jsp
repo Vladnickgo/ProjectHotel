@@ -171,8 +171,8 @@
                             <td style="text-align: center">
                                 <input type="checkbox" ${booking.bookingStatusId==1?'':'hidden'} name="bookingId"
                                        value="${booking.id}">
-                                <a style="text-decoration: none" href="home?command=paymentReceipt" ${booking.bookingStatusId==2?'':'hidden'}><f:message key="paid" bundle="${bunCont}"/></a>
-                                <a style="text-decoration: none" href="" ${booking.bookingStatusId==3?'':'hidden'}><f:message key="canceled" bundle="${bunCont}"/></a>
+                                <a style="text-decoration: none" href="home?command=paymentReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==2?'':'hidden'}><f:message key="paid" bundle="${bunCont}"/></a>
+                                <a style="text-decoration: none" href="home?command=cancellationReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==3||booking.bookingStatusId==4?'':'hidden'}><f:message key="canceled" bundle="${bunCont}"/></a>
                             </td>
                         </tr>
                     </c:forEach>

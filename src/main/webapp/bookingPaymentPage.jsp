@@ -116,8 +116,13 @@
             <div style="display: flex; flex-direction: row; justify-content: center">
                 <div>
                     <form action="home" method="get">
-                        <input name="command" value="payment" hidden>
-                        <input class="btn btn-outline-primary" type="submit" value="Pay now">
+                        <button class="btn btn-outline-primary"
+                                name="command" value="payment"
+                                type="submit"
+                                style="">
+                            <f:message key="payNow" bundle="${bunCont}"/>
+                        </button>
+<%--                        <input class="btn btn-outline-primary" type="submit" value="Pay now">--%>
                         <a class="btn btn-outline-primary"
                            href="home?command=showUserProfile"
                         ><f:message key="payLater" bundle="${bunCont}"/>

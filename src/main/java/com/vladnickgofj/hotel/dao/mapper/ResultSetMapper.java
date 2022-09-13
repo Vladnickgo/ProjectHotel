@@ -11,8 +11,8 @@ public class ResultSetMapper {
         return Payment.newBuilder()
                 .id(resultSet.getInt("payment_id"))
                 .booking(mapResultSetToBooking(resultSet))
-                .user(mapResultSetToUser(resultSet))
                 .amount(resultSet.getInt("amount"))
+                .paymentDate(resultSet.getDate("payment_date").toLocalDate())
                 .build();
     }
 

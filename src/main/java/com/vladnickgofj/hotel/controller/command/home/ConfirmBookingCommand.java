@@ -2,9 +2,7 @@ package com.vladnickgofj.hotel.controller.command.home;
 
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
-import com.vladnickgofj.hotel.controller.dto.BookingDto;
-import com.vladnickgofj.hotel.controller.dto.RoomStatusDto;
-import com.vladnickgofj.hotel.controller.dto.UserDto;
+import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
@@ -45,13 +43,14 @@ public class ConfirmBookingCommand implements Command {
                 .checkOut(LocalDate.parse(checkOut))
                 .bookTime(LocalDate.now())
                 .bookTime(bookTime)
-                .room(Room.newBuilder()
+                .room(RoomDto.newBuilder()
                         .id(valueOf(roomId))
-                        .roomType(RoomType.newBuilder()
+                        .roomType(RoomTypeDto.newBuilder()
                                 .typeName(typeName)
                                 .build())
                         .numberOfBeds(numberOfBeds)
-                        .hotel(Hotel.newBuilder()
+                        .price(roomStatusDto.getRoomDtoResponse().getPrice())
+                        .hotel(HotelDto.newBuilder()
                                 .name(hotelName)
                                 .build())
                         .build())

@@ -1,30 +1,30 @@
 package com.vladnickgofj.hotel.dao.entity;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Payment {
     private final Integer id;
     private final Booking booking;
-    private final User user;
     private final int amount;
+    private final LocalDate paymentDate;
 
     private Payment(Builder builder) {
         id = builder.id;
         booking = builder.booking;
-        user = builder.user;
         amount = builder.amount;
+        paymentDate = builder.paymentDate;
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
-
     public static final class Builder {
         private Integer id;
         private Booking booking;
-        private User user;
         private int amount;
+        private LocalDate paymentDate;
 
         private Builder() {
         }
@@ -39,13 +39,13 @@ public class Payment {
             return this;
         }
 
-        public Builder user(User val) {
-            user = val;
+        public Builder amount(int val) {
+            amount = val;
             return this;
         }
 
-        public Builder amount(int val) {
-            amount = val;
+        public Builder paymentDate(LocalDate val) {
+            paymentDate = val;
             return this;
         }
 
@@ -62,12 +62,12 @@ public class Payment {
         return booking;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public int getAmount() {
         return amount;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
     }
 
     @Override
@@ -75,12 +75,12 @@ public class Payment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return amount == payment.amount && Objects.equals(id, payment.id) && Objects.equals(booking, payment.booking) && Objects.equals(user, payment.user);
+        return amount == payment.amount && Objects.equals(id, payment.id) && Objects.equals(booking, payment.booking) && Objects.equals(paymentDate, payment.paymentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, booking, user, amount);
+        return Objects.hash(id, booking, amount, paymentDate);
     }
 
     @Override
@@ -88,8 +88,8 @@ public class Payment {
         return "Payment{" +
                 "id=" + id +
                 ", booking=" + booking +
-                ", user=" + user +
                 ", amount=" + amount +
+                ", paymentDate=" + paymentDate +
                 '}';
     }
 }

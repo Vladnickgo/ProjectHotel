@@ -54,7 +54,7 @@
                         <th><f:message key="order" bundle="${bunCont}"/></th>
                         <th><f:message key="orderDate" bundle="${bunCont}"/></th>
                         <th><f:message key="hotel" bundle="${bunCont}"/></th>
-                        <th><f:message key="checkIn" bundle="${bunCont}"/>Дата заїзду</th>
+                        <th><f:message key="checkIn" bundle="${bunCont}"/></th>
                         <th><f:message key="checkOut" bundle="${bunCont}"/></th>
                         <th><f:message key="roomType" bundle="${bunCont}"/></th>
                         <th><f:message key="numberOfPersons" bundle="${bunCont}"/></th>

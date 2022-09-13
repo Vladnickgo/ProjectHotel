@@ -4,6 +4,7 @@ import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.BookingDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDto;
 import com.vladnickgofj.hotel.controller.dto.UserDto;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.service.BookingService;
@@ -41,7 +42,7 @@ public class PaymentCommand implements Command {
         String cardErrorMessage = request.getParameter("cardErrorMessage");
 
         BookingDto bookingDto = BookingDto.newBuilder()
-                .room(Room.newBuilder()
+                .room(RoomDto.newBuilder()
                         .id(Integer.valueOf(roomId))
                         .build())
                 .checkIn(LocalDate.parse(checkIn))

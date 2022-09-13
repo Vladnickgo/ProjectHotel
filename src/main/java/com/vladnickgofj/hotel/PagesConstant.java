@@ -57,4 +57,6 @@ public final class PagesConstant {
     public static final String BOOKING_PAYMENT_PAGE = "/bookingPaymentPage.jsp";
 
     public static final String PAYMENT_RECEIPT = "/receipt/paymentReceipt.jsp";
+
+    public static final String CANCELLATION_RECEIPT = "/receipt/cancellationReceipt.jsp";
 }

@@ -38,7 +38,8 @@ VALUES ('free'),
 INSERT INTO booking_status(booking_status_name)
 VALUES ('not paid'),
        ('paid'),
-       ('canceled');
+       ('user cancel'),
+       ('auto cancel');
 
 INSERT INTO users_order_status (order_status_name)
 VALUES ('not done'),

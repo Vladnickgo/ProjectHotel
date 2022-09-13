@@ -1,8 +1,7 @@
 package com.vladnickgofj.hotel.dao.impl;
 
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
-import com.vladnickgofj.hotel.controller.dto.BookingDto;
-import com.vladnickgofj.hotel.controller.dto.BookingRequestDto;
+import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.BookingDao;
 import com.vladnickgofj.hotel.dao.entity.*;
 import com.vladnickgofj.hotel.dao.exception.DataBaseRuntimeException;
@@ -157,7 +156,7 @@ class BookingDaoImplTest {
 
     private static Stream<Arguments> provideDataForCheckFindBookingByParameters() {
         return Stream.of(Arguments.of(BookingDto.newBuilder()
-                        .room(Room.newBuilder()
+                        .room(RoomDto.newBuilder()
                                 .id(5)
                                 .build())
                         .checkIn(LocalDate.parse("2022-09-05"))
@@ -654,14 +653,14 @@ class BookingDaoImplTest {
                                 .id(1)
                                 .checkIn(LocalDate.parse("2022-09-05"))
                                 .checkOut(LocalDate.parse("2022-09-10"))
-                                .room(Room.newBuilder()
+                                .room(RoomDto.newBuilder()
                                         .id(5)
-                                        .roomType(RoomType.newBuilder()
+                                        .roomType(RoomTypeDto.newBuilder()
                                                 .typeName("Single")
                                                 .build())
                                         .numberOfBeds(1)
                                         .price(600)
-                                        .hotel(Hotel.newBuilder()
+                                        .hotel(HotelDto.newBuilder()
                                                 .name("Kyiv")
                                                 .build())
                                         .build())

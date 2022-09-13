@@ -3,6 +3,7 @@ package com.vladnickgofj.hotel.context;
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.command.home.*;
+import com.vladnickgofj.hotel.controller.command.home.receipt.CancellationReceipt;
 import com.vladnickgofj.hotel.controller.command.home.receipt.PaymentReceipt;
 import com.vladnickgofj.hotel.controller.command.user.*;
 import com.vladnickgofj.hotel.controller.dto.*;
@@ -156,6 +157,8 @@ public final class ApplicationContextInjector {
 
     private static final Command UNSUCCESSFUL_REGISTER_COMMAND = new UnsuccessfulRegisterCommand();
 
+    private static final Command CANCELLATION_RECEIPT = new CancellationReceipt();
+
     private static final Map<String, Command> USER_COMMAND_NAME_TO_COMMAND = initUserCommand();
 
     private static final Map<String, Command> HOME_COMMAND_NAME_TO_COMMAND = initHomeCommand();
@@ -210,7 +213,7 @@ public final class ApplicationContextInjector {
         homeCommandNameToCommand.put("groupCancelGetCommand", GROUP_CANCEL_GET_COMMAND);
         homeCommandNameToCommand.put("defaultCommand", DEFAULT_COMMAND);
         homeCommandNameToCommand.put("paymentReceipt", PAYMENT_RECEIPT);
-
+        homeCommandNameToCommand.put("cancellationReceipt", CANCELLATION_RECEIPT);
 
         return Collections.unmodifiableMap(homeCommandNameToCommand);
     }

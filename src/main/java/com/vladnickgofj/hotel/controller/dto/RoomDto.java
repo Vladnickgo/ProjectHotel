@@ -4,29 +4,30 @@ import java.util.Objects;
 
 public class RoomDto {
     private final Integer id;
-    private final Integer roomTypeId;
+    private final RoomTypeDto roomType;
     private final Integer numberOfBeds;
     private final Integer price;
-    private final Integer hotelId;
+    private final HotelDto hotel;
 
     private RoomDto(Builder builder) {
         id = builder.id;
-        roomTypeId = builder.roomTypeId;
+        roomType = builder.roomType;
         numberOfBeds = builder.numberOfBeds;
         price = builder.price;
-        hotelId = builder.hotelId;
+        hotel = builder.hotel;
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
+
     public static final class Builder {
         private Integer id;
-        private Integer roomTypeId;
+        private RoomTypeDto roomType;
         private Integer numberOfBeds;
         private Integer price;
-        private Integer hotelId;
+        private HotelDto hotel;
 
         private Builder() {
         }
@@ -36,8 +37,8 @@ public class RoomDto {
             return this;
         }
 
-        public Builder roomTypeId(Integer val) {
-            roomTypeId = val;
+        public Builder roomType(RoomTypeDto val) {
+            roomType = val;
             return this;
         }
 
@@ -51,8 +52,8 @@ public class RoomDto {
             return this;
         }
 
-        public Builder hotelId(Integer val) {
-            hotelId = val;
+        public Builder hotel(HotelDto val) {
+            hotel = val;
             return this;
         }
 
@@ -65,8 +66,8 @@ public class RoomDto {
         return id;
     }
 
-    public Integer getRoomTypeId() {
-        return roomTypeId;
+    public RoomTypeDto getRoomType() {
+        return roomType;
     }
 
     public Integer getNumberOfBeds() {
@@ -77,8 +78,8 @@ public class RoomDto {
         return price;
     }
 
-    public Integer getHotelId() {
-        return hotelId;
+    public HotelDto getHotel() {
+        return hotel;
     }
 
     @Override
@@ -86,26 +87,22 @@ public class RoomDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomDto roomDto = (RoomDto) o;
-        return Objects.equals(id, roomDto.id) &&
-                Objects.equals(roomTypeId, roomDto.roomTypeId) &&
-                Objects.equals(numberOfBeds, roomDto.numberOfBeds) &&
-                Objects.equals(price, roomDto.price) &&
-                Objects.equals(hotelId, roomDto.hotelId);
+        return Objects.equals(id, roomDto.id) && Objects.equals(roomType, roomDto.roomType) && Objects.equals(numberOfBeds, roomDto.numberOfBeds) && Objects.equals(price, roomDto.price) && Objects.equals(hotel, roomDto.hotel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomTypeId, numberOfBeds, price, hotelId);
+        return Objects.hash(id, roomType, numberOfBeds, price, hotel);
     }
 
     @Override
     public String toString() {
         return "RoomDto{" +
                 "id=" + id +
-                ", roomTypeId=" + roomTypeId +
+                ", roomType=" + roomType +
                 ", numberOfBeds=" + numberOfBeds +
                 ", price=" + price +
-                ", hotelId=" + hotelId +
+                ", hotel=" + hotel +
                 '}';
     }
 }

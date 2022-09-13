@@ -16,10 +16,10 @@ public class RoomValidator implements Validator<RoomDto> {
     @Override
     public void validate(RoomDto entity) {
         if (entity == null) throw new IllegalArgumentException(ROOM_DTO_IS_NULL_MESSAGE);
-        validateByParam(RoomDto::getRoomTypeId, NOT_VALID_ROOM_TYPE_ID_MESSAGE, entity);
+        validateByParam(t->t.getRoomType().getTypeId(), NOT_VALID_ROOM_TYPE_ID_MESSAGE, entity);
         validateByParam(RoomDto::getNumberOfBeds, NOT_VALID_NUMBER_OF_BEDS_MESSAGE, entity);
         validateByParam(RoomDto::getPrice, NOT_VALID_PRICE_MESSAGE, entity);
-        validateByParam(RoomDto::getHotelId, NOT_VALID_HOTEL_ID_MESSAGE, entity);
+        validateByParam(t->t.getHotel().getId(), NOT_VALID_HOTEL_ID_MESSAGE, entity);
     }
 
     private void validateByParam(Function<RoomDto, Integer> param, String errorMessage, RoomDto roomDto) {

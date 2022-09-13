@@ -61,7 +61,7 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
 
     private static final String COUNT_ALL_BY_PARAMETERS = "SELECT count(booking_id) AS count_bookings " +
             "FROM bookings " +
-            "WHERE user_id=? AND (bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ?) ";
+            "WHERE user_id=? AND (bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ?) ";
 
     private static final String FIND_ALL_BY_PARAMETERS = "SELECT * FROM bookings " +
             "LEFT JOIN room r on r.room_id = bookings.room_id " +
@@ -69,7 +69,7 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             "LEFT JOIN booking_status bs on bs.booking_status_id = bookings.booking_status_id " +
             "LEFT JOIN users u on u.user_id = bookings.user_id " +
             "LEFT JOIN hotel h on h.hotel_id = r.hotel_id " +
-            "WHERE bookings.user_id=? AND (bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ?)" +
+            "WHERE bookings.user_id=? AND (bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ? OR bookings.booking_status_id = ?)" +
             "ORDER BY ? " +
             "LIMIT ? OFFSET ?;";
 
@@ -134,6 +134,7 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             preparedStatement.setInt(2, bookingStatusIds[0]);
             preparedStatement.setInt(3, bookingStatusIds[1]);
             preparedStatement.setInt(4, bookingStatusIds[2]);
+            preparedStatement.setInt(5, bookingStatusIds[3]);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt("count_bookings");
@@ -154,9 +155,10 @@ public class BookingDaoImpl extends AbstractCrudDaoImpl<Booking> implements Book
             preparedStatement.setInt(2, bookingStatusIds[0]);
             preparedStatement.setInt(3, bookingStatusIds[1]);
             preparedStatement.setInt(4, bookingStatusIds[2]);
-            preparedStatement.setString(5, sortingAndOrdering);
-            preparedStatement.setInt(6, bookingRequestDtoUtil.getItemsOnPage());
-            preparedStatement.setInt(7, firstRecordOnPage);
+            preparedStatement.setInt(5, bookingStatusIds[3]);
+            preparedStatement.setString(6, sortingAndOrdering);
+            preparedStatement.setInt(7, bookingRequestDtoUtil.getItemsOnPage());
+            preparedStatement.setInt(8, firstRecordOnPage);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Set<Booking> entities = new HashSet<>();
                 while (resultSet.next()) {

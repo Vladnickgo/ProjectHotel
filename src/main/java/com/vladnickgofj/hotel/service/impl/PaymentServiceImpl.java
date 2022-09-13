@@ -18,12 +18,14 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentDao paymentDao;
     private final BookingDao bookingDao;
     private final BookingValidator validator;
+    private final Mapper<PaymentDto, Payment> paymentMapper;
 
     private static final Logger LOGGER = Logger.getLogger(PaymentServiceImpl.class);
 
     public PaymentServiceImpl(PaymentDao paymentDao, BookingDao bookingDao, Mapper<PaymentDto, Payment> paymentMapper, BookingValidator validator) {
         this.paymentDao = paymentDao;
         this.bookingDao = bookingDao;
+        this.paymentMapper=paymentMapper;
         this.validator = validator;
     }
 
@@ -46,6 +48,12 @@ public class PaymentServiceImpl implements PaymentService {
             LOGGER.info("Card number is not valid");
             throw new IllegalArgumentException("Card number is not valid");
         }
+    }
+
+    @Override
+    public PaymentDto findPaymentByBookingId(Integer bookingId) {
+        Payment paymentByBookingId = paymentDao.findPaymentByBookingId(bookingId);
+        return paymentMapper.mapEntityToDto(paymentByBookingId);
     }
 
     private boolean cvvValidation(String cvvCode) {

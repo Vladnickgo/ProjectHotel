@@ -4,17 +4,16 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class PaymentDto {
-    private final Integer userId;
-    private final Integer roomId;
-    private final LocalDate checkIn;
-    private final LocalDate checkOut;
-//    private  final BookingDto bookingDto;
+    private final Integer id;
+    private final BookingDto booking;
+    private final int amount;
+    private final LocalDate paymentDate;
 
     private PaymentDto(Builder builder) {
-        userId = builder.userId;
-        roomId = builder.roomId;
-        checkIn = builder.checkIn;
-        checkOut = builder.checkOut;
+        id = builder.id;
+        booking = builder.booking;
+        amount = builder.amount;
+        paymentDate = builder.paymentDate;
     }
 
     public static Builder newBuilder() {
@@ -22,31 +21,31 @@ public class PaymentDto {
     }
 
     public static final class Builder {
-        private Integer userId;
-        private Integer roomId;
-        private LocalDate checkIn;
-        private LocalDate checkOut;
+        private Integer id;
+        private BookingDto booking;
+        private int amount;
+        private LocalDate paymentDate;
 
         private Builder() {
         }
 
-        public Builder userId(Integer val) {
-            userId = val;
+        public Builder id(Integer val) {
+            id = val;
             return this;
         }
 
-        public Builder roomId(Integer val) {
-            roomId = val;
+        public Builder booking(BookingDto val) {
+            booking = val;
             return this;
         }
 
-        public Builder checkIn(LocalDate val) {
-            checkIn = val;
+        public Builder amount(int val) {
+            amount = val;
             return this;
         }
 
-        public Builder checkOut(LocalDate val) {
-            checkOut = val;
+        public Builder paymentDate(LocalDate val) {
+            paymentDate = val;
             return this;
         }
 
@@ -55,20 +54,20 @@ public class PaymentDto {
         }
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getRoomId() {
-        return roomId;
+    public BookingDto getBooking() {
+        return booking;
     }
 
-    public LocalDate getCheckIn() {
-        return checkIn;
+    public int getAmount() {
+        return amount;
     }
 
-    public LocalDate getCheckOut() {
-        return checkOut;
+    public LocalDate getPaymentDate() {
+        return paymentDate;
     }
 
     @Override
@@ -76,21 +75,21 @@ public class PaymentDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaymentDto that = (PaymentDto) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(roomId, that.roomId) && Objects.equals(checkIn, that.checkIn) && Objects.equals(checkOut, that.checkOut);
+        return amount == that.amount && Objects.equals(id, that.id) && Objects.equals(booking, that.booking) && Objects.equals(paymentDate, that.paymentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, roomId, checkIn, checkOut);
+        return Objects.hash(id, booking, amount, paymentDate);
     }
 
     @Override
     public String toString() {
         return "PaymentDto{" +
-                "userId=" + userId +
-                ", roomId=" + roomId +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
+                "id=" + id +
+                ", booking=" + booking +
+                ", amount=" + amount +
+                ", paymentDate=" + paymentDate +
                 '}';
     }
 }

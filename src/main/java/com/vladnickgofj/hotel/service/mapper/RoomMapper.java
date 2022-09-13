@@ -1,5 +1,8 @@
 package com.vladnickgofj.hotel.service.mapper;
 
+import com.vladnickgofj.hotel.controller.dto.HotelDto;
+import com.vladnickgofj.hotel.controller.dto.RoomDto;
+import com.vladnickgofj.hotel.controller.dto.RoomTypeDto;
 import com.vladnickgofj.hotel.dao.entity.Hotel;
 import com.vladnickgofj.hotel.dao.entity.Room;
 import com.vladnickgofj.hotel.dao.entity.RoomType;
@@ -7,7 +10,7 @@ import com.vladnickgofj.hotel.dao.entity.RoomType;
 public class RoomMapper implements Mapper<com.vladnickgofj.hotel.controller.dto.RoomDto, Room> {
 
     @Override
-    public Room mapDtoToEntity(com.vladnickgofj.hotel.controller.dto.RoomDto roomDto) {
+    public Room mapDtoToEntity(RoomDto roomDto) {
         return Room.newBuilder()
                 .id(roomDto.getId())
                 .roomType(getRoomType(roomDto))
@@ -18,25 +21,31 @@ public class RoomMapper implements Mapper<com.vladnickgofj.hotel.controller.dto.
     }
 
     @Override
-    public com.vladnickgofj.hotel.controller.dto.RoomDto mapEntityToDto(Room room) {
-        return com.vladnickgofj.hotel.controller.dto.RoomDto.newBuilder()
+    public RoomDto mapEntityToDto(Room room) {
+        return RoomDto.newBuilder()
                 .id(room.getId())
-                .roomTypeId(room.getRoomType().getId())
+                .roomType(RoomTypeDto.newBuilder()
+                        .typeId(room.getRoomType().getId())
+                        .typeName(room.getRoomType().getTypeName())
+                        .build())
                 .numberOfBeds(room.getNumberOfBeds())
                 .price(room.getPrice())
-                .hotelId(room.getHotel().getId())
+                .hotel(HotelDto.newBuilder()
+                        .id(room.getHotel().getId())
+                        .name(room.getHotel().getName())
+                        .build())
                 .build();
     }
 
-    private Hotel getHotel(com.vladnickgofj.hotel.controller.dto.RoomDto roomDto) {
+    private Hotel getHotel(RoomDto roomDto) {
         return Hotel.newBuilder()
-                .id(roomDto == null ? null : roomDto.getHotelId())
+                .id(roomDto == null ? null : roomDto.getHotel().getId())
                 .build();
     }
 
-    private RoomType getRoomType(com.vladnickgofj.hotel.controller.dto.RoomDto roomDto) {
+    private RoomType getRoomType(RoomDto roomDto) {
         return RoomType.newBuilder()
-                .id(roomDto == null ? null : roomDto.getRoomTypeId())
+                .id(roomDto == null ? null : roomDto.getRoomType().getTypeId())
                 .build();
     }
 }

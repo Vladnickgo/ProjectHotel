@@ -62,10 +62,11 @@ CREATE TABLE IF NOT EXISTS bookings
 
 CREATE TABLE IF NOT EXISTS payments
 (
-    payment_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    booking_id INTEGER NOT NULL,
-    user_id    INTEGER NOT NULL,
-    amount     INTEGER NOT NULL,
+    payment_id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+    booking_id   INTEGER NOT NULL,
+    user_id      INTEGER NOT NULL,
+    amount       INTEGER NOT NULL,
+    payment_date DATE    NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES Bookings (booking_id)
 );
 

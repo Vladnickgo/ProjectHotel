@@ -86,10 +86,11 @@ public class BookingRequestDtoUtil {
     }
 
     public Integer[] getBookingStatusIds() {
-        Integer[] bookingStatusArray = new Integer[3];
+        Integer[] bookingStatusArray = new Integer[4];
         bookingStatusArray[0] = Objects.equals(getStatusNotPaid(), "notPaid") ? 1 : 0;
         bookingStatusArray[1] = Objects.equals(getStatusPaid(), "paid") ? 2 : 0;
         bookingStatusArray[2] = Objects.equals(getStatusCanceled(), "canceled") ? 3 : 0;
+        bookingStatusArray[3] = Objects.equals(getStatusCanceled(), "canceled") ? 4 : 0;
         return bookingStatusArray;
     }
 
