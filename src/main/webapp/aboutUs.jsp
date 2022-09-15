@@ -161,7 +161,7 @@
 
 
         </div>
-        <div ${sessionScope.language=='ua'?'':'hidden'} class="col-8">
+        <div ${sessionScope.language!='en'?'':'hidden'} class="col-8">
             <div><img width="100%"
                       src="https://setupmyhotel.com/images/Room-Types-in-hotels.png?ezimgfmt=ng%3Awebp%2Fngcb337%2Frs%3Adevice%2Frscb337-1"
                       alt=""></div>

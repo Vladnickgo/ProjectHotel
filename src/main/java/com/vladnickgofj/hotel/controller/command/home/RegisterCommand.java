@@ -24,7 +24,11 @@ public class RegisterCommand implements Command {
 
         UserDto userDto = mapRequestToUserDto(request);
         try {
-            request.getSession().invalidate();
+            request.getSession().removeAttribute("firstName");
+            request.getSession().removeAttribute("lastName");
+            request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("errorMessage");
+
             userService.save(userDto);
             request.setAttribute("userSaved", "true");
             LOGGER.info("User saved");

@@ -1,6 +1,5 @@
 package com.vladnickgofj.hotel.controller.command.home;
 
-import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.BookingDto;

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ShowHotelsPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(ShowHotelsPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

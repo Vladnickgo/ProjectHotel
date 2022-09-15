@@ -19,4 +19,8 @@ public interface UsersOrderDao extends CrudDao<UsersOrder, Integer> {
     void completeUsersOrder(List<UsersOrder> usersOrdersList, List<RoomStatus> roomStatusIdList);
 
     void updateUsersOrderById(Integer orderId);
+
+    List<UsersOrder> findUsersOrdersByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer userId);
+
+    Integer countUsersOrdersByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto,Integer userId);
 }

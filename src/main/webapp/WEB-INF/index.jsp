@@ -19,13 +19,13 @@
 
 <jsp:useBean id="now" class="java.util.Date" scope="page"/>
 
-<c:import url="views/head.jsp"/>
+<c:import url="../views/head.jsp"/>
 <html>
 <body>
 <div>
     <div class="row text-center" style="background-color:#F8F9FA">
         <div class="col-11">
-            <c:import url="views/header.jsp"/>
+            <c:import url="../views/header.jsp"/>
         </div>
         <div class="col-1 pt-2">
             <form class="d-flex" method="get" onchange="submit()">
@@ -62,6 +62,6 @@
         </div>
     </div>
 </div>
-<c:import url="views/footer.jsp"/>
+<c:import url="../views/footer.jsp"/>
 </body>
 </html>

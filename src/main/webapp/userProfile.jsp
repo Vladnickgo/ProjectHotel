@@ -45,9 +45,8 @@
 </div>
 
 <div>
-    <div class="row container-fluid">
+    <div class="row">
         <div class="col-2" style="">
-
         </div>
         <div class="col-8">
             <h1 class="text-center">
@@ -109,17 +108,31 @@
                         <option value="10" ${itemsOnPage == '10' ? 'selected' : ''}>10</option>
                         <option value="15" ${itemsOnPage == '15' ? 'selected' : ''}>15</option>
                     </select>
-
                     <input name="command" value="showUserProfile" hidden>
-
                 </form>
+            </div>
+        </div>
+        <div class="col-2" style="">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <form action="home" method="get" style="margin-top: 30px;">
+                        <button class="btn btn-outline-primary" name="command" value="myOrdersPage" type="submit"
+                                style="width: 100%; height: 40px">
+                            <f:message key="myProfile" bundle="${bunCont}"/>
+                        </button>
+                        <button class="btn btn-outline-primary" name="command" value="myOrdersPage" type="submit"
+                                style="width: 100%; height: 40px">
+                            <f:message key="myOrders" bundle="${bunCont}"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-2"></div>
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="">
+<div>
     <div class="row">
         <div class="col-2">
         </div>
@@ -139,14 +152,12 @@
                         <th><f:message key="toPay" bundle="${bunCont}"/></th>
                         <th>
                             <div style="display: flex;flex-direction: row;justify-content: center">
-
                                 <button class="btn btn-outline-primary" ${statusNotPaid=='notPaid'&&bookingsByUserIdAndParameters!='[]'?'':'hidden'}
                                         name="command" value="groupCancelBooking"
                                         type="submit"
                                         style="">
                                     <f:message key="cancel" bundle="${bunCont}"/>
                                 </button>
-
                                 <button class="btn btn-outline-primary" ${statusNotPaid=='notPaid'&&bookingsByUserIdAndParameters!='[]'?'':'hidden'}
                                         name="command" value="groupPayment"
                                         type="submit"
@@ -171,8 +182,12 @@
                             <td style="text-align: center">
                                 <input type="checkbox" ${booking.bookingStatusId==1?'':'hidden'} name="bookingId"
                                        value="${booking.id}">
-                                <a style="text-decoration: none" href="home?command=paymentReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==2?'':'hidden'}><f:message key="paid" bundle="${bunCont}"/></a>
-                                <a style="text-decoration: none" href="home?command=cancellationReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==3||booking.bookingStatusId==4?'':'hidden'}><f:message key="canceled" bundle="${bunCont}"/></a>
+                                <a style="text-decoration: none"
+                                   href="home?command=paymentReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==2?'':'hidden'}><f:message
+                                        key="paid" bundle="${bunCont}"/></a>
+                                <a style="text-decoration: none"
+                                   href="home?command=cancellationReceipt&bookingId=${booking.id}" ${booking.bookingStatusId==3||booking.bookingStatusId==4?'':'hidden'}><f:message
+                                        key="canceled" bundle="${bunCont}"/></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -206,10 +221,9 @@
                     </h3>
                 </div>
             </div>
-
-
         </div>
         <div class="col-2">
+
         </div>
     </div>
 </div>

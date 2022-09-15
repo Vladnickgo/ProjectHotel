@@ -35,40 +35,45 @@
     <div class="row text-center">
         <div class="col-3"></div>
         <div class="col-6">
-            <h1 class="mb-5">
-                <f:message key="logForUsers" bundle="${bunCont}"/>
-            </h1>
-            <div style="display: flex; flex-direction: row; justify-content: center;">
-                <form action="home" method="post">
-                    <input name="command" value="login" hidden>
-                    <table>
-                        <tr>
-                            <td>email</td>
-                            <td><input type="text" name="email"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <f:message key="password" bundle="${bunCont}"/>
-                            </td>
-                            <td><input type="password" name="password"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
-                        </tr>
-                    </table>
-                    <div class="alert alert-warning" style="${errorMessage==null?'display: none':'margin-top:10px'};">
-                        <p><f:message key="authFailed" bundle="${bunCont}"/></p>
-                    </div>
-                </form>
+            <div id="userForm">
+                <h1 class="mb-5" id="headColor">
+                    <f:message key="logForUsers" bundle="${bunCont}"/>
+                </h1>
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <form  action="home" method="post">
+                        <input name="command" value="login" hidden>
+                        <table>
+                            <tr>
+                                <td>email</td>
+                                <td><input class="form-control" type="text" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <f:message key="password" bundle="${bunCont}"/>
+                                </td>
+                                <td><input class="form-control" type="password" name="password"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td><input type="submit" value=<f:message key="submit" bundle="${bunCont}"/>></td>
+                            </tr>
+                        </table>
+                        <div class="alert alert-warning"
+                        ${errorMessage=='PASSWORD IS NOT VALID'?'':'hidden'}>
+                            <p><f:message key="authFailed" bundle="${bunCont}"/></p>
+                        </div>
+                        <div class="alert alert-warning"
+                        ${errorMessage=='EMAIL IS NOT VALID'?'':'hidden'}>
+                            <p><f:message key="authFailed" bundle="${bunCont}"/></p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col-3">
             ivan@mail.com<br>
             admin@mail.com<br>
-
-            1234
         </div>
     </div>
 </div>

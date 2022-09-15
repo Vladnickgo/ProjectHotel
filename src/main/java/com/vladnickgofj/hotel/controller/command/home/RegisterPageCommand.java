@@ -2,7 +2,6 @@ package com.vladnickgofj.hotel.controller.command.home;
 
 import com.vladnickgofj.hotel.PagesConstant;
 import com.vladnickgofj.hotel.controller.command.Command;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,10 @@ public class RegisterPageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         request.setAttribute("command", command);
+        request.getSession().removeAttribute("errorMessage");
+        request.getSession().removeAttribute("firstName");
+        request.getSession().removeAttribute("lastName");
+        request.getSession().removeAttribute("email");
         return PagesConstant.REGISTRATION_PAGE;
     }
 }

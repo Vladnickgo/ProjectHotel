@@ -48,8 +48,13 @@ public class UsersOrderServiceImpl implements UsersOrderService {
     @Override
     public Integer totalPages(UsersOrderRequestDtoUtil usersOrderRequestDto) {
         Integer countAll = usersOrderDao.countAll(usersOrderRequestDto);
-        Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
-        return (countAll - 1) / itemsOnPage + 1;
+        return getNumberOfPages(usersOrderRequestDto, countAll);
+    }
+
+        @Override
+    public Integer totalPages(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer userId) {
+        Integer countAll = usersOrderDao.countUsersOrdersByParameters(usersOrderRequestDto, userId);
+        return getNumberOfPages(usersOrderRequestDto, countAll);
     }
 
     @Override
@@ -68,4 +73,18 @@ public class UsersOrderServiceImpl implements UsersOrderService {
         usersOrderDao.updateUsersOrderById(orderId);
     }
 
+    @Override
+    public List<UsersOrderDto> findUsersOrdersByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer userId) {
+        Comparator<UsersOrderDto> usersOrderDtoComparator = usersOrderRequestDto.extractedComparator();
+        return usersOrderDao.findUsersOrdersByParameters(usersOrderRequestDto, userId)
+                .stream()
+                .map(userOrderMapper::mapEntityToDto)
+                .sorted(usersOrderDtoComparator)
+                .collect(Collectors.toList());
+    }
+
+    private int getNumberOfPages(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer countAll) {
+        Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
+        return (countAll - 1) / itemsOnPage + 1;
+    }
 }

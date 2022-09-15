@@ -54,7 +54,7 @@ BEGIN
             SET AUTOCOMMIT = 0;
 
             START TRANSACTION;
-            UPDATE bookings SET booking_status_id=3 WHERE booking_id = booking_id_temp;
+            UPDATE bookings SET booking_status_id=4 WHERE booking_id = booking_id_temp;
 
             UPDATE room_status
             SET date_end=date_end_temp

@@ -1,9 +1,10 @@
 package com.vladnickgofj.hotel.controller.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class BookingDto {
+public class BookingDto implements Serializable {
     private final Integer id;
     private final LocalDate checkIn;
     private final LocalDate checkOut;

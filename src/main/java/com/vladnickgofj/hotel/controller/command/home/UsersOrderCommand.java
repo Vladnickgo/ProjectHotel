@@ -40,7 +40,6 @@ public class UsersOrderCommand implements Command {
             request.setAttribute("allHotels", allHotels);
             request.setAttribute("allRoomTypes", allRoomTypes);
             request.setAttribute("hotelId", getUsersOrderDto(request).getHotelDto().getId());
-            UserDto user = (UserDto) request.getSession().getAttribute("user");
             request.setAttribute("dateStart", getUsersOrderDto(request).getDateStart());
             request.setAttribute("dateEnd", getUsersOrderDto(request).getDateEnd());
             request.setAttribute("numberOfPersons", getUsersOrderDto(request).getNumberOfPersons());
@@ -50,7 +49,9 @@ public class UsersOrderCommand implements Command {
             return PagesConstant.USERS_ORDER_PAGE;
 
         }
-        return PagesConstant.USER_PROFILE;
+//        return PagesConstant.USER_PROFILE;
+        request.setAttribute("statusNotDone","notDone");
+        return PagesConstant.MY_ORDERS_PAGE;
     }
 
     private UsersOrderDto getUsersOrderDto(HttpServletRequest request) {

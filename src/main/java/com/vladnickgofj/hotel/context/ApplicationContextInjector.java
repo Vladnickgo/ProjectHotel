@@ -2,15 +2,18 @@ package com.vladnickgofj.hotel.context;
 
 import com.vladnickgofj.hotel.connection.HikariConnectionPool;
 import com.vladnickgofj.hotel.controller.command.Command;
+import com.vladnickgofj.hotel.controller.command.home.MyOrdersPageCommand;
 import com.vladnickgofj.hotel.controller.command.home.*;
+import com.vladnickgofj.hotel.controller.command.home.header.AboutPageCommand;
+import com.vladnickgofj.hotel.controller.command.home.header.ContactsPageCommand;
+import com.vladnickgofj.hotel.controller.command.home.header.HomePageCommand;
 import com.vladnickgofj.hotel.controller.command.home.receipt.CancellationReceipt;
 import com.vladnickgofj.hotel.controller.command.home.receipt.PaymentReceipt;
-import com.vladnickgofj.hotel.controller.command.user.*;
+import com.vladnickgofj.hotel.controller.command.user.DefaultCommand;
+import com.vladnickgofj.hotel.controller.command.user.LogoutCommand;
 import com.vladnickgofj.hotel.controller.dto.*;
 import com.vladnickgofj.hotel.dao.*;
 import com.vladnickgofj.hotel.dao.entity.*;
-import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.dao.impl.*;
 import com.vladnickgofj.hotel.service.*;
 import com.vladnickgofj.hotel.service.impl.*;
@@ -23,8 +26,6 @@ import com.vladnickgofj.hotel.validator.UsersOrderValidator;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.vladnickgofj.hotel.PagesConstant.PAYMENT_RECEIPT;
 
 public final class ApplicationContextInjector {
 
@@ -159,6 +160,8 @@ public final class ApplicationContextInjector {
 
     private static final Command CANCELLATION_RECEIPT = new CancellationReceipt();
 
+    private static final Command MY_ORDERS_PAGE_COMMAND = new MyOrdersPageCommand();
+
     private static final Map<String, Command> USER_COMMAND_NAME_TO_COMMAND = initUserCommand();
 
     private static final Map<String, Command> HOME_COMMAND_NAME_TO_COMMAND = initHomeCommand();
@@ -214,6 +217,7 @@ public final class ApplicationContextInjector {
         homeCommandNameToCommand.put("defaultCommand", DEFAULT_COMMAND);
         homeCommandNameToCommand.put("paymentReceipt", PAYMENT_RECEIPT);
         homeCommandNameToCommand.put("cancellationReceipt", CANCELLATION_RECEIPT);
+        homeCommandNameToCommand.put("myOrdersPage", MY_ORDERS_PAGE_COMMAND);
 
         return Collections.unmodifiableMap(homeCommandNameToCommand);
     }

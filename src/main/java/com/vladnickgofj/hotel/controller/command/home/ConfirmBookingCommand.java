@@ -3,9 +3,6 @@ package com.vladnickgofj.hotel.controller.command.home;
 import com.vladnickgofj.hotel.context.ApplicationContextInjector;
 import com.vladnickgofj.hotel.controller.command.Command;
 import com.vladnickgofj.hotel.controller.dto.*;
-import com.vladnickgofj.hotel.dao.entity.Hotel;
-import com.vladnickgofj.hotel.dao.entity.Room;
-import com.vladnickgofj.hotel.dao.entity.RoomType;
 import com.vladnickgofj.hotel.service.BookingService;
 import org.apache.log4j.Logger;
 
@@ -54,7 +51,7 @@ public class ConfirmBookingCommand implements Command {
                                 .name(hotelName)
                                 .build())
                         .build())
-                .nights((int) numberOfNights)
+                .nights((int)numberOfNights)
                 .userId(userId)
                 .bookingStatusId(1)
                 .build();

@@ -54,6 +54,24 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
             "ORDER BY ? " +
             "LIMIT ? OFFSET ?;";
 
+    public static final String COUNT_USERS_ORDERS_BY_PARAMETERS = "SELECT COUNT(order_id) AS number_of_orders " +
+            "FROM users_order " +
+            "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
+            "LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
+            "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
+            "LEFT JOIN users u on u.user_id = users_order.user_id " +
+            "WHERE u.user_id =? AND (uos.order_status_id=? OR uos.order_status_id=?) ";
+
+    public static final String FIND_USERS_ORDERS_BY_PARAMETERS = "SELECT * " +
+            "FROM users_order " +
+            "LEFT JOIN hotel h on h.hotel_id = users_order.hotel_id " +
+            "LEFT JOIN room_type rt on rt.type_id = users_order.room_type_id " +
+            "LEFT JOIN users_order_status uos on uos.order_status_id = users_order.order_status_id " +
+            "LEFT JOIN users u on u.user_id = users_order.user_id " +
+            "WHERE u.user_id =? AND (uos.order_status_id=? OR uos.order_status_id=?) " +
+            "ORDER BY ? " +
+            "LIMIT ? OFFSET ?;";
+
     private static final String UPDATE_ROOM_STATUS_BY_PARAMETERS = "UPDATE room_status SET date_end=? WHERE status_id = ?";
 
     private static final String INSERT_INTO_ROOM_STATUS = "INSERT INTO " +
@@ -63,7 +81,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
     private static final String INSERT_INTO_BOOKINGS = "INSERT INTO bookings " +
             "(check_in, check_out, room_id, book_time, booking_status_id, user_id) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
-
 
     public UsersOrderDaoImpl(HikariConnectionPool connector) {
         super(connector, INSERT_INTO, FIND_BY_ID, FIND_ALL, UPDATE_USERS_ORDER);
@@ -176,7 +193,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
 
                     insertIntoRoomStatus.setDate(1, Date.valueOf(usersOrdersList.get(i).getDateStart()));
                     insertIntoRoomStatus.setDate(2, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
-//                    insertIntoRoomStatus.setInt(3, usersOrdersList.get(i).getRoom().getId());
                     insertIntoRoomStatus.setInt(3, roomStatusList.get(i).getRoom().getId());
                     insertIntoRoomStatus.setInt(4, ROOM_STATUS_STATEMENT_BOOKED);
                     insertIntoRoomStatus.setDate(5, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
@@ -187,7 +203,6 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
 
                     insertIntoBookings.setDate(1, Date.valueOf(usersOrdersList.get(i).getDateStart()));
                     insertIntoBookings.setDate(2, Date.valueOf(usersOrdersList.get(i).getDateEnd()));
-//                    insertIntoBookings.setInt(3, usersOrdersList.get(i).getRoom().getId());
                     insertIntoBookings.setInt(3, roomStatusList.get(i).getRoom().getId());
                     insertIntoBookings.setDate(4, Date.valueOf(LocalDate.now()));
                     insertIntoBookings.setInt(5, BOOKING_STATUS_NOT_PAID);
@@ -220,5 +235,54 @@ public class UsersOrderDaoImpl extends AbstractCrudDaoImpl<UsersOrder> implement
             throw new DataBaseRuntimeException(e);
         }
     }
+
+    @Override
+    public List<UsersOrder> findUsersOrdersByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer userId) {
+        Integer[] orderStatusIdArr = usersOrderRequestDto.getStatusStatement();
+        String sorting = usersOrderRequestDto.getSorting();
+        String ordering = usersOrderRequestDto.getOrdering();
+        Integer itemsOnPage = usersOrderRequestDto.getItemsOnPage();
+        Integer numberOfPage = usersOrderRequestDto.getNumberOfPage();
+        String sortingAndOrdering = String.format("%s %s", sorting, ordering);
+        int firstNumberOfPage = itemsOnPage * (numberOfPage - 1);
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USERS_ORDERS_BY_PARAMETERS)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, orderStatusIdArr[0]);
+            preparedStatement.setInt(3, orderStatusIdArr[1]);
+            preparedStatement.setString(4, sortingAndOrdering);
+            preparedStatement.setInt(5, itemsOnPage);
+            preparedStatement.setInt(6, firstNumberOfPage);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                Set<UsersOrder> entities = new HashSet<>();
+                while (resultSet.next()) {
+                    entities.add(mapResultSetToEntity(resultSet));
+                }
+                return new ArrayList<>(entities);
+            }
+        } catch (SQLException e) {
+            LOGGER.info("SQLException" + e);
+            throw new DataBaseRuntimeException(e);
+
+        }
+    }
+
+    @Override
+    public Integer countUsersOrdersByParameters(UsersOrderRequestDtoUtil usersOrderRequestDto, Integer userId) {
+        Integer[] querySubstitute = usersOrderRequestDto.getStatusStatement();
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(COUNT_USERS_ORDERS_BY_PARAMETERS)) {
+            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(2, querySubstitute[0]);
+            preparedStatement.setInt(3, querySubstitute[1]);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("number_of_orders");
+        } catch (SQLException e) {
+            LOGGER.info("SQLException" + e);
+            throw new DataBaseRuntimeException(e);
+        }
+    }
+
 
 }

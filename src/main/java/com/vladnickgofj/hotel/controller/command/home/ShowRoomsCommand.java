@@ -21,7 +21,7 @@ public class ShowRoomsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        removeSessionAtributes(request);
+        removeSessionAttributes(request);
 
         String hotelId = request.getParameter("hotelId");
         String hotelName = request.getParameter("hotelName");
@@ -79,7 +79,7 @@ public class ShowRoomsCommand implements Command {
         return PagesConstant.SHOW_ROOMS;
     }
 
-    private void removeSessionAtributes(HttpServletRequest request) {
+    private void removeSessionAttributes(HttpServletRequest request) {
         request.getSession().removeAttribute("statusFree");
         request.getSession().removeAttribute("statusBooked");
         request.getSession().removeAttribute("typeName");

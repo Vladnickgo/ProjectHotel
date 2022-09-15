@@ -49,11 +49,13 @@ class RoomMapperTest {
                                 .id(1)
                                 .roomType(RoomTypeDto.newBuilder()
                                         .typeId(2)
+                                        .typeName("suite")
                                         .build())
                                 .numberOfBeds(2)
                                 .price(350)
                                 .hotel(HotelDto.newBuilder()
                                         .id(1)
+                                        .name("Kyiv")
                                         .build())
                                 .build(),
                         "Mapping from Room to RoomDto is correct"),
@@ -75,11 +77,13 @@ class RoomMapperTest {
                                 .id(2)
                                 .roomType(RoomTypeDto.newBuilder()
                                         .typeId(2)
+                                        .typeName("suite")
                                         .build())
                                 .numberOfBeds(3)
                                 .price(550)
                                 .hotel(HotelDto.newBuilder()
                                         .id(2)
+                                        .name("Eleon")
                                         .build())
                                 .build(),
                         "Mapping from Room to RoomDto is correct")

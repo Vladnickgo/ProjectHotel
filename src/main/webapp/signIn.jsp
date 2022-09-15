@@ -1,6 +1,6 @@
 <%--<%@ page contentType="text/html; charset=UTF-8; pageEncoding=utf-8" %>--%>
 
-<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -33,13 +33,14 @@
                     <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
                     <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                 </select>
-                <input name="command" value="${command}" hidden>
+<%--                <input name="command" value="${command}" hidden>--%>
+                <input name="command" value="registerPage" hidden>
             </form>
         </div>
     </div>
 </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+<svg xmlns="http://www.w3.org/2000/svg" style="">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
     </symbol>
@@ -54,83 +55,86 @@
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6" align="center">
-            <h1 class="mb-5">
-                <f:message key="userRegistration" bundle="${bunCont}"/>
-            </h1>
-            <form action="home" method="post">
-                <label>
-                    <input name="command" value="register" hidden>
-                </label>
-                <table>
-                    <tr>
-                        <td>
-                            <f:message key="firstName" bundle="${bunCont}"/><sup>*</sup>
-                        </td>
-                        <td>
-                            <input type="text" name="firstName" placeholder="Ivan" value=${firstName}><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <f:message key="lastName" bundle="${bunCont}"/><sup>*</sup>
-                        </td>
-                        <td>
-                            <input type="text" name="lastName" placeholder="Ivanov" value=${lastName}><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Email<sup>*</sup>
-                        </td>
-                        <td>
-                            <input type="text" name="email" placeholder="example@gmail.com" value=${email}><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <f:message key="password" bundle="${bunCont}"></f:message><sup>*</sup>
-                        </td>
-                        <td>
-                            <input type="text" name="password"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td pr-2>
-                            <f:message key="passwordConfirmation" bundle="${bunCont}"/><sup>*</sup>
-                        </td>
-                        <td>
-                            <input type="text" name="confirmationPassword"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label></label>
-                        </td>
-                        <td>
-                            <input type="submit" value=<f:message key="submit" bundle="${bunCont}"></f:message>>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted colspan-2">
-                            <sup>*</sup> - <f:message key="requireFields" bundle="${bunCont}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="${userSaved==null?'display:none':''}">
-                            <div class="alert alert-success d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
-                                     aria-label="Success:">
-                                    <use xlink:href="#check-circle-fill"/>
-                                </svg>
-                                <div>
-                                    <f:message key="userSaved" bundle="${bunCont}"/>
+            <div id="userForm">
+                <h1 class="mb-5">
+                    <f:message key="userRegistration" bundle="${bunCont}"/>
+                </h1>
+
+                <form action="home" method="post">
+                    <label>
+                        <input name="command" value="register" hidden>
+                    </label>
+                    <table>
+                        <tr>
+                            <td>
+                                <f:message key="firstName" bundle="${bunCont}"/><sup>*</sup>
+                            </td>
+                            <td>
+                                <input type="text" name="firstName" placeholder="Ivan" value=${firstName}><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <f:message key="lastName" bundle="${bunCont}"/><sup>*</sup>
+                            </td>
+                            <td>
+                                <input type="text" name="lastName" placeholder="Ivanov" value=${lastName}><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Email<sup>*</sup>
+                            </td>
+                            <td>
+                                <input type="text" name="email" placeholder="example@gmail.com" value=${email}><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <f:message key="password" bundle="${bunCont}"></f:message><sup>*</sup>
+                            </td>
+                            <td>
+                                <input type="password" name="password"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td pr-2>
+                                <f:message key="passwordConfirmation" bundle="${bunCont}"/><sup>*</sup>
+                            </td>
+                            <td>
+                                <input type="password" name="confirmationPassword"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label></label>
+                            </td>
+                            <td>
+                                <input type="submit" value=<f:message key="submit" bundle="${bunCont}"></f:message>>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted colspan-2">
+                                <sup>*</sup> - <f:message key="requireFields" bundle="${bunCont}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="${userSaved==null?'display:none':''}">
+                                <div class="alert alert-success d-flex align-items-center" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                         aria-label="Success:">
+                                        <use xlink:href="#check-circle-fill"/>
+                                    </svg>
+                                    <div>
+                                        <f:message key="userSaved" bundle="${bunCont}"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <div class="alert alert-warning" style="${errorMessage==null?'display: none':''}">${errorMessage}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="alert alert-warning" ${errorMessage==null?'hidden':''}>${errorMessage}</div>
         </div>
         <div class="col-3"></div>
     </div>

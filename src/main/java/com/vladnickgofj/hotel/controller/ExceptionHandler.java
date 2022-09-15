@@ -37,8 +37,6 @@ public class ExceptionHandler extends HttpServlet {
             if (code.equals(404)) {
                 LOGGER.info("HTTP Status " + code);
                 req.getRequestDispatcher(PagesConstant.PAGE_NOT_FOUND).forward(req, resp);
-//                req.getSession().invalidate();
-//                resp.sendRedirect(PagesConstant.PAGE_NOT_FOUND);
             }
 
             Throwable throwable = (Throwable) req.getAttribute("javax.servlet.error.exception");

@@ -88,6 +88,8 @@ public class UsersOrderRequestDtoUtil {
         sortingMap.put("order_date", "order_date");
         sortingMap.put("number_of_persons", "number_of_persons");
         sortingMap.put("date_start", "date_start");
+        sortingMap.put("hotel_name", "hotel_name");
+        sortingMap.put("type_name", "type_name");
         return sortingMap;
     }
 
