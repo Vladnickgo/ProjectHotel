@@ -11,11 +11,10 @@ pipeline {
         }
         stage('Scan') {
             steps {
-                withSonarQubeEnv(installationName: 'sql') {
-                    // Замените этот комментарий на вашу команду для запуска сканера SonarQube
-                    script {
-                        // Пример:
-                        // bat "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar"
+                script {
+                    def scannerHome = tool name: 'YourSonarScannerToolName', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv(installationName: 'sql') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
