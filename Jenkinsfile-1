@@ -12,7 +12,7 @@ pipeline {
         stage('Scan') {
             steps {
                 script {
-                    def scannerHome = tool name: 'YourSonarScannerToolName', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    def scannerHome = tool name: 'SonarQubeServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv(installationName: 'sql') {
                     sh "${scannerHome}/bin/sonar-scanner"
                     }
